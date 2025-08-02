@@ -1,0 +1,1235 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "roboto1";
+  src: url(/fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: "roboto2";
+  src: url(/fonts/Roboto-Bold.ttf);
+}
+:root {
+  --color1: #221097;
+  --color2: #170249;
+  --color3: #42ba96;
+  --color4: #004bd6;
+  --color5: #859ec0;
+  --color6: #ffffff;
+  --color7: #0147ce;
+  --color8: #515151;
+  --color9: #515c6b;
+}
+
+.Container {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* nav section style */
+section.navsec {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color2);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+section.navsec nav {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 180px 2.5fr 1fr;
+  grid-template-rows: repeat(1, auto);
+  justify-content: center;
+  align-content: center;
+  margin: 0px 10px;
+  gap: 10%;
+  position: relative;
+  padding: 20px;
+}
+section.navsec nav div.logo {
+  height: 45px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 20px;
+}
+section.navsec nav div.logo p {
+  font-family: "roboto1";
+  font-size: 15px;
+  color: var(--color6);
+}
+section.navsec nav div.logo img {
+  width: 40px;
+  height: 40px;
+  color: var(--color6);
+}
+section.navsec nav ul.links {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-flow: nowrap row;
+}
+section.navsec nav ul.links li {
+  margin: 0px 20px;
+  list-style: none;
+}
+section.navsec nav ul.links li a {
+  font-family: "roboto1";
+  font-size: 15px;
+  color: var(--color5);
+  text-decoration: none;
+  transition: all 0.5s ease-in-out;
+}
+section.navsec nav ul.links li a:hover {
+  color: var(--color4);
+}
+section.navsec nav div.action {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+section.navsec nav div.action button {
+  width: 135px;
+  height: 45px;
+  border: none;
+  outline: none;
+  background-color: var(--color4);
+  color: var(--color6);
+  font-family: "roboto1";
+  font-size: 15px;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+section.navsec nav div.action button:hover {
+  margin-top: 20px;
+  background-color: var(--color1);
+  border: solid 1px var(--color6);
+}
+section.navsec nav div.mobile_nav {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-flow: wrap column;
+}
+section.navsec nav div.mobile_nav div.bar_mobile {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap column;
+  background-color: var(--color2);
+  border-radius: 5px;
+  border: solid 1px var(--color4);
+  padding: 5px;
+  cursor: pointer;
+  margin-right: 40px;
+}
+section.navsec nav div.mobile_nav div.bar_mobile i {
+  color: var(--color4);
+  font-size: 20px;
+}
+div.NavMobile {
+  width: 80%;
+  background-color: #220abe;
+  position: absolute;
+  top: 90px;
+  padding: 15px 15px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(0px, 30px);
+  transition: all 0.8s ease-in-out;
+  border-radius: 3px;
+}
+div.NavMobile.Active {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(0px, 0px);
+}
+div.NavMobile ul.linksmobile {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-flow: nowrap column;
+}
+div.NavMobile ul.linksmobile li {
+  margin: 10px 20px;
+  list-style: none;
+}
+div.NavMobile ul.linksmobile li a {
+  font-family: "roboto1";
+  font-size: 15px;
+  color: var(--color5);
+  text-decoration: none;
+  transition: all 0.5s ease-in-out;
+}
+div.NavMobile ul.linksmobile li a:hover {
+  color: var(--color4);
+}
+div.NavMobile div.action {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+div.NavMobile div.actionmobile button {
+  width: 115px;
+  height: 35px;
+  border: none;
+  outline: none;
+  background-color: var(--color4);
+  color: var(--color6);
+  font-family: "roboto1";
+  font-size: 15px;
+  border-radius: 5px;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+div.NavMobile div.actionmobile button:hover {
+  margin-left: 20px;
+  background-color: var(--color7);
+}
+
+/* hero style */
+section.hero {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(#170249, #220abe);
+}
+section.hero div.parts {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: nowrap row;
+}
+section.hero div.parts div.part {
+  width: calc(95% / 2);
+}
+section.hero div.parts div.part.left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0px;
+}
+section.hero div.parts div.part.left img {
+  width: 100%;
+  height: 100%;
+}
+section.hero div.parts div.part.right {
+  padding: 5%;
+}
+section.hero div.parts div.part.right p.header {
+  font-family: "roboto1";
+  font-size: 43px;
+  color: var(--color6);
+  margin: 10px 0px;
+  line-height: 67px;
+}
+section.hero div.parts div.part.right p.header span {
+  color: var(--color3);
+}
+section.hero div.parts div.part.right p.qoraal {
+  width: 60%;
+  width: 550px;
+  font-family: "roboto1";
+  font-size: 20px;
+  color: var(--color5);
+  line-height: 32px;
+  text-transform: capitalize;
+  margin: 15px 0px;
+}
+section.hero div.parts div.part.right div.btns {
+  height: 100px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: nowrap row;
+  margin: 40px 0px;
+}
+section.hero div.parts div.part.right div.btns button {
+  width: 175px;
+  height: 57px;
+  border: none;
+  outline: none;
+  background-color: var(--color3);
+  color: var(--color6);
+  font-family: "roboto1";
+  font-size: 16px;
+  border-radius: 5px;
+  margin: 15px 10px;
+  padding: 10px;
+}
+section.hero div.parts div.part.right div.btns button.btn2 {
+  cursor: not-allowed;
+  transition: all 0.5s ease-in-out;
+}
+section.hero div.parts div.part.right div.btns button.btn2:hover {
+  margin-top: 20px;
+  box-shadow: 0px 0px 10px var(--color6);
+}
+section.hero div.parts div.part.right div.btns button.btn {
+  background-color: var(--color4);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}
+section.hero div.parts div.part.right div.btns button.btn:hover {
+  background-color: var(--color1);
+  margin-top: 20px;
+}
+/* deeq bixiye style */
+section.deeq_bixiye {
+  width: 100%;
+  height: 100%;
+}
+section.deeq_bixiye div.deeq {
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(1, auto);
+  /* gap: 5%; */
+  gap: 1%;
+  margin: 70px 10px;
+}
+
+section.deeq_bixiye div.deeq div.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap column;
+  /* padding: 10px; */
+}
+section.deeq_bixiye div.deeq div.card div.icon {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-flow: wrap column;
+}
+section.deeq_bixiye div.deeq div.card div.icon i {
+  color: var(--color4);
+  font-size: 20px;
+}
+
+section.deeq_bixiye div.deeq div.card div.title {
+  width: 60%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap column;
+}
+section.deeq_bixiye div.deeq div.card div.title p.hore {
+  font-family: "roboto1";
+  font-size: 22px;
+  color: var(--color4);
+  margin: 10px 0px;
+  line-height: 35px;
+}
+section.deeq_bixiye div.deeq div.card div.title p.hore i {
+  color: var(--color3);
+  font-size: 25px;
+}
+
+section.deeq_bixiye div.deeq div.card div.title p.hore span {
+  color: var(--color8);
+}
+section.deeq_bixiye div.deeq div.card div.title p.danbe {
+  width: 250px;
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+  font-family: "roboto1";
+  font-size: 20px;
+  color: var(--color5);
+  line-height: 32px;
+  text-transform: capitalize;
+  margin: 10px 0px;
+  padding: 0px 10px;
+  text-align: center;
+}
+/* ayat style */
+section.ayat {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color4);
+}
+section.ayat div.quraan {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 40px;
+  font-size: 40px;
+}
+section.ayat div.quraan img {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: 70px;
+}
+/* warbixin style */
+section.warbixin {
+  width: 100%;
+  height: 100%;
+}
+section.warbixin div.qaybo {
+  width: 100%;
+  height: 100%;
+  margin: 40px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: nowrap row;
+}
+section.warbixin div.qaybo div.qayb {
+  width: 25%;
+  height: 57px;
+  background-color: var(--color3);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5 ease-in-out;
+  margin: 0px 20px;
+}
+section.warbixin div.qaybo button {
+  width: 200px;
+  height: 57px;
+  outline: none;
+  border: none;
+  background-color: var(--color6);
+  color: var(--color8);
+  font-family: "roboto1";
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 0px 10px;
+  padding: 10px;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+section.warbixin div.qaybo button i {
+  color: var(--color7);
+  font-size: 25px;
+  transition: all 0.5s ease-in-out;
+}
+
+section.warbixin div.qaybo button:hover {
+  background-color: var(--color4);
+  color: var(--color6);
+  i {
+    color: var(--color6);
+  }
+}
+
+/* daawayn style */
+
+section.qaybayaal{
+  width: 100%;
+  height: 100%;
+}
+section.qaybayaal div.qaybo{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns:repeat(3, 1fr) ;
+  grid-template-rows: repeat(1, auto);
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+ 
+  
+}
+section.qaybayaal div.qaybo div.qayb{
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap column;
+  background-color: var(--color6);
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px var(--color5);
+  /* background-color: green; */
+  
+ 
+
+}
+section.qaybayaal div.qaybo div.qayb div.week{
+ width: 75%;
+ height: 200px;
+  background-image: url(/sawiro/WhatsApp\ Image\ 2024-12-27\ at\ 20.12.17_c12513c8.jpg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin: 10px 0px;
+
+}
+section.qaybayaal div.qaybo div.qayb div.week p{
+  width: 130px;
+  font-size: 18px;
+  color: var(--color6);
+  font-family: "roboto1";
+ 
+
+}
+section.qaybayaal div.qaybo div.qayb div.desc{
+  width: 331px;
+  height: 116px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap column;
+  padding: 5px 0px;
+}
+section.qaybayaal div.qaybo div.qayb div.desc h2{
+  font-size: 20px;
+  line-height: 32px;
+  color: var(--color9);
+  font-family: "roboto1";
+  padding: 5px;
+  font-weight: 100;
+  
+}
+section.qaybayaal div.qaybo div.qayb div.desc p{
+  font-size: 17px;
+  line-height: 27px;
+  color: var(--color5);
+  font-family: "roboto1";
+  padding: 5px;
+  
+}
+section.qaybayaal div.qaybo div.qayb div.ex {
+  position: relative;
+  margin-right: 120px;
+}
+section.qaybayaal div.qaybo div.qayb div.ex  div.goobo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--color4);
+  color: var(--color6);
+  padding: 5px;
+  position: absolute;
+  top: -10px;
+  right: 60px;
+}
+section.qaybayaal div.qaybo div.qayb div.ex  div.goobo:nth-child(1){
+  
+}
+section.qaybayaal div.qaybo div.qayb:nth-child(2) div.ex div.goobo {
+  right: 50px;
+}
+section.qaybayaal div.qaybo div.qayb:nth-child(3) div.ex div.goobo {
+  right: -225px;
+}
+section.qaybayaal div.qaybo div.qayb div.Ex {
+  width: 314px;
+  height: 15px;
+  background-color: var(--color5);
+  border-radius: 15px;
+  overflow: hidden;
+  
+ 
+}
+section.qaybayaal div.qaybo div.qayb  span.exspan {
+  width: 0%;
+  height: 100%;
+  background-color: var(--color4);
+  display: block;
+}
+section.qaybayaal div.qaybo div.qayb:nth-child(2) div.Ex span.exspan{
+  width: 5%;
+}
+section.qaybayaal div.qaybo div.qayb:nth-child(3) div.Ex span.exspan{
+  width: 100%;
+}
+section.qaybayaal div.qaybo div.qayb div.buttons{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  text-transform: capitalize;
+  padding: 10px 0;
+  margin: 20px 0px;
+  
+ 
+}
+section.qaybayaal div.qaybo div.qayb div.buttons button{
+  width: 85%;
+  height: 30px;
+  border-radius: 6px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-family: "roboto1";
+  background-color: var(--color4);
+  transition: all .4s ease-in-out;
+  text-transform: capitalize;
+  border-radius: 7px;
+  height: 50px;
+  
+}
+
+section.qaybayaal div.qaybo div.qayb div.lacag{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap row;
+  gap: 15%;
+  margin: 15px 0px;
+}
+section.qaybayaal div.qaybo div.qayb div.lacag p{
+  width: 130px;
+  height: 32px;
+
+}
+section.qaybayaal div.qaybo div.qayb div.lacag p.lagata{
+  font-size: 20px;
+  line-height: 32px;
+  font-family: "roboto1";
+  color: var(--color9);
+  
+}
+section.qaybayaal div.qaybo div.qayb div.lacag p.lagata i{
+  color: var(--color3);
+}
+
+
+/* fursad style */
+section.fursad {
+  width: 100%;
+  height: 100%;
+}
+section.fursad div.qaybta{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: nowrap row;
+  margin: 40px 0px;
+}
+section.fursad div.qaybta div.qayb{
+  width: calc(95%/2);
+}
+section.fursad div.qaybta div.qayb.soke{
+
+}
+section.fursad div.qaybta div.qayb.soke h2.cinwaan{
+  font-size: 44px;
+  line-height: 62px;
+  color: var(--color9);
+  font-family: "roboto1";
+  font-weight: 100;
+  text-transform: capitalize;
+  margin: 10px 0px;
+}
+section.fursad div.qaybta div.qayb.soke h2.cinwaan span{
+  color: var(--color4);
+}
+section.fursad div.qaybta div.qayb.soke p.cinwaankiyara{
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--color5);
+  font-family: "roboto1";
+  margin: 10px 0px;
+  text-transform: capitalize;
+}
+section.fursad div.qaybta div.qayb.soke div.qoraalo h2{
+  font-size: 24px;
+  line-height: 62px;
+  color: var(--color9);
+  font-family: "roboto1";
+  font-weight: 100;
+  text-transform: capitalize;
+  margin: 5px 0px;
+}
+section.fursad div.qaybta div.qayb.soke div.qoraalo p.yar{
+  font-size: 18px;
+  line-height: 28px;
+  color: var(--color5);
+  font-family: "roboto1";
+  margin: 0px 0px;
+  text-transform: capitalize;
+}
+section.fursad div.qaybta div.qayb.soke div.qoraalo p.yar i{
+  font: 24px;
+  color: var(--color4);
+}
+
+
+section.fursad div.qaybta div.qayb.shishe img {
+  width: 80%;
+  height: 80%;
+  transform: skew(-8deg, -1deg);
+}
+
+/* taysiir style */
+section.taysiir {
+  width: 100%;
+  height: 100%;
+  background-color: #eaeefd;
+}
+section.taysiir div.qaybo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-flow: nowrap row;
+  padding: 10% 0px;
+}
+section.taysiir div.qaybo div.qayb {
+  width: calc(95% / 2);
+  
+}
+section.taysiir div.qaybo div.qayb.midig img {
+  width: 100%;
+  height: 100%;
+}
+section.taysiir div.qaybo div.qayb.bidix {
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap column;
+}
+section.taysiir div.qaybo div.qayb.bidix p.headka {
+  font-family: "roboto1";
+  font-size: 43px;
+  color: var(--color8);
+  margin: 10px 15px;
+  line-height: 67px;
+}
+section.taysiir div.qaybo div.qayb.bidix p.headka span {
+  color: var(--color4);
+}
+section.taysiir div.qaybo div.qayb.bidix p.graphka {
+  font-family: "roboto1";
+  font-size: 24px;
+  color: var(--color5);
+  margin: 10px 25px;
+  line-height: 30px;
+  text-transform: capitalize;
+}
+section.taysiir div.qaybo div.qayb.bidix div.qaybyar {
+
+}
+section.taysiir div.qaybo div.qayb.bidix div.qaybyar p.one {
+  font-family: "roboto1";
+  font-size: 20px;
+  color: var(--color8);
+  margin: 10px 15px;
+}
+section.taysiir div.qaybo div.qayb.bidix div.qaybyar p.two {
+  font-family: "roboto1";
+  font-size: 17px;
+  color: var(--color5);
+  margin: 10px 0px;
+}
+section.taysiir div.qaybo div.qayb.bidix div.qaybyar p.two i {
+  color: var(--color4);
+  font-size: 20px;
+}
+
+/* cards style */
+section.cadhadh {
+  width: 100%;
+  height: 100%;
+}
+section.cadhadh div.qaybo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap column;
+  margin: 180px 0px;
+}
+section.cadhadh div.qaybo div.cards {
+  width: 85%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  justify-content: center;
+  align-content: center;
+  gap: 13%;
+  margin: 100px 0px;
+}
+section.cadhadh div.qaybo div.cards div.card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-flow: nowrap column;
+}
+section.cadhadh div.qaybo div.cards div.card p.cinwaan i {
+  color: var(--color4);
+}
+section.cadhadh div.qaybo div.cards div.card p.cinwaan {
+  font-family: "roboto1";
+  font-size: 20px;
+  color: var(--color8);
+  margin: 10px 10px;
+}
+
+section.cadhadh div.qaybo div.cards div.card p.qoraalyar {
+  font-family: "roboto1";
+  font-size: 17px;
+  color: var(--color5);
+}
+section.cadhadh div.qaybo div.title_desc {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: nowrap column;
+  margin: 50px 20px;
+}
+section.cadhadh div.qaybo div.title_desc p.cinwaan_weyn {
+  font-family: "roboto1";
+  font-size: 28px;
+  color: var(--color8);
+}
+section.cadhadh div.qaybo div.title_desc p.qoraalyar {
+  font-family: "roboto1";
+  font-size: 17px;
+  color: var(--color5);
+  margin: 30px 0px;
+}
+
+/* footer style */
+section.footer {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(#170249, #004bd6);
+}
+section.footer footer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: wrap column;
+}
+section.footer footer div.logo {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+section.footer footer div.logo img {
+  width: 50px;
+  height: 50px;
+}
+section.footer footer div.logo p {
+  font-family: "roboto1";
+  font-size: 15px;
+  color: var(--color6);
+}
+section.footer footer div.title {
+  margin: 40px 0px;
+}
+section.footer footer div.title p {
+  font-family: "roboto1";
+  font-size: 18px;
+  color: var(--color6);
+}
+section.footer footer div.title p span {
+  color: var(--color3);
+  cursor: pointer;
+}
+
+/* xsmall screen */
+@media (max-width: 480px) {
+  .Container {
+    max-width: 400px;
+  }
+  /* nav responsive */
+  section.navsec nav {
+    grid-template-columns: 180px 1fr;
+  }
+  section.navsec nav ul.links {
+    display: none;
+  }
+  section.navsec nav div.action {
+    display: none;
+  }
+  /* hero responsive */
+  section.hero div.parts {
+    flex-flow: nowrap column;
+  }
+  section.hero div.parts div.part {
+    width: calc(95% / 1);
+  }
+  section.hero div.parts div.part.left img {
+    width: 70%;
+    height: 90%;
+  }
+
+  section.hero div.parts div.part.right p.header {
+    font-size: 33px;
+  }
+  section.hero div.parts div.part.right p.qoraal {
+    width: 100%;
+  }
+  section.hero div.parts div.part.right div.btns {
+    flex-flow: nowrap column;
+  }
+  /* deeq bixiye */
+  section.deeq_bixiye div.deeq {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, auto);
+    row-gap: 5%;
+  }
+  section.deeq_bixiye div.deeq div.card div.title {
+    width: 100%;
+  }
+  /* ayat */
+  section.ayat div.quraan img {
+    width: 100%;
+  }
+  /* warbixin */
+  section.warbixin div.qaybo {
+    flex-flow: nowrap column;
+    
+  }
+  section.qaybayaal{
+    width: 90%;
+  }
+  /* daawayn  */
+  section.qaybayaal div.qaybo {
+    grid-template-columns: repeat(1, 400px);
+    grid-template-rows: repeat(3, auto);
+  }
+  /* fursad */
+  section.fursad div.qaybta {
+    flex-flow: nowrap column;
+  }
+  section.fursad div.qaybta div.qayb{
+    width: calc(95%/1);
+  }
+  section.fursad div.qaybta div.qayb.soke h2.cinwaan{
+    font-size: 38px;
+  }
+
+  
+  /* taysiir resonsive */
+  section.taysiir div.qaybo {
+    flex-flow: nowrap column;
+  }
+  section.taysiir div.qaybo div.qayb {
+    width: calc(95% / 1);
+  }
+  section.taysiir div.qaybo div.qayb.bidix p.headka {
+    font-size: 33px;
+    
+  }
+  section.taysiir div.qaybo div.qayb.bidix p.graphka {
+    font-size: 18px;
+  }
+ 
+  /* cards responsive */
+  section.cadhadh div.qaybo div.cards {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(4, auto);
+  }
+  section.cadhadh div.qaybo div.title_desc {
+    width: 90%;
+  }
+  /* footer responsive */
+  section.footer {
+    width: 100%;
+  }
+}
+
+/* sm screens */
+@media (min-width: 481px) and (max-width: 767px) {
+  .Container {
+    max-width: 700px;
+  }
+  /* nav responsive */
+  section.navsec nav {
+    grid-template-columns: 180px 1fr;
+  }
+  section.navsec nav ul.links {
+    display: none;
+  }
+  section.navsec nav div.action {
+    display: none;
+  }
+  /* hero responsive */
+  section.hero div.parts {
+    flex-flow: nowrap column;
+  }
+  section.hero div.parts div.part {
+    width: calc(95% / 1);
+  }
+  section.hero div.parts div.part.left img {
+    width: 70%;
+    height: 90%;
+  }
+  section.hero div.parts div.part.right p.header {
+    font-size: 33px;
+  }
+  section.hero div.parts div.part.right p.qoraal {
+    width: 100%;
+  }
+  section.hero div.parts div.part.right div.btns {
+    flex-flow: nowrap column;
+  }
+  /* deeq bixiye */
+  section.deeq_bixiye div.deeq {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, auto);
+    row-gap: 5%;
+  }
+  section.deeq_bixiye div.deeq div.card div.title {
+    width: 100%;
+  }
+  /* ayat */
+  section.ayat div.quraan img {
+    width: 100%;
+  }
+  /* warbixin */
+  section.warbixin div.qaybo {
+    flex-flow: nowrap column;
+  }
+  /* daawayn  */
+  section.qaybayaal div.qaybo {
+    grid-template-columns: repeat(1, 400px);
+    grid-template-rows: repeat(3, auto);
+  }
+  /* fursad */
+  section.fursad div.qaybta {
+    flex-flow: nowrap column;
+  }
+  section.fursad div.qaybta div.qayb{
+    width: calc(95%/1);
+  }
+  section.fursad div.qaybta div.qayb.soke h2.cinwaan{
+    font-size: 38px;
+  }
+  /* taysiir resonsive */
+  section.taysiir div.qaybo {
+    flex-flow: nowrap column;
+  }
+  section.taysiir div.qaybo div.qayb {
+    width: calc(95% / 1);
+  }
+  section.taysiir div.qaybo div.qayb.bidix p.headka {
+    font-size: 33px;
+    line-height: 47px;
+  }
+  section.taysiir div.qaybo div.qayb.bidix p.graphka {
+    font-size: 18px;
+  }
+  section.taysiir div.qaybo div.qayb.bidix div.qaybyar {
+    width: 400px;
+  }
+  section.taysiir div.qaybo div.qayb.midig img {
+    width: 70%;
+    height: 90%;
+  }
+  /* cards responsive */
+  section.cadhadh div.qaybo div.cards {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(4, auto);
+  }
+  section.cadhadh div.qaybo div.title_desc {
+    width: 90%;
+  }
+}
+
+/* md screens */
+@media (min-width: 767px) and (max-width: 992px) {
+  .Container {
+    max-width: 900px;
+  }
+  /* nav responsive */
+  section.navsec nav {
+    grid-template-columns: 180px 1fr;
+  }
+  section.navsec nav ul.links {
+    display: none;
+  }
+  section.navsec nav div.action {
+    display: none;
+  }
+  /* hero responsive */
+  section.hero div.parts {
+    flex-flow: nowrap column;
+  }
+  section.hero div.parts div.part {
+    width: calc(95% / 1);
+  }
+  section.hero div.parts div.part.left img {
+    width: 70%;
+    height: 90%;
+  }
+  section.hero div.parts div.part.right p.header {
+    font-size: 33px;
+  }
+  section.hero div.parts div.part.right p.qoraal {
+    width: 100%;
+  }
+  section.hero div.parts div.part.right div.btns {
+    flex-flow: nowrap column;
+  }
+  section.hero div.parts div.part.right div.btns button {
+    width: 195px;
+    padding: 10px;
+  }
+  /* deeq bixiye */
+  section.deeq_bixiye div.deeq {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    row-gap: 5%;
+  }
+  section.deeq_bixiye div.deeq div.card div.title {
+    width: 100%;
+  }
+  /* ayat */
+  section.ayat div.quraan img {
+    width: 100%;
+  }
+  /* warbixin */
+  section.warbixin div.qaybo {
+    flex-flow: nowrap column;
+  }
+  /* daawayn  */
+  section.qaybayaal div.qaybo {
+    grid-template-columns: repeat(1, 400px);
+    grid-template-rows: repeat(3, auto);
+  }
+  /* fursad */
+ /* fursad */
+ section.fursad div.qaybta {
+  flex-flow: nowrap column;
+}
+section.fursad div.qaybta div.qayb{
+  width: calc(95%/1);
+}
+section.fursad div.qaybta div.qayb.soke h2.cinwaan{
+  font-size: 38px;
+}
+  /* taysiir resonsive */
+  section.taysiir div.qaybo {
+    flex-flow: nowrap column;
+  }
+  section.taysiir div.qaybo div.qayb {
+    width: calc(95% / 1);
+  }
+  section.taysiir div.qaybo div.qayb.bidix p.headka {
+    font-size: 40px;
+    line-height: 67px;
+  }
+  section.taysiir div.qaybo div.qayb.bidix p.graphka {
+    font-size: 20px;
+  }
+  section.taysiir div.qaybo div.qayb.bidix div.qaybyar {
+    width: 400px;
+  }
+  section.taysiir div.qaybo div.qayb.midig img {
+    width: 70%;
+    height: 90%;
+  }
+}
+
+/* LG screens */
+@media (min-width: 992px) and (max-width: 1200px) {
+  .Container {
+    max-width: 1000px;
+  }
+  /* nav responsive */
+  section.navsec nav div.mobile_nav div.bar_mobile {
+    display: none;
+  }
+  div.NavMobile {
+    display: none;
+  }
+
+  /* deeq bixiye */
+  section.deeq_bixiye div.deeq {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    row-gap: 5%;
+  }
+  section.deeq_bixiye div.deeq div.card div.title {
+    width: 100%;
+  }
+  /* ayat */
+  section.ayat div.quraan img {
+    width: 95%;
+  }
+  /* daawayn  */
+  section.daawayn div.caafimaad {
+    grid-template-columns: repeat(2, 400px);
+    grid-template-rows: repeat(2, auto);
+  }
+}
+
+/* XLG screens */
+@media (min-width: 1200px) and (max-width: 1400px) {
+  .Container {
+    max-width: 1150px;
+  }
+  /* nav responsive */
+  section.navsec nav div.mobile_nav div.bar_mobile {
+    display: none;
+  }
+  div.NavMobile {
+    display: none;
+  }
+
+  section.ayat div.quraan img {
+    width: 75%;
+  }
+  /* daawayn  */
+  section.daawayn div.caafimaad {
+    margin-left: 110px;
+  }
+}
+
+/* XXLG screens */
+@media (min-width: 1400px) {
+  .Container {
+    max-width: 1200px;
+  }
+  /* nav responsive */
+  section.navsec nav div.mobile_nav div.bar_mobile {
+    display: none;
+  }
+  div.NavMobile {
+    display: none;
+  }
+}

@@ -281,12 +281,12 @@ section.hero div.parts div.part.right div.btns button.btn2:hover {
   margin-top: 20px;
   box-shadow: 0px 0px 10px var(--color6);
 }
-section.hero div.parts div.part.right div.btns button.btn {
+section.hero div.parts div.part.right div.btns button#btn {
   background-color: var(--color4);
   cursor: pointer;
   transition: all 0.5s ease-in-out;
 }
-section.hero div.parts div.part.right div.btns button.btn:hover {
+section.hero div.parts div.part.right div.btns button#btn:hover {
   background-color: var(--color1);
   margin-top: 20px;
 }

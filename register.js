@@ -90,6 +90,10 @@ btn.addEventListener("click", () => {
 document.getElementById("cancelBtn").onclick = function () {
   window.location.href = "index.html";
 };
+btn.addEventListener("click", ()=>{
+   window.location.href = "index.html";
+})
+
 
 
 

@@ -1,9 +1,9 @@
 
   document.getElementById("registerBtn").onclick = function () {
-    window.location.href = "register.html"; // Replace with your actual file name
+    window.location.href = "register.html"; 
   };
    document.getElementById("btn").onclick = function () {
-    window.location.href = "register.html"; // Replace with your actual file name
+    window.location.href = "register.html";
   };
 
 

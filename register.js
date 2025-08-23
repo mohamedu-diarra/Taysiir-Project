@@ -39,17 +39,7 @@ inputpass.addEventListener("input", () => {
 })
 
 
-// inputcon.addEventListener("input", ()=>{
-//    if(inputpass.value!==inputcon.value){
-//       text.classList.add("active")
-//       text.textContent= "isku mid maaha labada password"
-//       inputcon.classList.add("Error")
-//      }else{
-//       text.classList.remove("active")
-//       inputcon.classList.remove("Error")
-//      }
-//    }
-// )
+
 
 inputcon.addEventListener("input", () => {
    if(inputcon.value.length<5){

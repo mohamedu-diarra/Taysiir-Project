@@ -21,7 +21,7 @@ Image
 
 ### ku xulo taysiir Online ###
 
-- aqoon tayo leh oo hufan
+- aqoon tayo leh oo 
   - mentors aad ku caawin doona
 - macalimiin kula diyaar ah garab istaag
 - iyo arday aad kuso dhawaynyaa isla markaana kugula garab galaya hayaankaaga wax barasho

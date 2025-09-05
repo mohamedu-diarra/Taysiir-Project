@@ -22,6 +22,6 @@ Image
 ### ku xulo taysiir Online ###
 
 
-  - mentors aad ku caawin doona
+  
 - macalimiin kula diyaar ah garab istaag
 - iyo arday aad kuso dhawaynyaa isla markaana kugula garab galaya hayaankaaga wax barasho

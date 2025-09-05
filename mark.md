@@ -22,5 +22,5 @@ Image
 ### ku xulo taysiir Online ###
 
 
-  - macalimiin kula dgarab istaag
+  -
 - iyo arday aad kuso dhawaynyaa isla markaana kugula garab galaya hayaankaaga wax barasho

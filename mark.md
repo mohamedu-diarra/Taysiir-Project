@@ -15,5 +15,3 @@ Image
 ![image](/sawiro/Logo.webp)
 
 
-**kusoo dhawoow Taysiir Online**
-

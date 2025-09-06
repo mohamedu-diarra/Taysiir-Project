@@ -21,6 +21,3 @@ Image
 
 ### ku xulo taysiir Online ###
 
-
-  -
-- iyo arday aad kuso dhawaynyaa isla markaana kugula garab galaya hayaankaaga wax barasho

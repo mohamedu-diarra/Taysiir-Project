@@ -17,7 +17,3 @@ Image
 
 **kusoo dhawoow Taysiir Online**
 
-*wad ku mahadsantahay inaad naga mid noqotay*
-
-
-

@@ -6,7 +6,5 @@
 
 link
 
-[taysiir](https://taysiir.net)
-
 
 

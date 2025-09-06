@@ -8,7 +8,5 @@ link
 
 [taysiir](https://taysiir.net)
 
-[Taysiir Online](https://taysiir.net/)
-
 
 

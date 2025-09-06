@@ -10,6 +10,5 @@ link
 
 [Taysiir Online](https://taysiir.net/)
 
-Image
 
 

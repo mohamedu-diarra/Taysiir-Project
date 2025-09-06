@@ -4,7 +4,6 @@
 
 ### cinwaan kasii yar 
 
-link
 
 
 

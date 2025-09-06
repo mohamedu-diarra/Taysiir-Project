@@ -19,5 +19,5 @@ Image
 
 *wad ku mahadsantahay inaad naga mid noqotay*
 
-### ku xulo taysiir Online ###
+
 

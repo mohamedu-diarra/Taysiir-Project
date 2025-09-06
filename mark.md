@@ -12,6 +12,4 @@ link
 
 Image
 
-![image](/sawiro/Logo.webp)
-
 

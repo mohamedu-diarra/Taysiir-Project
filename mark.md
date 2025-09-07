@@ -1,4 +1,4 @@
 # Cinwaan 
 
-## Cinwaan ka yar 
+## Cinwaan ka  
 

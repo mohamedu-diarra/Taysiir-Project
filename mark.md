@@ -2,8 +2,3 @@
 
 ## Cinwaan ka yar 
 
-### cinwaan kasii yar 
-
-
-
-

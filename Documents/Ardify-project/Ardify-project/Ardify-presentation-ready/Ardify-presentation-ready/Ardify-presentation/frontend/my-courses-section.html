@@ -1,0 +1,94 @@
+// JS/my-courses-section.js - COMPLETE FIX
+
+(function() {
+  'use strict';
+
+  // ✅ USE REAL COURSE IDs - NOT "instructor"
+  const COURSES = [
+    {
+      id: 'fullstack',
+      title: 'Full-Stack Web Development Bootcamp',
+      emoji: '💻',
+      category: 'Web Development',
+      progress: 72,
+      lessonsTotal: 110,
+      detailPage: './course-detail.html?id=fullstack'
+    },
+    {
+      id: 'uiux',
+      title: 'UI/UX Design Masterclass',
+      emoji: '🎨',
+      category: 'Design',
+      progress: 45,
+      lessonsTotal: 24,
+      detailPage: './course-detail-uiux.html?id=uiux'
+    },
+    {
+      id: 'cyber',
+      title: 'Ethical Hacking & Network Defense',
+      emoji: '🛡️',
+      category: 'Security',
+      progress: 28,
+      lessonsTotal: 69,
+      detailPage: './course-detail-cyber.html?id=cyber'
+    }
+  ];
+
+  function renderCourses() {
+    const grid = document.getElementById('coursesGrid');
+    if (!grid) return;
+
+    const search = document.getElementById('courseSearch');
+    const query = search ? search.value.toLowerCase() : '';
+    
+    const filtered = COURSES.filter(c => 
+      c.title.toLowerCase().includes(query) || 
+      c.category.toLowerCase().includes(query)
+    );
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--Silver);">
+          <div style="font-size:48px; margin-bottom:12px;">📚</div>
+          <p style="font-size:16px; color:var(--White);">No courses found</p>
+          <p class="muted">Browse our catalogue and enroll in your first course</p>
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(course => `
+      <div class="courseCard" onclick="window.location.href='${course.detailPage}'">
+        <div class="courseThumb" style="background:linear-gradient(135deg,#1a2234,#0d1320);">
+          <span style="font-size:42px;">${course.emoji}</span>
+          <div class="courseProgress"><div class="fill" style="width:${course.progress}%; background: var(--Orange);"></div></div>
+        </div>
+        <div class="courseBody">
+          <div class="courseCategoryTag">${course.category}</div>
+          <div class="courseTitle">${course.title}</div>
+          <div class="courseFoot">
+            <span class="courseProgText">Progress: <span>${course.progress}%</span></span>
+            <button class="continueBtn" onclick="event.stopPropagation(); window.location.href='${course.detailPage}'">
+              Continue <ion-icon name="arrow-forward-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function setupSearch() {
+    const searchInput = document.getElementById('courseSearch');
+    if (searchInput) {
+      searchInput.addEventListener('input', renderCourses);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderCourses();
+    setupSearch();
+  });
+
+  window.renderCourses = renderCourses;
+
+})();

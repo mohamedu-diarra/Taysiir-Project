@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Ardify</title>
+
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/login.css" />
+  </head>
+
+  <body>
+    <!-- nav -->
+    <section class="navsec">
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <img src="./Images/Ardifylogo.png" alt="Ardify" />
+          </div>
+          <ul class="links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./courses.html">Courses</a></li>
+            <li><a href="./about.html">About</a></li>
+
+            <li><a href="./contact.html">Contact</a></li>
+
+          </ul>
+
+          <div class="btn_action">
+            <a class="sign_in" href="./login.html">
+             Login <ion-icon name="log-in"></ion-icon>
+            </a>
+            <button class="Get" type="button" onclick="location.href='./signup.html'">
+              Sign-up
+            </button>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <main class="auth-page">
+      <section class="auth-hero">
+        <div class="auth-container">
+          <div class="auth-card">
+            <div class="auth-card__header">
+              <div class="auth-kicker">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                Welcome back
+              </div>
+              <h1 class="auth-title">
+                Login to <span>Ardify</span>
+              </h1>
+              <p class="auth-subtitle">
+                Access your courses, quizzes, progress tracking, and certificates.
+              </p>
+            </div>
+
+            <form class="auth-form" id="loginForm" autocomplete="on">
+              <div class="field">
+                <label for="loginEmail">Email</label>
+                <input
+                  id="loginEmail"
+                  name="email"
+                  type="email"
+                  placeholder="e.g., abdi@email.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="loginPassword">Password</label>
+                <input
+                  id="loginPassword"
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                  required
+                />
+              </div>
+
+              <div class="auth-actions">
+                <button class="btn-submit" type="submit">
+                  Login
+                  <ion-icon name="arrow-forward"></ion-icon>
+                </button>
+              </div>
+
+              <p class="auth-note" id="loginMessage" role="status" aria-live="polite"></p>
+
+              <div class="auth-links">
+                <a href="./signup.html" class="auth-link">Create an account</a>
+                <a href="#" class="auth-link" onclick="return false">Forgot password?</a>
+              </div>
+            </form>
+          </div>
+
+          <div class="auth-side">
+            <div class="auth-side__card">
+              <div class="side-badge">
+                <span class="side-badge__dot"></span>
+                Secure account login
+              </div>
+              <h2 class="side-title">Learn smarter, grow faster.</h2>
+              <ul class="side-list">
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Clean, SpaceGrotesk typography
+                </li>
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Professional orange + dark blue palette
+                </li>
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Focus-visible states for accessibility
+                </li>
+              </ul>
+              <p class="side-foot">After login, you’ll be redirected to your dashboard.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="./JS/api.js"></script>
+  <script src="./JS/ardify-core.js" defer></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/app.js"></script>
+    <script src="./JS/auth.js"></script>
+  </body>
+</html>
+

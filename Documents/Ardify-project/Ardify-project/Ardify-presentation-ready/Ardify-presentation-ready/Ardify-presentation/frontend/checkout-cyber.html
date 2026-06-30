@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="ardify-course-id" content="cybersecurity">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout — Ethical Hacking & Network Defense | Ardify</title>
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/checkout.css" />
+  </head>
+  <body>
+
+    <!-- nav -->
+    <section class="navsec">
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <img src="./Images/Ardifylogo.png" alt="Ardify" />
+          </div>
+          <ul class="links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./index.html#coursesec">Courses</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="">Contact</a></li>
+          </ul>
+          <div class="btn_action">
+            <button class="sign_in">Sign in <ion-icon name="log-in"></ion-icon></button>
+            <button class="Get">Get Started</button>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb_sec">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="./index.html">Home</a>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          <a href="./index.html#coursesec">Courses</a>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          <a href="./course-detail-cyber.html">Ethical Hacking & Network Defense</a>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          <span>Checkout</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Checkout Main -->
+    <section class="checkout_sec">
+      <div class="container">
+
+        <!-- Page Header -->
+        <div class="checkout_header">
+          <a href="./course-detail-cyber.html" class="back_link">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+            Back to course
+          </a>
+          <h1 class="checkout_title">Checkout</h1>
+          <p class="checkout_sub">Review your order and complete your purchase.</p>
+        </div>
+
+        <div class="checkout_layout">
+
+          <!-- LEFT: Steps -->
+          <div class="checkout_steps">
+
+            <!-- Step 1: Course -->
+            <div class="checkout_step">
+              <div class="step_label">
+                <span class="step_num">1</span>
+                <h2 class="step_title">Your course</h2>
+              </div>
+              <div class="course_summary_card">
+                <div class="course_thumb">
+                  <img src="./Images/Screenshot 2026-06-02 172353.png" alt="Course" />
+                </div>
+                <div class="course_summary_info">
+                  <h3 class="course_summary_title">Ethical Hacking & Network Defense (Cybersecurity)</h3>
+                  <span class="course_summary_level">
+                    <ion-icon name="bar-chart-outline"></ion-icon> Advanced
+                  </span>
+                </div>
+                <div class="course_summary_price">$44.00</div>
+              </div>
+            </div>
+
+            <!-- Step 2: Access Duration -->
+            <div class="checkout_step">
+              <div class="step_label">
+                <span class="step_num">2</span>
+                <h2 class="step_title">Access duration</h2>
+              </div>
+              <div class="duration_grid">
+                <label class="duration_option" id="opt_6m">
+                  <input type="radio" name="duration" value="6m" />
+                  <div class="duration_card">
+                    <div class="duration_top">
+                      <span class="duration_name">6 Months</span>
+                      <span class="duration_badge">-20%</span>
+                    </div>
+                    <div class="duration_prices">
+                      <span class="duration_current">$33.00</span>
+                      <span class="duration_original">$41.25</span>
+                    </div>
+                  </div>
+                  <div class="duration_radio_dot"></div>
+                </label>
+
+                <label class="duration_option selected" id="opt_1y">
+                  <input type="radio" name="duration" value="1y" checked />
+                  <div class="duration_card">
+                    <div class="duration_top">
+                      <span class="duration_name">1 Year</span>
+                      <span class="duration_badge">-20%</span>
+                    </div>
+                    <div class="duration_prices">
+                      <span class="duration_current">$44.00</span>
+                      <span class="duration_original">$55.00</span>
+                    </div>
+                  </div>
+                  <div class="duration_radio_dot"></div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Step 3: Payment Method -->
+            <div class="checkout_step">
+              <div class="step_label">
+                <span class="step_num">3</span>
+                <h2 class="step_title">Payment method</h2>
+              </div>
+
+              <p class="payment_group_label">MOBILE MONEY</p>
+              <div class="payment_grid">
+                <label class="payment_option">
+                  <input type="radio" name="payment" value="evc" />
+                  <div class="payment_card">
+                    <div class="payment_icon_wrap">
+                      <ion-icon name="phone-portrait-outline"></ion-icon>
+                    </div>
+                    <div class="payment_info">
+                      <span class="payment_name">EVC Plus</span>
+                      <span class="payment_desc">Hormuud mobile money</span>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="payment_option">
+                  <input type="radio" name="payment" value="zaad" />
+                  <div class="payment_card">
+                    <div class="payment_icon_wrap">
+                      <ion-icon name="phone-portrait-outline"></ion-icon>
+                    </div>
+                    <div class="payment_info">
+                      <span class="payment_name">ZAAD</span>
+                      <span class="payment_desc">Telesom mobile money</span>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="payment_option">
+                  <input type="radio" name="payment" value="sahal" />
+                  <div class="payment_card">
+                    <div class="payment_icon_wrap">
+                      <ion-icon name="phone-portrait-outline"></ion-icon>
+                    </div>
+                    <div class="payment_info">
+                      <span class="payment_name">Sahal</span>
+                      <span class="payment_desc">Golis mobile money</span>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="payment_option">
+                  <input type="radio" name="payment" value="ebir" />
+                  <div class="payment_card">
+                    <div class="payment_icon_wrap">
+                      <ion-icon name="phone-portrait-outline"></ion-icon>
+                    </div>
+                    <div class="payment_info">
+                      <span class="payment_name">EBIR</span>
+                      <span class="payment_desc">EBIR mobile money</span>
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Mobile number input -->
+              <div class="mobile_input_wrap" id="mobileInputWrap">
+                <label class="mobile_input_label">Phone number</label>
+                <div class="mobile_input_row">
+                  <span class="mobile_prefix">+252</span>
+                  <input type="tel" class="mobile_input" placeholder="61 234 5678" id="phoneInput" />
+                </div>
+              </div>
+
+              <p class="payment_group_label" style="margin-top: 24px;">CARD</p>
+              <div class="payment_grid payment_grid_full">
+                <label class="payment_option">
+                  <input type="radio" name="payment" value="card" />
+                  <div class="payment_card">
+                    <div class="payment_icon_wrap">
+                      <ion-icon name="card-outline"></ion-icon>
+                    </div>
+                    <div class="payment_info">
+                      <span class="payment_name">Credit / Debit Card</span>
+                      <span class="payment_desc">Visa, Mastercard</span>
+                    </div>
+                  </div>
+                </label>
+              </div>
+
+              <!-- Card inputs -->
+              <div class="card_inputs_wrap" id="cardInputsWrap">
+                <div class="card_input_group">
+                  <label class="card_input_label">Card number</label>
+                  <div class="card_input_row">
+                    <ion-icon name="card-outline" class="card_input_icon"></ion-icon>
+                    <input type="text" class="card_input" placeholder="1234 5678 9012 3456" maxlength="19" id="cardNumber" />
+                  </div>
+                </div>
+                <div class="card_input_row_grid">
+                  <div class="card_input_group">
+                    <label class="card_input_label">Expiry date</label>
+                    <input type="text" class="card_input" placeholder="MM / YY" maxlength="7" id="cardExpiry" />
+                  </div>
+                  <div class="card_input_group">
+                    <label class="card_input_label">CVV</label>
+                    <div class="card_input_row">
+                      <input type="text" class="card_input" placeholder="•••" maxlength="4" id="cardCvv" />
+                      <ion-icon name="help-circle-outline" class="cvv_help" title="3-digit code on back of card"></ion-icon>
+                    </div>
+                  </div>
+                </div>
+                <div class="card_input_group">
+                  <label class="card_input_label">Cardholder name</label>
+                  <input type="text" class="card_input" placeholder="Name on card" id="cardName" />
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- RIGHT: Order Summary -->
+          <div class="order_summary_wrap">
+            <div class="order_summary_card">
+              <h3 class="order_summary_title">Order summary</h3>
+
+              <div class="order_summary_rows">
+                <div class="order_row">
+                  <span class="order_row_label">Subtotal</span>
+                  <span class="order_row_val" id="summarySubtotal">$55.00</span>
+                </div>
+                <div class="order_row">
+                  <span class="order_row_label">Discount</span>
+                  <span class="order_row_val discount_val" id="summaryDiscount">−$11.00</span>
+                </div>
+                <div class="order_row">
+                  <span class="order_row_label">Access</span>
+                  <span class="order_row_val" id="summaryAccess">1 Year</span>
+                </div>
+              </div>
+
+              <!-- Discount code -->
+              <div class="discount_code_row">
+                <input type="text" class="discount_input" placeholder="Discount code" id="discountCode" />
+                <button class="apply_btn" id="applyBtn">Apply</button>
+              </div>
+
+              <div class="order_divider"></div>
+
+              <div class="order_total_row">
+                <span class="order_total_label">Total</span>
+                <span class="order_total_val" id="summaryTotal">$44.00</span>
+              </div>
+
+              <button class="pay_btn" id="payBtn">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <span id="payBtnText">Pay $44.00</span>
+              </button>
+
+              <div class="security_note">
+                <ion-icon name="shield-checkmark-outline"></ion-icon>
+                Secure payment · SSL encrypted
+              </div>
+              <p class="powered_note">Powered by trusted payment partners</p>
+
+              <div class="order_trust_badges">
+                <span class="trust_badge">
+                  <ion-icon name="lock-closed-outline"></ion-icon> Secure
+                </span>
+                <span class="trust_sep">•</span>
+                <span class="trust_badge">
+                  <ion-icon name="flash-outline"></ion-icon> Instant access
+                </span>
+                <span class="trust_sep">•</span>
+                <span class="trust_badge">
+                  <ion-icon name="headset-outline"></ion-icon> Lifetime support
+                </span>
+              </div>
+            </div>
+
+            <!-- Guarantee card -->
+            <div class="guarantee_card">
+              <ion-icon name="ribbon-outline" class="guarantee_icon"></ion-icon>
+              <div>
+                <h4 class="guarantee_title">30-Day Money-Back Guarantee</h4>
+                <p class="guarantee_desc">Not satisfied? Get a full refund within 30 days — no questions asked.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer_top">
+          <div class="footer_brand">
+            <div class="footer_logo">
+              <img src="./Images/Ardifylogo.png" alt="Ardify Logo" />
+            </div>
+            <p class="footer_desc">
+              Somalia's leading e-learning platform. Learn smarter, grow faster
+              with structured courses and interactive lessons built for the digital age.
+            </p>
+            <div class="footer_socials">
+              <a href="" class="social_link"><ion-icon name="logo-youtube"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-github"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-whatsapp"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-facebook"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-twitter"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-linkedin"></ion-icon></a>
+            </div>
+          </div>
+          <div class="footer_col">
+            <h4 class="footer_col_title">Product</h4>
+            <ul class="footer_links">
+              <li><a href="">Courses</a></li>
+              <li><a href="">Quizzes</a></li>
+              <li><a href="">Progress Tracking</a></li>
+              <li><a href="">AI Assistant</a></li>
+              <li><a href="">Certificates</a></li>
+            </ul>
+          </div>
+          <div class="footer_col">
+            <h4 class="footer_col_title">Company</h4>
+            <ul class="footer_links">
+              <li><a href="">About Us</a></li>
+              <li><a href="">Contact</a></li>
+              <li><a href="">Blog</a></li>
+              <li><a href="">Careers</a></li>
+            </ul>
+          </div>
+          <div class="footer_col">
+            <h4 class="footer_col_title">Legal</h4>
+            <ul class="footer_links">
+              <li><a href="">Privacy Policy</a></li>
+              <li><a href="">Terms of Service</a></li>
+              <li><a href="">Cookie Policy</a></li>
+              <li><a href="">Refund Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer_bottom">
+          <p class="footer_copy">© 2026 Ardify. All rights reserved.</p>
+          <p class="footer_made">Proudly built in Somalia <ion-icon name="heart" class="heart_icon"></ion-icon></p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="./JS/api.js"></script>
+  <script src="./JS/storage.js"></script>
+    <script src="./JS/app.js"></script>
+    <script src="./JS/auth.js"></script>
+    <script src="./JS/checkout.js"></script>
+  </body>
+</html>

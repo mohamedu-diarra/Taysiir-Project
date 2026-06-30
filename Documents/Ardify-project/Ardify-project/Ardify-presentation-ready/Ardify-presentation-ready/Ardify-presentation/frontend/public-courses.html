@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Courses | Ardify</title>
+
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/courses.css" />
+  </head>
+
+  <body>
+    <!-- nav -->
+    <section class="navsec">
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <img src="./Images/Ardifylogo.png" alt="" />
+          </div>
+
+          <ul class="links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./public-courses.html">Courses</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+
+          <div class="btn_action">
+            <a class="sign_in" href="./login.html">
+             Login <ion-icon name="log-in"></ion-icon>
+            </a>
+            <button class="Get" type="button" onclick="location.href='/signup.html'">
+             Sign-up
+            </button>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Courses Template -->
+    <main class="courses-page">
+      <section class="courses-hero">
+        <div class="container">
+          <div class="courses-hero__grid">
+            <div class="courses-hero__copy">
+              <div class="courses-kicker">
+                <span class="courses-kicker__dot"></span>
+                Learn smarter, grow faster
+              </div>
+
+              <h1 class="courses-title">
+                Explore <span>Ardify</span> courses
+              </h1>
+
+              <p class="courses-subtitle">
+                Professional courses designed for clean learning flows. Built with your fonts
+                and Ardify colors.
+              </p>
+
+              <div class="courses-cta">
+                <a href="./signup.html" class="btn btn-primary">
+                  Get Started <ion-icon name="arrow-forward"></ion-icon>
+                </a>
+                <a href="#courses-list" class="btn btn-ghost">
+                  Browse Catalog
+                </a>
+              </div>
+
+              <div class="courses-metrics">
+                <div class="metric">
+                  <div class="metric__value">+50</div>
+                  <div class="metric__label">Courses & lessons</div>
+                </div>
+                <div class="metric">
+                  <div class="metric__value">10k+</div>
+                  <div class="metric__label">Learners</div>
+                </div>
+                <div class="metric metric--accent">
+                  <div class="metric__value">1 click</div>
+                  <div class="metric__label">Start & track</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="courses-hero__visual" aria-hidden="true">
+              <div class="courses-badge-card">
+                <div class="courses-badge-card__top">
+                  <span class="courses-badge-card__tag">Featured</span>
+                  <span class="courses-badge-card__metric">Updated weekly</span>
+                </div>
+
+                <div class="courses-badge-card__img">
+                  <img src="./Images/team-attends-online-meeting.png" alt="" />
+                </div>
+
+                <div class="courses-badge-card__bottom">
+                  <div class="pill">
+                    <ion-icon name="school-outline"></ion-icon>
+                    Structured lessons
+                  </div>
+                  <div class="pill">
+                    <ion-icon name="settings-outline"></ion-icon>
+                    Progress tracking
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="courses-filterbar" aria-label="Courses filters">
+        <div class="container">
+          <div class="filterbar">
+            <div class="filterbar__left">
+              <div class="filter-pill filter-pill--active">All Courses</div>
+              <div class="filter-pill">Web Development</div>
+              <div class="filter-pill">UI/UX Design</div>
+              <div class="filter-pill">Cyber Security</div>
+            </div>
+            <div class="filterbar__right">
+              <div class="search">
+                <ion-icon class="search__icon" name="search"></ion-icon>
+                <input type="text" placeholder="Search courses..." />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="courses-list" class="courses-list">
+        <div class="container">
+          <div class="courses-section-title">
+            <span class="courses-section-title__kicker">
+              <ion-icon name="rocket-outline"></ion-icon>
+              What we offer
+            </span>
+            <h2 class="courses-section-title__h2">Featured & Popular</h2>
+            <p class="courses-section-title__sub">
+              Professional, consistent course cards using your color palette.
+            </p>
+          </div>
+
+          <div class="courses-grid">
+            <!-- Card 1 -->
+            <article class="course-card">
+              <div class="course-card__thumb">
+                <img src="./Images/ChatGPT Image Jun 2, 2026, 05_13_15 PM.png" alt="Web Development" />
+                <span class="course-badge course-badge--advanced">Advanced</span>
+              </div>
+
+              <div class="course-card__body">
+                <div class="course-card__category">
+                  <ion-icon name="code-slash-outline"></ion-icon>
+                  Web Development
+                </div>
+
+                <h3 class="course-card__title">Full-Stack Web Development Bootcamp</h3>
+
+                <div class="course-card__meta">
+                  <span><ion-icon name="play-circle-outline"></ion-icon> 110 lessons</span>
+                  <span><ion-icon name="time-outline"></ion-icon> 22.8h</span>
+                </div>
+
+                <div class="course-card__footer">
+                  <span class="course-card__price">$49</span>
+                  <a class="course-card__btn" href="./course-detail.html">
+                    Start learning
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="course-card">
+              <div class="course-card__thumb">
+                <img src="./Images/uiux.png" alt="UI/UX Design" />
+                <span class="course-badge course-badge--intermediate">Intermediate</span>
+              </div>
+
+              <div class="course-card__body">
+                <div class="course-card__category">
+                  <ion-icon name="color-palette-outline"></ion-icon>
+                  UI/UX Design
+                </div>
+
+                <h3 class="course-card__title">UI/UX Design Masterclass: Figma to Product</h3>
+
+                <div class="course-card__meta">
+                  <span><ion-icon name="play-circle-outline"></ion-icon> 24 lessons</span>
+                  <span><ion-icon name="time-outline"></ion-icon> 5.9h</span>
+                </div>
+
+                <div class="course-card__footer">
+                  <span class="course-card__price">$25</span>
+                  <a class="course-card__btn" href="./course-detail-uiux.html">
+                    Start learning
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="course-card">
+              <div class="course-card__thumb">
+                <img src="./Images/Screenshot 2026-06-02 172353.png" alt="Cyber Security" />
+                <span class="course-badge course-badge--intermediate">Intermediate</span>
+              </div>
+
+              <div class="course-card__body">
+                <div class="course-card__category">
+                  <ion-icon name="shield-checkmark-outline"></ion-icon>
+                  Cyber Security
+                </div>
+
+                <h3 class="course-card__title">Ethical Hacking & Network Defense</h3>
+
+                <div class="course-card__meta">
+                  <span><ion-icon name="play-circle-outline"></ion-icon> 69 lessons</span>
+                  <span><ion-icon name="time-outline"></ion-icon> 16.7h</span>
+                </div>
+
+                <div class="course-card__footer">
+                  <span class="course-card__price">$30</span>
+                  <a class="course-card__btn" href="./course-detail.html">
+                    Start learning
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="course-card">
+              <div class="course-card__thumb">
+                <img src="./Images/excel.png" alt="Data Analysis" />
+                <span class="course-badge course-badge--beginner">Beginner</span>
+              </div>
+
+              <div class="course-card__body">
+                <div class="course-card__category">
+                  <ion-icon name="analytics-outline"></ion-icon>
+                  Data Analysis
+                </div>
+
+                <h3 class="course-card__title">Data Analysis with Python & Power BI</h3>
+
+                <div class="course-card__meta">
+                  <span><ion-icon name="play-circle-outline"></ion-icon> 45 lessons</span>
+                  <span><ion-icon name="time-outline"></ion-icon> 11.2h</span>
+                </div>
+
+                <div class="course-card__footer">
+                  <span class="course-card__price">$35</span>
+                  <a class="course-card__btn" href="./course-detail.html">
+                    Start learning
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="course-card">
+              <div class="course-card__thumb">
+                <img src="./Images/Networking.png" alt="Networking" />
+                <span class="course-badge course-badge--beginner">Beginner</span>
+              </div>
+
+              <div class="course-card__body">
+                <div class="course-card__category">
+                  <ion-icon name="git-network-outline"></ion-icon>
+                  Networking
+                </div>
+
+                <h3 class="course-card__title">Computer Networking: From Zero to CCNA</h3>
+
+                <div class="course-card__meta">
+                  <span><ion-icon name="play-circle-outline"></ion-icon> 38 lessons</span>
+                  <span><ion-icon name="time-outline"></ion-icon> 9.4h</span>
+                </div>
+
+                <div class="course-card__footer">
+                  <span class="course-card__price">$20</span>
+                  <a class="course-card__btn" href="./course-detail.html">
+                    Start learning
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="course-card">
+              <div class="course-card__thumb">
+                <img src="./Images/digital.png" alt="Digital Marketing" />
+                <span class="course-badge course-badge--intermediate">Intermediate</span>
+              </div>
+
+              <div class="course-card__body">
+                <div class="course-card__category">
+                  <ion-icon name="megaphone-outline"></ion-icon>
+                  Digital Marketing
+                </div>
+
+                <h3 class="course-card__title">Digital Marketing & Social Media Growth</h3>
+
+                <div class="course-card__meta">
+                  <span><ion-icon name="play-circle-outline"></ion-icon> 52 lessons</span>
+                  <span><ion-icon name="time-outline"></ion-icon> 13.5h</span>
+                </div>
+
+                <div class="course-card__footer">
+                  <span class="course-card__price">$28</span>
+                  <a class="course-card__btn" href="./course-detail.html">
+                    Start learning
+                    <ion-icon name="arrow-forward-outline"></ion-icon>
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer_top">
+          <div class="footer_brand">
+            <div class="footer_logo">
+              <img src="./Images/Ardifylogo.png" alt="Ardify Logo" />
+            </div>
+            <p class="footer_desc">
+              Somalia's leading e-learning platform. Learn smarter, grow faster with structured
+              courses and interactive lessons built for the digital age.
+            </p>
+            <div class="footer_socials">
+              <a href="" class="social_link" aria-label="YouTube">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="GitHub">
+                <ion-icon name="logo-github"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="WhatsApp">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="Facebook">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="X / Twitter">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="LinkedIn">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer_col">
+            <h4 class="footer_col_title">Product</h4>
+            <ul class="footer_links">
+              <li><a href="">Courses</a></li>
+              <li><a href="">Quizzes</a></li>
+              <li><a href="">Progress Tracking</a></li>
+              <li><a href="">AI Assistant</a></li>
+              <li><a href="">Certificates</a></li>
+            </ul>
+          </div>
+
+          <div class="footer_col">
+            <h4 class="footer_col_title">Company</h4>
+            <ul class="footer_links">
+              <li><a href="./about.html">About Us</a></li>
+              <li><a href="./contact.html">Contact</a></li>
+              <li><a href="">Blog</a></li>
+              <li><a href="">Careers</a></li>
+            </ul>
+          </div>
+
+          <div class="footer_col">
+            <h4 class="footer_col_title">Legal</h4>
+            <ul class="footer_links">
+              <li><a href="">Privacy Policy</a></li>
+              <li><a href="">Terms of Service</a></li>
+              <li><a href="">Cookie Policy</a></li>
+              <li><a href="">Refund Policy</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer_bottom">
+          <p class="footer_copy">© 2026 Ardify. All rights reserved.</p>
+          <p class="footer_made">
+            Proudly built in Somalia
+            <ion-icon name="heart" class="heart_icon"></ion-icon>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- icon script -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="./JS/api.js"></script>
+  <script src="./JS/ardify-core.js" defer></script>
+  <script src="./JS/storage.js"></script>
+    <script src="./JS/app.js"></script>
+    <script src="./JS/auth.js"></script>
+    <script src="./JS/ui.js"></script>
+  </body>
+</html>
+

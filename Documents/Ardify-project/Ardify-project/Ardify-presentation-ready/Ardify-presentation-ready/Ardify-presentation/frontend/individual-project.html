@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Individual Projects | Ardify</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    window.ARDIFY_API_BASE = window.ARDIFY_API_BASE || "http://localhost:5000/api";
+    console.log('🔧 API Base:', window.ARDIFY_API_BASE);
+  </script>
+
+  <style>
+    /* ============================================
+       COMPLETE CSS - INDIVIDUAL PROJECTS
+       ============================================ */
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --Orange: #ff6000;
+      --Black: #000000;
+      --White: #ffffff;
+      --Silver: #99a1af;
+      --LightGreen: #05df72;
+      --yellow: #fdc700;
+      --darkblue: #0d1320;
+      --border: #1b2333;
+      --sidebar-w: 260px;
+      --radius: 10px;
+      --transition: all 0.25s ease;
+    }
+    
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--Black);
+      color: var(--White);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── SIDEBAR ─── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--darkblue);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0; top: 0;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+    .sidebar_logo {
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .sidebar_logo:hover { opacity: 0.8; }
+    .logo_box {
+      width: 40px; height: 40px;
+      background: var(--Orange);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--White);
+      flex-shrink: 0;
+    }
+    .logo_text { font-size: 20px; font-weight: 700; color: var(--White); }
+    .logo_text span { color: var(--Orange); }
+
+    .sidebar_user {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .user_avatar {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: var(--White);
+    }
+    .user_name { font-size: 14px; font-weight: 600; color: var(--White); }
+    .user_role {
+      font-size: 11px; color: var(--Silver);
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.25);
+      padding: 2px 8px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 3px;
+    }
+
+    .sidebar_nav {
+      flex: 1;
+      padding: 16px 12px;
+      overflow-y: auto;
+    }
+    .sidebar_nav::-webkit-scrollbar { width: 4px; }
+    .sidebar_nav::-webkit-scrollbar-track { background: transparent; }
+    .sidebar_nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .nav_label {
+      font-size: 10px; color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 14px 8px 6px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .nav_item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: var(--radius);
+      color: var(--Silver);
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      margin-bottom: 2px;
+      position: relative;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+    }
+    .nav_item ion-icon { font-size: 18px; flex-shrink: 0; min-width: 20px; }
+    .nav_item:hover { background: rgba(255,96,0,0.08); color: var(--White); }
+    .nav_item.active {
+      background: rgba(255,96,0,0.14);
+      color: var(--Orange);
+      font-weight: 600;
+    }
+    .nav_item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 70%;
+      background: var(--Orange);
+      border-radius: 0 3px 3px 0;
+    }
+    .nav_item .nav_badge {
+      margin-left: auto;
+      background: var(--Orange);
+      color: var(--White);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 20px;
+      min-width: 20px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .nav_item .nav_badge.green { background: var(--LightGreen); color: var(--Black); }
+    .nav_item .nav_badge.red { background: #ef4444; color: var(--White); }
+
+    .sidebar_bottom {
+      padding: 16px 12px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+    .sidebar_bottom .nav_item { color: #ef4444; }
+    .sidebar_bottom .nav_item:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      height: 68px;
+      background: var(--darkblue);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      flex-shrink: 0;
+    }
+    .topbar__left { display: flex; align-items: center; gap: 16px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .brand:hover { opacity: 0.8; }
+    .brand__logo {
+      height: 36px;
+      width: auto;
+    }
+    .brand__name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--White);
+    }
+    .brand__name span { color: var(--Orange); }
+
+    .topbar__right { display: flex; align-items: center; gap: 12px; }
+    .pill {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--Silver);
+      background: transparent;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+    .pill:hover { border-color: var(--Orange); color: var(--White); }
+    .pill--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .pill--primary:hover { background: #c94d00; border-color: #c94d00; }
+
+    /* ─── MAIN ─── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      width: calc(100% - var(--sidebar-w));
+    }
+
+    .content {
+      flex: 1;
+      padding: 28px 32px;
+      max-width: calc(100% - var(--sidebar-w));
+    }
+
+    .content__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .content__headerActions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .h1 { font-size: 28px; font-weight: 700; color: var(--White); letter-spacing: -0.5px; }
+    .h2 { font-size: 18px; font-weight: 600; color: var(--White); margin-bottom: 4px; }
+    .muted { color: var(--Silver); font-size: 14px; }
+
+    /* ─── FIELDS ─── */
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field--search { min-width: 200px; }
+    .field__label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input, select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--White);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .input:focus, select:focus { border-color: var(--Orange); }
+    .input::placeholder { color: var(--Silver); }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2399a1af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+
+    /* ─── CARDS ─── */
+    .card {
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: var(--transition);
+      margin-bottom: 24px;
+    }
+    .card:hover { border-color: #2a3447; }
+    .card--soft { background: rgba(13,19,32,0.6); }
+    .card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--Silver);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { border-color: var(--Orange); color: var(--White); }
+    .btn--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .btn--primary:hover { background: #c94d00; border-color: #c94d00; }
+    .btn--ghost { background: transparent; border-color: transparent; }
+    .btn--ghost:hover {
+      background: rgba(255,255,255,0.04);
+      border-color: var(--border);
+    }
+
+    .row { display: flex; align-items: center; gap: 8px; }
+    .row--gap { gap: 12px; }
+
+    /* ─── TABLE ─── */
+    .tableWrap { overflow-x: auto; margin: 0 -8px; }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .table th {
+      text-align: left;
+      padding: 12px 12px 12px 0;
+      color: var(--Silver);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .table td {
+      padding: 14px 12px 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: middle;
+    }
+    .table tr:last-child td { border-bottom: none; }
+    .table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .cellTitle { display: flex; align-items: center; gap: 10px; }
+    .cellTitle .strong { color: var(--White); font-weight: 600; }
+    .cellTitle .muted { font-size: 12px; }
+
+    .avatarSmall {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: var(--White);
+    }
+
+    /* ─── CHIPS ─── */
+    .chip {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .chip--open { background: rgba(5,223,114,0.1); color: var(--LightGreen); border: 1px solid rgba(5,223,114,0.2); }
+    .chip--inprogress { background: rgba(253,199,0,0.1); color: var(--yellow); border: 1px solid rgba(253,199,0,0.2); }
+    .chip--ready { background: rgba(5,223,114,0.1); color: var(--LightGreen); border: 1px solid rgba(5,223,114,0.2); }
+    .chip--needs { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.2); }
+    .chip--graded { background: rgba(96,165,250,0.1); color: #60a5fa; border: 1px solid rgba(96,165,250,0.2); }
+    .chip--closed { background: rgba(153,161,175,0.1); color: var(--Silver); border: 1px solid rgba(153,161,175,0.2); }
+
+    /* ─── LINKS ─── */
+    .linkBtn {
+      color: var(--Orange);
+      font-size: 13px;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .linkBtn:hover {
+      background: rgba(255,96,0,0.1);
+      color: #ff914c;
+    }
+
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ─── PROGRESS BAR ─── */
+    .inlineProgress {
+      width: 60px;
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 10px;
+      overflow: hidden;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    .inlineProgress__bar {
+      height: 100%;
+      background: var(--Orange);
+      border-radius: 10px;
+    }
+
+    /* ─── GRID ─── */
+    .grid { display: grid; gap: 24px; }
+    .grid--2 { grid-template-columns: 1fr 1fr; }
+
+    /* ─── SPARK GRID ─── */
+    .sparkGrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .spark { text-align: center; padding: 12px; background: rgba(255,255,255,0.02); border-radius: var(--radius); }
+    .spark__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .spark .strong { font-size: 13px; color: var(--White); font-weight: 600; }
+    .spark__bar {
+      width: 100%;
+      background: var(--Orange);
+      border-radius: 10px;
+      margin: 8px 0;
+    }
+    .spark .muted { font-size: 12px; }
+
+    /* ─── CALLOUT ─── */
+    .callout {
+      display: flex;
+      gap: 14px;
+      background: rgba(255,96,0,0.06);
+      border: 1px solid rgba(255,96,0,0.2);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .callout .callout__icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--Orange);
+      color: var(--White);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .callout .strong { font-size: 14px; font-weight: 600; color: var(--White); margin-bottom: 4px; }
+    .callout .muted { font-size: 13px; font-style: italic; }
+
+    /* ─── MOBILE ─── */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--White);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 20px;
+      font-family: inherit;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 99;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--Black); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    @media (max-width: 992px) {
+      .grid--2 { grid-template-columns: 1fr; }
+      .sparkGrid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar.active { display: flex; transform: translateX(0); }
+      .main { margin-left: 0; width: 100%; }
+      .content { padding: 16px; max-width: 100%; }
+      .topbar { padding: 0 16px; height: 60px; flex-wrap: wrap; }
+      .content__header { flex-direction: column; align-items: stretch; }
+      .content__headerActions { flex-direction: column; align-items: stretch; }
+      .field--search { min-width: unset; }
+      .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+      .tableWrap { overflow-x: auto; }
+      .table { min-width: 700px; }
+    }
+    @media (max-width: 480px) {
+      .topbar { padding: 0 12px; }
+      .content { padding: 12px; }
+      .h1 { font-size: 22px; }
+      .card { padding: 16px; }
+      .sparkGrid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── TOAST ─── */
+    .ardify-toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      color: var(--White);
+      font-family: inherit;
+      font-size: 14px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 9999;
+      animation: slideUp 0.3s ease;
+      max-width: 360px;
+    }
+    .ardify-toast.success { border-color: var(--LightGreen); }
+    .ardify-toast.error { border-color: #ef4444; }
+    .ardify-toast.info { border-color: #60a5fa; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar_logo" onclick="window.location.href='./index.html'">
+      <div class="logo_box">A</div>
+      <div class="logo_text">Ard<span>ify</span></div>
+    </div>
+
+    <div class="sidebar_user">
+      <div class="user_avatar" id="userAvatar">AH</div>
+      <div>
+        <div class="user_name" id="userName">Loading...</div>
+        <div class="user_role" id="userRole">Instructor</div>
+      </div>
+    </div>
+
+    <nav class="sidebar_nav">
+      <div class="nav_label">Teaching</div>
+      <a class="nav_item" href="./instructor-dashboard.html">
+        <ion-icon name="grid-outline"></ion-icon>Dashboard
+      </a>
+      <a class="nav_item" href="./courses.html">
+        <ion-icon name="book-outline"></ion-icon>My Courses
+        <span class="nav_badge">5</span>
+      </a>
+      <a class="nav_item" href="./course-detail.html">
+        <ion-icon name="add-circle-outline"></ion-icon>Create Course
+      </a>
+      <a class="nav_item" href="./student-courses.html">
+        <ion-icon name="people-outline"></ion-icon>My Students
+        <span class="nav_badge green">248</span>
+      </a>
+
+      <div class="nav_label">Assignments</div>
+      <a class="nav_item" href="./assignments.html">
+        <ion-icon name="document-text-outline"></ion-icon>Assignments
+        <span class="nav_badge">12</span>
+      </a>
+      <a class="nav_item" href="./grading-queue.html">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>Grading Queue
+        <span class="nav_badge red">4</span>
+      </a>
+
+      <div class="nav_label">Projects</div>
+      <a class="nav_item" href="./team-projects.html">
+        <ion-icon name="people-circle-outline"></ion-icon>Team Projects
+        <span class="nav_badge green">3</span>
+      </a>
+      <a class="nav_item active" href="./individual-project.html">
+        <ion-icon name="person-circle-outline"></ion-icon>Individual Project
+        <span class="nav_badge">2</span>
+      </a>
+
+      <div class="nav_label">Communication</div>
+      <a class="nav_item" href="./student-messages.html">
+        <ion-icon name="chatbubbles-outline"></ion-icon>Messages
+        <span class="nav_badge red">5</span>
+      </a>
+      <a class="nav_item" href="./ai-assistant.html">
+        <ion-icon name="sparkles-outline"></ion-icon>AI Assistant
+      </a>
+
+      <div class="nav_label">Analytics</div>
+      <a class="nav_item" href="./reports-analytics.html">
+        <ion-icon name="bar-chart-outline"></ion-icon>Reports & Analytics
+      </a>
+      <a class="nav_item" href="./settings.html">
+        <ion-icon name="settings-outline"></ion-icon>Settings
+      </a>
+    </nav>
+
+    <div class="sidebar_bottom">
+      <a class="nav_item logout_btn" href="#">
+        <ion-icon name="log-out-outline"></ion-icon> Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <div class="topbar__left">
+        <a class="brand" href="./index.html">
+          <img class="brand__logo" src="./Images/Ardifylogo.png" alt="Ardify" />
+          <span class="brand__name">Ard<span>ify</span></span>
+        </a>
+      </div>
+
+      <div class="topbar__right">
+        <button class="pill pill--primary" type="button" id="btnCreateProject" onclick="showToast('📝 New project form would open here', 'info')">
+          New project
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <div class="content__header">
+        <div>
+          <h1 class="h1">📋 Individual Project</h1>
+          <p class="muted">Monitor each learner's progress, rubric performance, and submission status.</p>
+        </div>
+        <div class="content__headerActions">
+          <label class="field field--search">
+            <span class="field__label">Student</span>
+            <input id="individualSearch" class="input" placeholder="Name or student id…" />
+          </label>
+          <div class="field">
+            <span class="field__label">Status</span>
+            <select id="individualStatus" class="input">
+              <option value="all" selected>All</option>
+              <option value="submitted">Submitted</option>
+              <option value="grading">In grading</option>
+              <option value="needs_revision">Needs revision</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <section class="card card--soft">
+        <div class="card__header">
+          <div>
+            <h2 class="h2">👨‍🎓 Learner Progress</h2>
+            <p class="muted">A clean view of completion and readiness to grade.</p>
+          </div>
+          <div class="row row--gap">
+            <button class="btn btn--ghost" type="button" id="btnExportIndividual" onclick="showToast('📥 Exporting data...', 'success')">
+              Export
+            </button>
+            <button class="btn" type="button" id="btnMessageLearners" onclick="showToast('💬 Message sent to learners', 'success')">
+              Message learners
+            </button>
+          </div>
+        </div>
+
+        <div class="tableWrap">
+          <table class="table" aria-label="Individual projects">
+            <thead>
+              <tr>
+                <th>Learner</th>
+                <th>Course</th>
+                <th>Milestone</th>
+                <th>Completion</th>
+                <th>Submission</th>
+                <th style="width: 180px;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="individualTbody">
+              <!-- Row 1 -->
+              <tr>
+                <td>
+                  <div class="cellTitle">
+                    <span class="avatarSmall">E</span>
+                    <div>
+                      <div class="strong">Ethan Brooks</div>
+                      <div class="muted">ID: ARD-1042</div>
+                    </div>
+                  </div>
+                </td>
+                <td>UI/UX</td>
+                <td><span class="chip chip--open">Prototype</span></td>
+                <td>
+                  <div class="inlineProgress">
+                    <div class="inlineProgress__bar" style="width:72%;"></div>
+                  </div>
+                  <span class="muted">72%</span>
+                </td>
+                <td><span class="chip chip--ready">Submitted</span></td>
+                <td>
+                  <div class="actions">
+                    <a class="linkBtn" href="./grading-queue.html">Grade</a>
+                    <a class="linkBtn" href="#">View</a>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 2 -->
+              <tr>
+                <td>
+                  <div class="cellTitle">
+                    <span class="avatarSmall">L</span>
+                    <div>
+                      <div class="strong">Layla Ahmed</div>
+                      <div class="muted">ID: ARD-1091</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Networking</td>
+                <td><span class="chip chip--inprogress">Planning</span></td>
+                <td>
+                  <div class="inlineProgress">
+                    <div class="inlineProgress__bar" style="width:41%;"></div>
+                  </div>
+                  <span class="muted">41%</span>
+                </td>
+                <td><span class="chip chip--needs">Needs revision</span></td>
+                <td>
+                  <div class="actions">
+                    <a class="linkBtn" href="./ai-assistant.html">AI assist</a>
+                    <a class="linkBtn" href="#">Request changes</a>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 3 -->
+              <tr>
+                <td>
+                  <div class="cellTitle">
+                    <span class="avatarSmall">M</span>
+                    <div>
+                      <div class="strong">Mia Chen</div>
+                      <div class="muted">ID: ARD-1110</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Cyber Security</td>
+                <td><span class="chip chip--closed">Final</span></td>
+                <td>
+                  <div class="inlineProgress">
+                    <div class="inlineProgress__bar" style="width:93%;"></div>
+                  </div>
+                  <span class="muted">93%</span>
+                </td>
+                <td><span class="chip chip--graded">Graded</span></td>
+                <td>
+                  <div class="actions">
+                    <a class="linkBtn" href="./reports-analytics.html">Report</a>
+                  </div>
+                </td>
+              </tr>
+              <!-- Row 4 -->
+              <tr>
+                <td>
+                  <div class="cellTitle">
+                    <span class="avatarSmall">O</span>
+                    <div>
+                      <div class="strong">Omar Hassan</div>
+                      <div class="muted">ID: ARD-1156</div>
+                    </div>
+                  </div>
+                </td>
+                <td>Full-Stack Dev</td>
+                <td><span class="chip chip--inprogress">Development</span></td>
+                <td>
+                  <div class="inlineProgress">
+                    <div class="inlineProgress__bar" style="width:58%;"></div>
+                  </div>
+                  <span class="muted">58%</span>
+                </td>
+                <td><span class="chip chip--open">In Progress</span></td>
+                <td>
+                  <div class="actions">
+                    <a class="linkBtn" href="#">View</a>
+                    <a class="linkBtn" href="#">Message</a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="grid grid--2">
+        <!-- Rubric Snapshots -->
+        <section class="card">
+          <div class="card__header">
+            <h2 class="h2">📊 Rubric Snapshots</h2>
+            <p class="muted">Compare performance across criteria.</p>
+          </div>
+          <div class="sparkGrid">
+            <div class="spark">
+              <div class="spark__head">
+                <div class="strong">Correctness</div>
+                <span class="chip chip--open">High</span>
+              </div>
+              <div class="spark__bar" style="height: 68%; background: var(--LightGreen);"></div>
+              <div class="muted">Avg 86</div>
+            </div>
+            <div class="spark">
+              <div class="spark__head">
+                <div class="strong">Depth</div>
+                <span class="chip chip--inprogress">Medium</span>
+              </div>
+              <div class="spark__bar" style="height: 52%; background: var(--yellow);"></div>
+              <div class="muted">Avg 74</div>
+            </div>
+            <div class="spark">
+              <div class="spark__head">
+                <div class="strong">Communication</div>
+                <span class="chip chip--needs">Needs work</span>
+              </div>
+              <div class="spark__bar" style="height: 41%; background: #ef4444;"></div>
+              <div class="muted">Avg 63</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Next Best Action -->
+        <section class="card">
+          <div class="card__header">
+            <h2 class="h2">🎯 Next Best Action</h2>
+            <p class="muted">Reduce student friction with targeted prompts.</p>
+          </div>
+          <div class="callout">
+            <div class="callout__icon">✉</div>
+            <div>
+              <div class="strong">Message template</div>
+              <div class="muted">"Share one example that supports your approach. Then explain why it matters for the real-world scenario."</div>
+            </div>
+          </div>
+          <div class="row row--gap" style="margin-top: 14px;">
+            <button class="btn btn--primary" type="button" id="btnSendTemplate" onclick="showToast('✅ Template sent to selected students!', 'success')">
+              <ion-icon name="send-outline"></ion-icon> Send to selected
+            </button>
+            <button class="btn btn--ghost" type="button" id="btnAdjustPrompt" onclick="showToast('📝 Prompt editor opened', 'info')">
+              Adjust prompt
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- IONICONS -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- SCRIPTS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 Individual Projects page loading...');
+
+      // ─── AUTH CHECK ──────────────────────────────────────
+      if (!window.ArdifyAuth || !window.ArdifyAuth.isLoggedIn()) {
+        window.location.href = './login.html';
+        return;
+      }
+
+      // ─── GET USER ────────────────────────────────────────
+      var user = window.ArdifyAuth.getUser() || {};
+      var name = user.fullName || 'Instructor';
+      var initials = name.split(' ').filter(Boolean).map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2);
+
+      document.querySelectorAll('.user_name').forEach(function(el){ el.textContent = name; });
+      document.querySelectorAll('.user_avatar').forEach(function(el){ el.textContent = initials; });
+
+      // ─── LOGOUT ──────────────────────────────────────────
+      document.querySelectorAll('.logout_btn').forEach(function(btn){
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          if (window.ArdifyAuthFlow && window.ArdifyAuthFlow.logout) {
+            window.ArdifyAuthFlow.logout();
+          } else {
+            window.ArdifyAuth.clearSession();
+            window.location.href = './login.html';
+          }
+        });
+      });
+
+      // ─── TOAST ──────────────────────────────────────────
+      window.showToast = function(message, type) {
+        var existing = document.querySelector('.ardify-toast');
+        if (existing) existing.remove();
+
+        var toast = document.createElement('div');
+        toast.className = 'ardify-toast ' + type;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(function() {
+          toast.style.opacity = '0';
+          toast.style.transition = 'all 0.3s ease';
+          setTimeout(function() { toast.remove(); }, 300);
+        }, 3000);
+      };
+
+      // ─── MOBILE TOGGLE ──────────────────────────────────
+      var toggle = document.getElementById('mobileToggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebarOverlay');
+
+      if (toggle && sidebar) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          sidebar.classList.toggle('active');
+          if (overlay) overlay.classList.toggle('active');
+        });
+      }
+
+      if (overlay) {
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+      }
+
+      // ─── SEARCH & FILTER ──────────────────────────────
+      var searchInput = document.getElementById('individualSearch');
+      var statusSelect = document.getElementById('individualStatus');
+      var rows = document.querySelectorAll('#individualTbody tr');
+
+      function filterTable() {
+        var search = searchInput ? searchInput.value.toLowerCase() : '';
+        var status = statusSelect ? statusSelect.value : 'all';
+
+        rows.forEach(function(row) {
+          var text = row.textContent.toLowerCase();
+          var badge = row.querySelector('.chip');
+          var badgeText = badge ? badge.textContent.toLowerCase().replace(/\s/g, '-') : '';
+
+          var matchesSearch = text.includes(search);
+          var matchesStatus = status === 'all' || badgeText === status;
+
+          row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+        });
+      }
+
+      if (searchInput) {
+        searchInput.addEventListener('input', filterTable);
+      }
+
+      if (statusSelect) {
+        statusSelect.addEventListener('change', filterTable);
+      }
+
+      // ─── ACTION BUTTONS ──────────────────────────────────
+      document.querySelectorAll('.linkBtn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          var action = this.textContent.trim();
+          var row = this.closest('tr');
+          var name = row ? row.querySelector('.strong')?.textContent : 'Unknown';
+          console.log('📋 Action:', action, 'on', name);
+        });
+      });
+
+      console.log('✅ Individual Projects page ready!');
+    });
+  </script>
+
+</body>
+</html>

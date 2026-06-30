@@ -1,0 +1,897 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Detail | Ardify</title>
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/course-detail.css" />
+  </head>
+  <body>
+    <!-- nav -->
+    <section class="navsec">
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <img src="./Images/Ardifylogo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./courses.html">Courses</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+          <div class="btn_action">
+            <a class="sign_in" href="./login.html">
+              Login<ion-icon name="log-in"></ion-icon>
+            </a>
+            <button class="Get" type="button" onclick="location.href='./signup.html'">
+              Sign-up
+            </button>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <section class="breadcrumb_sec">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="./index.html">Home</a>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          <a href="./courses.html">Courses</a>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+          <span id="breadcrumbTitle">Course Detail</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Course Hero -->
+    <section class="course_hero_sec" id="courseHero">
+      <div class="container">
+        <div class="course_hero_layout">
+
+          <!-- Left: Course Info -->
+          <div class="course_hero_left">
+            <div class="course_tags">
+              <span class="tag_badge advanced" id="courseLevel">Advanced</span>
+              <span class="tag_badge category" id="courseCategory">Web Development</span>
+              <span class="tag_featured"><ion-icon name="star"></ion-icon> <span id="courseStatus">Featured</span></span>
+            </div>
+            <h1 class="course_hero_title" id="courseTitle">Full-Stack Web Development Bootcamp</h1>
+            <p class="course_hero_desc" id="courseDescription">
+              Master everything from building responsive frontends with HTML, CSS & JavaScript to powerful backends with Node.js, databases, and deploying real-world full-stack web applications from scratch.
+            </p>
+            <div class="course_instructor_row">
+              <div class="instructor_avatar">
+                <ion-icon name="person-circle-outline"></ion-icon>
+              </div>
+              <div>
+                <span class="instructor_name" id="instructorName">Ardify Instructor</span>
+                <span class="instructor_label">Instructor</span>
+              </div>
+              <div class="course_quick_stats">
+                <span><ion-icon name="play-circle-outline"></ion-icon> <span id="lessonCount">110</span> lessons</span>
+                <span><ion-icon name="time-outline"></ion-icon> <span id="courseDuration">22h 48m</span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Purchase Card (sticky) -->
+          <div class="course_purchase_card" id="purchaseCard">
+            <div class="purchase_thumb">
+              <img id="courseThumbnail" src="./Images/ChatGPT Image Jun 2, 2026, 05_13_15 PM.png" alt="Course Preview" />
+              <button class="preview_btn" id="watchPreviewBtn">
+                <ion-icon name="play-circle-outline"></ion-icon> Watch preview
+              </button>
+            </div>
+            <div class="purchase_body">
+              <div class="price_row">
+                <span class="price_current" id="currentPrice">$39.20</span>
+                <span class="price_original" id="originalPrice">$49.00</span>
+                <span class="price_discount" id="discountBadge">-20%</span>
+              </div>
+              <p class="access_label"><ion-icon name="time-outline"></ion-icon> 6 months access</p>
+              <div class="purchase_actions">
+                <button class="enroll_btn" id="enrollBtn">Enroll Now</button>
+                <button class="cart_btn"><ion-icon name="cart-outline"></ion-icon> Add to Cart</button>
+              </div>
+              <div class="whats_included">
+                <h4>WHAT'S INCLUDED</h4>
+                <ul>
+                  <li><ion-icon name="checkmark-circle-outline"></ion-icon> <span id="includedLessons">110</span> video lessons</li>
+                  <li><ion-icon name="checkmark-circle-outline"></ion-icon> <span id="includedDuration">22h 48m</span> of content</li>
+                  <li><ion-icon name="checkmark-circle-outline"></ion-icon> Certificate of completion</li>
+                  <li><ion-icon name="checkmark-circle-outline"></ion-icon> 6 months access</li>
+                  <li><ion-icon name="checkmark-circle-outline"></ion-icon> Source code & resources</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CREATE/EDIT FORM (Hidden by default) -->
+    <section class="course_hero_sec" id="editForm" style="display:none;">
+      <div class="container">
+        <div class="course_hero_layout" style="display:block;">
+          <h2 id="formTitle" style="color:white; margin-bottom:20px;">🚀 Create New Course</h2>
+          <form id="courseForm" style="max-width:800px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+              <div class="form-group">
+                <label style="color:var(--Silver); font-size:12px; text-transform:uppercase;">Course Title *</label>
+                <input type="text" id="editTitle" class="input" placeholder="Enter course title" style="width:100%; padding:12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; color:white;">
+              </div>
+              <div class="form-group">
+                <label style="color:var(--Silver); font-size:12px; text-transform:uppercase;">Category *</label>
+                <select id="editCategory" class="input" style="width:100%; padding:12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; color:white;">
+                  <option value="Web Development">💻 Web Development</option>
+                  <option value="UI/UX Design">🎨 UI/UX Design</option>
+                  <option value="Cybersecurity">🔒 Cybersecurity</option>
+                  <option value="Data Science">📊 Data Science</option>
+                  <option value="AI & Machine Learning">🤖 AI & Machine Learning</option>
+                  <option value="Networking">🌐 Networking</option>
+                  <option value="Digital Marketing">📈 Digital Marketing</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label style="color:var(--Silver); font-size:12px; text-transform:uppercase;">Level *</label>
+                <select id="editLevel" class="input" style="width:100%; padding:12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; color:white;">
+                  <option value="Beginner">🟢 Beginner</option>
+                  <option value="Intermediate">🟡 Intermediate</option>
+                  <option value="Advanced">🔴 Advanced</option>
+                  <option value="Expert">🏆 Expert</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label style="color:var(--Silver); font-size:12px; text-transform:uppercase;">Price ($)</label>
+                <input type="number" id="editPrice" class="input" placeholder="0" value="0" style="width:100%; padding:12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; color:white;">
+              </div>
+            </div>
+            <div class="form-group" style="margin-top:16px;">
+              <label style="color:var(--Silver); font-size:12px; text-transform:uppercase;">Description</label>
+              <textarea id="editDescription" rows="4" class="input" placeholder="Course description..." style="width:100%; padding:12px; background:rgba(255,255,255,0.04); border:1px solid var(--border); border-radius:10px; color:white; resize:vertical;"></textarea>
+            </div>
+            <div style="display:flex; gap:12px; margin-top:20px;">
+              <button type="submit" class="btn btn--primary" style="padding:14px 32px; background:#ff6000; color:white; border:none; border-radius:10px; cursor:pointer; font-size:16px; font-weight:600;">
+                💾 Save Course
+              </button>
+              <button type="button" onclick="cancelEdit()" class="btn" style="padding:14px 32px; background:transparent; color:var(--Silver); border:1px solid var(--border); border-radius:10px; cursor:pointer; font-size:16px;">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- What You'll Learn -->
+    <section class="learn_sec" id="learnSection">
+      <div class="container">
+        <div class="learn_card">
+          <h2>What you'll learn</h2>
+          <div class="learn_grid" id="learnGrid">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Curriculum -->
+    <section class="curriculum_sec" id="curriculumSection">
+      <div class="container">
+        <h2 class="section_heading">Curriculum</h2>
+        <div class="curriculum_meta">
+          <span id="curriculumSections">10 sections</span>
+          <span class="dot">•</span>
+          <span id="curriculumLessons">110 lessons</span>
+          <span class="dot">•</span>
+          <span id="curriculumDuration">22h 48m total</span>
+          <button class="expand_all_btn" id="expandAll">Expand all</button>
+        </div>
+        <div class="curriculum_list" id="curriculumList">
+          <!-- Dynamic content -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructor Section -->
+    <section class="instructor_sec" id="instructorSection">
+      <div class="container">
+        <h2 class="section_heading">Your instructor</h2>
+        <div class="instructor_card">
+          <div class="instructor_photo">
+            <ion-icon name="person-circle-outline"></ion-icon>
+          </div>
+          <div class="instructor_details">
+            <div class="instructor_name_row">
+              <h3 id="instructorName2">Ardify Instructor</h3>
+              <ion-icon name="checkmark-circle" class="verified_icon"></ion-icon>
+            </div>
+            <p class="instructor_bio" id="instructorBio">
+              A passionate full-stack developer with years of experience building and shipping real-world web applications.
+            </p>
+            <div class="instructor_stats">
+              <span><ion-icon name="book-outline"></ion-icon> <span id="instructorCourses">8</span> courses</span>
+              <span><ion-icon name="people-outline"></ion-icon> <span id="instructorStudents">3K+</span> students</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer_top">
+          <div class="footer_brand">
+            <div class="footer_logo">
+              <img src="./Images/Ardifylogo.png" alt="Ardify Logo" />
+            </div>
+            <p class="footer_desc">
+              Somalia's leading e-learning platform. Learn smarter, grow faster
+              with structured courses and interactive lessons built for the digital age.
+            </p>
+            <div class="footer_socials">
+              <a href="" class="social_link"><ion-icon name="logo-youtube"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-github"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-whatsapp"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-facebook"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-twitter"></ion-icon></a>
+              <a href="" class="social_link"><ion-icon name="logo-linkedin"></ion-icon></a>
+            </div>
+          </div>
+          <div class="footer_col">
+            <h4 class="footer_col_title">Product</h4>
+            <ul class="footer_links">
+              <li><a href="">Courses</a></li>
+              <li><a href="">Quizzes</a></li>
+              <li><a href="">Progress Tracking</a></li>
+              <li><a href="">AI Assistant</a></li>
+              <li><a href="">Certificates</a></li>
+            </ul>
+          </div>
+          <div class="footer_col">
+            <h4 class="footer_col_title">Company</h4>
+            <ul class="footer_links">
+              <li><a href="">About Us</a></li>
+              <li><a href="">Contact</a></li>
+              <li><a href="">Blog</a></li>
+              <li><a href="">Careers</a></li>
+            </ul>
+          </div>
+          <div class="footer_col">
+            <h4 class="footer_col_title">Legal</h4>
+            <ul class="footer_links">
+              <li><a href="">Privacy Policy</a></li>
+              <li><a href="">Terms of Service</a></li>
+              <li><a href="">Cookie Policy</a></li>
+              <li><a href="">Refund Policy</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer_bottom">
+          <p class="footer_copy">© 2026 Ardify. All rights reserved.</p>
+          <p class="footer_made">Proudly built in Somalia <ion-icon name="heart" class="heart_icon"></ion-icon></p>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- ── VIDEO PLAYER MODAL ── -->
+    <div id="videoModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.92);align-items:center;justify-content:center;flex-direction:column;">
+      <div style="position:relative;width:90%;max-width:960px;">
+        <button onclick="ArdifyCourseDetail.closePlayer()" style="position:absolute;top:-44px;right:0;background:none;border:none;color:white;font-size:28px;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:'Space Grotesk',sans-serif;font-size:14px;">
+          <ion-icon name="close-outline" style="font-size:24px;"></ion-icon> Close
+        </button>
+        <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:16px;overflow:hidden;background:#000;">
+          <iframe id="courseVideoFrame" src="" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div style="margin-top:16px;color:white;font-family:'Space Grotesk',sans-serif;">
+          <div id="videoModalTitle" style="font-size:18px;font-weight:600;"></div>
+          <div id="videoModalMeta" style="font-size:13px;color:#99a1af;margin-top:4px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── NOT PAID MODAL ── -->
+    <div id="notPaidModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);align-items:center;justify-content:center;">
+      <div style="background:#0d1320;border:1px solid #1b2333;border-radius:20px;padding:40px;max-width:440px;width:90%;text-align:center;font-family:'Space Grotesk',sans-serif;">
+        <div style="font-size:56px;margin-bottom:16px;">🔒</div>
+        <h2 style="color:white;font-size:20px;font-weight:700;margin-bottom:10px;">Course Locked</h2>
+        <p style="color:#99a1af;font-size:14px;margin-bottom:24px;">You haven't paid for this course yet. Complete payment to unlock all lessons and start learning.</p>
+        <div style="display:flex;gap:12px;justify-content:center;">
+          <button onclick="ArdifyCourseDetail.goCheckout()" style="background:#ff6000;color:white;border:none;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Space Grotesk',sans-serif;">Pay Now →</button>
+          <button onclick="ArdifyCourseDetail.closeNotPaid()" style="background:rgba(255,255,255,0.06);color:#99a1af;border:1px solid #1b2333;padding:12px 28px;border-radius:10px;font-size:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;">Back</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="./JS/api.js"></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/app.js"></script>
+    <script src="./JS/auth.js"></script>
+    <script src="./JS/ui.js"></script>
+
+    <script>
+    /* ── COMPLETE COURSE DETAIL WITH YOUTUBE INTEGRATION ── */
+    (function() {
+      'use strict';
+
+      // ─── GET MODE ──────────────────────────────────────────
+      const urlParams = new URLSearchParams(window.location.search);
+      const courseId = urlParams.get('id');
+      const isEditMode = courseId && urlParams.get('edit') === 'true';
+      const isCreateMode = !courseId;
+
+      // ─── REFERENCES ──────────────────────────────────────
+      const viewMode = document.getElementById('courseHero');
+      const editForm = document.getElementById('editForm');
+      const learnSection = document.getElementById('learnSection');
+      const curriculumSection = document.getElementById('curriculumSection');
+      const instructorSection = document.getElementById('instructorSection');
+      const purchaseCard = document.getElementById('purchaseCard');
+
+      // ─── YOUTUBE VIDEO CONFIG ──────────────────────────
+      const YOUTUBE_VIDEOS = {
+        // Course ID → YouTube video ID
+        'fullstack': {
+          preview: 'ysEN5RaKOlA',
+          lessons: [
+            { id: 1, title: 'Welcome & Course Overview', duration: '8:32', videoId: 'ysEN5RaKOlA' },
+            { id: 2, title: 'Setting Up Your Development Environment', duration: '12:15', videoId: 'dQw4w9WgXcQ' },
+            { id: 3, title: 'How the Web Works', duration: '10:42', videoId: 'ysEN5RaKOlA' },
+            { id: 4, title: 'HTML Structure & Semantics', duration: '15:20', videoId: 'dQw4w9WgXcQ' },
+            { id: 5, title: 'CSS Selectors & Box Model', duration: '18:45', videoId: 'ysEN5RaKOlA' },
+            { id: 6, title: 'Flexbox & Grid Layout', duration: '22:10', videoId: 'dQw4w9WgXcQ' },
+            { id: 7, title: 'Responsive Design Principles', duration: '14:30', videoId: 'ysEN5RaKOlA' },
+            { id: 8, title: 'Variables, Data Types & Operators', duration: '20:05', videoId: 'dQw4w9WgXcQ' },
+            { id: 9, title: 'Functions & Scope', duration: '19:30', videoId: 'ysEN5RaKOlA' },
+            { id: 10, title: 'DOM Manipulation & Events', duration: '25:15', videoId: 'dQw4w9WgXcQ' },
+          ]
+        },
+        'uiux': {
+          preview: 'c9Wg6Cb_YlU',
+          lessons: [
+            { id: 1, title: 'Introduction to UI/UX Design', duration: '10:00', videoId: 'c9Wg6Cb_YlU' },
+            { id: 2, title: 'Design Thinking Process', duration: '15:30', videoId: 'dQw4w9WgXcQ' },
+            { id: 3, title: 'User Research Methods', duration: '12:45', videoId: 'c9Wg6Cb_YlU' },
+          ]
+        },
+        'cyber': {
+          preview: '3Kq1MIfTWCE',
+          lessons: [
+            { id: 1, title: 'Cybersecurity Fundamentals', duration: '11:20', videoId: '3Kq1MIfTWCE' },
+            { id: 2, title: 'Network Security Basics', duration: '14:10', videoId: 'dQw4w9WgXcQ' },
+            { id: 3, title: 'Cryptography Introduction', duration: '16:45', videoId: '3Kq1MIfTWCE' },
+          ]
+        }
+      };
+
+      // Default course data with YouTube videos
+      const DEFAULT_COURSE = {
+        id: 'fullstack',
+        title: 'Full-Stack Web Development Bootcamp',
+        category: 'Web Development',
+        level: 'Advanced',
+        description: 'Master everything from building responsive frontends with HTML, CSS & JavaScript to powerful backends with Node.js, databases, and deploying real-world full-stack web applications from scratch.',
+        price: 49.00,
+        lessons: YOUTUBE_VIDEOS.fullstack.lessons,
+        previewVideoId: YOUTUBE_VIDEOS.fullstack.preview,
+        instructor: {
+          firstName: 'Ardify',
+          lastName: 'Instructor',
+          bio: 'A passionate full-stack developer with years of experience building and shipping real-world web applications.',
+        },
+        objectives: [
+          'Build responsive websites using HTML, CSS, and JavaScript',
+          'Create interactive user interfaces with React',
+          'Develop robust backend APIs using Node.js',
+          'Design and manage databases with MongoDB and PostgreSQL',
+          'Deploy full-stack applications to cloud platforms',
+          'Implement authentication and authorization systems'
+        ],
+        isPublished: true,
+        enrollmentCount: 1245,
+        rating: 4.8
+      };
+
+      // ─── CHECK AUTH ──────────────────────────────────────
+      function checkAuth() {
+        if (typeof window.ArdifyAuth === 'undefined') {
+          console.error('❌ ArdifyAuth not loaded.');
+          return false;
+        }
+        if (!window.ArdifyAuth.isLoggedIn()) {
+          console.warn('⚠️ User not logged in.');
+          window.location.href = './login.html';
+          return false;
+        }
+        return true;
+      }
+
+      // ─── GET USER ENROLLMENT STATUS ──────────────────────
+      function isUserEnrolled(courseId) {
+        try {
+          const user = window.ArdifyAuth.getUser();
+          if (!user || !user.enrolledCourses) return false;
+          return user.enrolledCourses.some(c => c.courseId === courseId || c.id === courseId);
+        } catch (e) {
+          return false;
+        }
+      }
+
+      // ─── PLAY VIDEO ──────────────────────────────────────
+      function playVideo(videoId, title, meta) {
+        const modal = document.getElementById('videoModal');
+        const frame = document.getElementById('courseVideoFrame');
+        const titleEl = document.getElementById('videoModalTitle');
+        const metaEl = document.getElementById('videoModalMeta');
+
+        if (videoId) {
+          frame.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+          titleEl.textContent = title || 'Video Lesson';
+          metaEl.textContent = meta || '';
+          modal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        } else {
+          // Show "not paid" modal if not enrolled
+          const notPaidModal = document.getElementById('notPaidModal');
+          if (notPaidModal) notPaidModal.style.display = 'flex';
+        }
+      }
+
+      // ─── LOAD COURSE FOR VIEW ────────────────────────────
+      function loadCourseForView(id) {
+        try {
+          // Check if we have this course in our YouTube config
+          let courseData = null;
+          let localCourse = null;
+
+          // Try to get from API first
+          if (typeof window.ArdifyApi !== 'undefined') {
+            window.ArdifyApi.get('/courses/' + id)
+              .then(course => {
+                if (course) {
+                  populateView(course);
+                } else {
+                  loadFromLocalOrConfig(id);
+                }
+              })
+              .catch(() => loadFromLocalOrConfig(id));
+          } else {
+            loadFromLocalOrConfig(id);
+          }
+
+          function loadFromLocalOrConfig(id) {
+            // Check localStorage
+            const localCourses = JSON.parse(localStorage.getItem('myCourses') || '[]');
+            localCourse = localCourses.find(c => c.id === id);
+
+            // Check YouTube config
+            if (YOUTUBE_VIDEOS[id]) {
+              courseData = {
+                id: id,
+                title: id === 'fullstack' ? 'Full-Stack Web Development Bootcamp' :
+                       id === 'uiux' ? 'UI/UX Design Masterclass' :
+                       id === 'cyber' ? 'Cybersecurity Fundamentals' : 'Course',
+                category: id === 'fullstack' ? 'Web Development' :
+                          id === 'uiux' ? 'UI/UX Design' : 'Cybersecurity',
+                level: id === 'fullstack' ? 'Advanced' :
+                       id === 'uiux' ? 'Intermediate' : 'Beginner',
+                description: localCourse?.description || DEFAULT_COURSE.description,
+                price: localCourse?.price || DEFAULT_COURSE.price,
+                lessons: YOUTUBE_VIDEOS[id].lessons || [],
+                previewVideoId: YOUTUBE_VIDEOS[id].preview || '',
+                instructor: localCourse?.instructor || DEFAULT_COURSE.instructor,
+                objectives: localCourse?.objectives || DEFAULT_COURSE.objectives,
+                isPublished: localCourse?.isPublished !== undefined ? localCourse.isPublished : true,
+                enrollmentCount: localCourse?.enrollmentCount || 0,
+                rating: localCourse?.rating || 0,
+                thumbnail: localCourse?.thumbnail || './Images/ChatGPT Image Jun 2, 2026, 05_13_15 PM.png'
+              };
+            } else if (localCourse) {
+              courseData = localCourse;
+            } else {
+              // Fallback to default
+              courseData = DEFAULT_COURSE;
+              courseData.id = id;
+            }
+
+            populateView(courseData);
+          }
+
+        } catch (error) {
+          console.error('Error loading course:', error);
+          populateView(DEFAULT_COURSE);
+        }
+      }
+
+      // ─── POPULATE VIEW ────────────────────────────────────
+      function populateView(course) {
+        const enrolled = isUserEnrolled(course.id);
+
+        // Title
+        document.getElementById('courseTitle').textContent = course.title || 'Untitled Course';
+        document.getElementById('breadcrumbTitle').textContent = course.title || 'Course Detail';
+        document.title = (course.title || 'Course') + ' | Ardify';
+
+        // Description
+        document.getElementById('courseDescription').textContent = course.description || course.summary || 'No description available.';
+
+        // Category & Level
+        document.getElementById('courseCategory').textContent = course.category || 'General';
+        document.getElementById('courseLevel').textContent = course.level || 'Beginner';
+        document.getElementById('courseStatus').textContent = course.isPublished ? '✅ Live' : '📝 Draft';
+
+        // Instructor
+        const instructorName = course.instructor?.firstName 
+          ? `${course.instructor.firstName} ${course.instructor.lastName || ''}`.trim()
+          : 'Ardify Instructor';
+        document.getElementById('instructorName').textContent = instructorName;
+        document.getElementById('instructorName2').textContent = instructorName;
+
+        // Stats
+        const lessonCount = course.lessons?.length || 0;
+        const totalDuration = course.lessons?.reduce((sum, l) => {
+          const dur = l.duration || '0m';
+          const minutes = parseInt(dur);
+          return sum + (isNaN(minutes) ? 0 : minutes);
+        }, 0) || 0;
+        const hours = Math.floor(totalDuration / 60);
+        const minutes = totalDuration % 60;
+        const durationStr = hours > 0 ? `${hours}h ${minutes > 0 ? minutes + 'm' : ''}` : `${minutes}m`;
+
+        document.getElementById('lessonCount').textContent = lessonCount;
+        document.getElementById('courseDuration').textContent = durationStr || '0h';
+        document.getElementById('includedLessons').textContent = lessonCount;
+        document.getElementById('includedDuration').textContent = durationStr || '0h';
+
+        // Price
+        const price = course.price || 0;
+        const discountedPrice = Math.round(price * 0.8);
+        document.getElementById('currentPrice').textContent = price > 0 ? '$' + discountedPrice.toFixed(2) : 'FREE';
+        document.getElementById('originalPrice').textContent = price > 0 ? '$' + price.toFixed(2) : '';
+        document.getElementById('discountBadge').textContent = price > 0 ? '-20%' : 'FREE';
+
+        // Thumbnail
+        if (course.thumbnail) {
+          document.getElementById('courseThumbnail').src = course.thumbnail;
+        }
+
+        // Instructor Bio
+        if (course.instructor?.bio) {
+          document.getElementById('instructorBio').textContent = course.instructor.bio;
+        }
+
+        // Enroll button - redirect to checkout
+        const enrollBtn = document.getElementById('enrollBtn');
+        if (enrollBtn) {
+          if (enrolled) {
+            enrollBtn.textContent = '▶ Start Learning';
+            enrollBtn.style.background = '#22c55e';
+            enrollBtn.onclick = function() {
+              // Open first lesson video
+              if (course.lessons && course.lessons.length > 0) {
+                const firstLesson = course.lessons[0];
+                playVideo(firstLesson.videoId, firstLesson.title, 'Lesson 1 of ' + course.lessons.length);
+              } else if (course.previewVideoId) {
+                playVideo(course.previewVideoId, course.title + ' - Preview', 'Course preview');
+              }
+            };
+          } else {
+            enrollBtn.textContent = 'Enroll Now';
+            enrollBtn.style.background = '#ff6000';
+            enrollBtn.onclick = function() {
+              window.location.href = './checkout.html?courseId=' + course.id;
+            };
+          }
+        }
+
+        // Preview button
+        const previewBtn = document.getElementById('watchPreviewBtn');
+        if (previewBtn) {
+          const previewId = course.previewVideoId || (course.lessons?.[0]?.videoId) || 'dQw4w9WgXcQ';
+          previewBtn.onclick = function() {
+            if (enrolled || true) { // Allow preview for everyone
+              playVideo(previewId, course.title + ' - Preview', 'Course preview');
+            } else {
+              document.getElementById('notPaidModal').style.display = 'flex';
+            }
+          };
+        }
+
+        // What You'll Learn
+        const learnGrid = document.getElementById('learnGrid');
+        if (course.objectives && course.objectives.length > 0) {
+          learnGrid.innerHTML = course.objectives.map(obj => `
+            <div class="learn_item">
+              <ion-icon name="checkmark-outline"></ion-icon>
+              <span>${obj}</span>
+            </div>
+          `).join('');
+        } else {
+          learnGrid.innerHTML = `
+            <div class="learn_item">
+              <ion-icon name="checkmark-outline"></ion-icon>
+              <span>No learning objectives defined yet.</span>
+            </div>
+          `;
+        }
+
+        // Curriculum - with YouTube links
+        const curriculumList = document.getElementById('curriculumList');
+        if (course.lessons && course.lessons.length > 0) {
+          const sections = Math.ceil(course.lessons.length / 6);
+          document.getElementById('curriculumSections').textContent = sections + ' sections';
+          document.getElementById('curriculumLessons').textContent = course.lessons.length + ' lessons';
+          document.getElementById('curriculumDuration').textContent = durationStr || '0h';
+
+          curriculumList.innerHTML = Array.from({ length: sections }, (_, si) => {
+            const start = si * 6;
+            const end = Math.min(start + 6, course.lessons.length);
+            const sectionLessons = course.lessons.slice(start, end);
+            const isFirst = si === 0;
+            return `
+              <div class="curriculum_section open">
+                <button class="section_header" onclick="toggleSection(this)">
+                  <span class="section_num">0${si + 1}</span>
+                  <div class="section_info">
+                    <span class="section_title_text">${sectionLessons[0]?.title?.split(':')[0] || 'Section ' + (si + 1)}</span>
+                    <span class="section_meta">${sectionLessons.length} lessons</span>
+                  </div>
+                  <ion-icon name="chevron-up-outline" class="section_arrow"></ion-icon>
+                </button>
+                <div class="section_lessons">
+                  ${sectionLessons.map((lesson, li) => `
+                    <div class="lesson_item ${isFirst && li === 0 ? 'free_lesson' : ''}" 
+                         onclick="${enrolled || isFirst ? `playVideo('${lesson.videoId || course.previewVideoId || 'dQw4w9WgXcQ'}', '${lesson.title}', 'Lesson ${li + 1} of ${course.lessons.length}')` : `document.getElementById('notPaidModal').style.display='flex'`}">
+                      <span class="lesson_num">${String(li + 1).padStart(2, '0')}</span>
+                      <ion-icon name="${isFirst && li === 0 ? 'play-circle' : 'play-circle-outline'}" class="lesson_icon ${isFirst && li === 0 ? 'active_icon' : ''}"></ion-icon>
+                      <span class="lesson_name">${lesson.title || 'Lesson ' + (li + 1)}</span>
+                      ${isFirst && li === 0 ? '<span class="free_badge">FREE</span>' : ''}
+                      ${!enrolled && !isFirst ? '<span class="lock_icon">🔒</span>' : ''}
+                      <span class="lesson_dur">${lesson.duration || '0m'}</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          curriculumList.innerHTML = `
+            <div class="curriculum_section open">
+              <div class="section_lessons">
+                <div class="lesson_item">
+                  <span class="lesson_name">No lessons defined yet.</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // Update instructor stats
+        document.getElementById('instructorCourses').textContent = course.instructor?.coursesCount || '8';
+        document.getElementById('instructorStudents').textContent = course.instructor?.studentsCount || '3K+';
+      }
+
+      // ─── CREATE/EDIT MODE ──────────────────────────────────
+      function showCreateMode() {
+        viewMode.style.display = 'none';
+        editForm.style.display = 'block';
+        learnSection.style.display = 'none';
+        curriculumSection.style.display = 'none';
+        instructorSection.style.display = 'none';
+        purchaseCard.style.display = 'none';
+        document.getElementById('formTitle').textContent = '🚀 Create New Course';
+        document.getElementById('breadcrumbTitle').textContent = 'Create Course';
+        document.title = 'Create Course | Ardify';
+      }
+
+      function showEditMode() {
+        viewMode.style.display = 'none';
+        editForm.style.display = 'block';
+        learnSection.style.display = 'none';
+        curriculumSection.style.display = 'none';
+        instructorSection.style.display = 'none';
+        purchaseCard.style.display = 'none';
+        document.getElementById('formTitle').textContent = '✏️ Edit Course';
+        document.getElementById('breadcrumbTitle').textContent = 'Edit Course';
+        document.title = 'Edit Course | Ardify';
+        loadCourseForEdit(courseId);
+      }
+
+      async function loadCourseForEdit(id) {
+        try {
+          const course = await window.ArdifyApi.get('/courses/' + id);
+          document.getElementById('editTitle').value = course.title || '';
+          document.getElementById('editCategory').value = course.category || 'Web Development';
+          document.getElementById('editLevel').value = course.level || 'Beginner';
+          document.getElementById('editPrice').value = course.price || 0;
+          document.getElementById('editDescription').value = course.description || course.summary || '';
+        } catch (error) {
+          console.error('Error loading course for edit:', error);
+          // Try localStorage
+          const localCourses = JSON.parse(localStorage.getItem('myCourses') || '[]');
+          const localCourse = localCourses.find(c => c.id === id);
+          if (localCourse) {
+            document.getElementById('editTitle').value = localCourse.title || '';
+            document.getElementById('editCategory').value = localCourse.category || 'Web Development';
+            document.getElementById('editLevel').value = localCourse.level || 'Beginner';
+            document.getElementById('editPrice').value = localCourse.price || 0;
+            document.getElementById('editDescription').value = localCourse.description || '';
+          }
+        }
+      }
+
+      function cancelEdit() {
+        if (courseId) {
+          window.location.href = './course-detail.html?id=' + courseId;
+        } else {
+          window.location.href = './courses.html';
+        }
+      }
+
+      // ─── FORM SUBMISSION ──────────────────────────────────
+      document.getElementById('courseForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const title = document.getElementById('editTitle').value.trim();
+        if (!title) {
+          alert('Please enter a course title.');
+          return;
+        }
+
+        const courseData = {
+          title: title,
+          category: document.getElementById('editCategory').value,
+          level: document.getElementById('editLevel').value,
+          price: parseFloat(document.getElementById('editPrice').value) || 0,
+          description: document.getElementById('editDescription').value,
+          summary: document.getElementById('editDescription').value,
+          lessons: [],
+          isPublished: false,
+          status: 'draft',
+          language: 'English',
+        };
+
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = '⏳ Saving...';
+        submitBtn.disabled = true;
+
+        try {
+          let result;
+          if (courseId) {
+            // Edit mode
+            result = await window.ArdifyApi.put('/courses/' + courseId, courseData);
+            alert('✅ Course updated successfully!');
+          } else {
+            // Create mode
+            result = await window.ArdifyApi.post('/courses/create', courseData);
+            alert('✅ Course created successfully!');
+          }
+
+          // Save to localStorage
+          const course = {
+            id: result.course?._id || result._id || courseId || 'course_' + Date.now(),
+            ...courseData,
+            createdAt: new Date().toISOString(),
+            enrollmentCount: 0,
+            rating: 0,
+            progress: 0
+          };
+
+          let courses = JSON.parse(localStorage.getItem('myCourses') || '[]');
+          const existingIndex = courses.findIndex(c => c.id === course.id);
+          if (existingIndex >= 0) {
+            courses[existingIndex] = course;
+          } else {
+            courses.push(course);
+          }
+          localStorage.setItem('myCourses', JSON.stringify(courses));
+
+          window.location.href = './courses.html';
+
+        } catch (error) {
+          console.error('Error saving course:', error);
+          alert('❌ Failed to save course: ' + (error.message || 'Unknown error'));
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }
+      });
+
+      // ─── TOGGLE SECTION ──────────────────────────────────
+      window.toggleSection = function(btn) {
+        const section = btn.closest('.curriculum_section');
+        const lessons = section.querySelector('.section_lessons');
+        const arrow = btn.querySelector('.section_arrow');
+
+        if (section.classList.contains('open')) {
+          section.classList.remove('open');
+          lessons.style.display = 'none';
+          arrow.name = 'chevron-down-outline';
+        } else {
+          section.classList.add('open');
+          lessons.style.display = 'block';
+          arrow.name = 'chevron-up-outline';
+        }
+      };
+
+      // ─── EXPAND ALL ──────────────────────────────────────
+      document.getElementById('expandAll')?.addEventListener('click', function() {
+        const sections = document.querySelectorAll('.curriculum_section');
+        const allOpen = Array.from(sections).every(s => s.classList.contains('open'));
+
+        sections.forEach(section => {
+          const lessons = section.querySelector('.section_lessons');
+          const arrow = section.querySelector('.section_arrow');
+          if (allOpen) {
+            section.classList.remove('open');
+            lessons.style.display = 'none';
+            arrow.name = 'chevron-down-outline';
+          } else {
+            section.classList.add('open');
+            lessons.style.display = 'block';
+            arrow.name = 'chevron-up-outline';
+          }
+        });
+
+        this.textContent = allOpen ? 'Expand all' : 'Collapse all';
+      });
+
+      // ─── INIT ────────────────────────────────────────────
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Course Detail page initializing...');
+
+        if (!checkAuth()) return;
+
+        const user = getUser();
+
+        if (isCreateMode) {
+          showCreateMode();
+        } else if (isEditMode) {
+          showEditMode();
+        } else if (courseId) {
+          loadCourseForView(courseId);
+        } else {
+          // No ID - load default or show create
+          if (YOUTUBE_VIDEOS['fullstack']) {
+            loadCourseForView('fullstack');
+          } else {
+            showCreateMode();
+          }
+        }
+
+        console.log('✅ Course Detail page ready!');
+      });
+
+      // ─── EXPOSE ──────────────────────────────────────────
+      window.ArdifyCourseDetail = {
+        playVideo: playVideo,
+        closePlayer: function() {
+          const modal = document.getElementById('videoModal');
+          const frame = document.getElementById('courseVideoFrame');
+          if (frame) frame.src = '';
+          if (modal) modal.style.display = 'none';
+          document.body.style.overflow = '';
+        },
+        closeNotPaid: function() {
+          const modal = document.getElementById('notPaidModal');
+          if (modal) modal.style.display = 'none';
+        },
+        goCheckout: function() {
+          window.location.href = './checkout.html?courseId=' + courseId;
+        }
+      };
+
+    })();
+    </script>
+
+  </body>
+</html>

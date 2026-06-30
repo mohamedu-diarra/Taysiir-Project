@@ -1,0 +1,588 @@
+/* ============================================
+   COURSE DETAIL PAGE — course-detail.css
+   Uses Ardify design system: --Orange, --darkblue, --Silver, --White, --Black
+   Font: Space Grotesk
+   ============================================ */
+
+/* ---- Breadcrumb ---- */
+.breadcrumb_sec {
+  background-color: var(--darkblue);
+  padding: 14px 0;
+  border-bottom: 1px solid #1b2333;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  color: var(--Silver);
+}
+.course_card a {
+  text-decoration: none;
+}
+.breadcrumb a {
+  color: var(--Silver);
+  text-decoration: none;
+  transition: color 0.3s;
+  
+}
+.breadcrumb a:hover { color: var(--Orange); }
+.breadcrumb span { color: var(--White); }
+.breadcrumb ion-icon { font-size: 13px; color: var(--Silver); }
+
+/* ---- Course Hero Section ---- */
+.course_hero_sec {
+  background-color: var(--Black);
+  padding: 50px 0 0 0;
+}
+.course_hero_layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 40px;
+  align-items: start;
+}
+
+/* Left side */
+.course_hero_left { padding-bottom: 50px; }
+
+.course_tags {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.tag_badge {
+  font-family: "Space Grotesk";
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tag_badge.advanced {
+  background-color: rgba(255, 96, 0, 0.15);
+  color: var(--Orange);
+  border: 1px solid rgba(255, 96, 0, 0.3);
+}
+.tag_badge.category {
+  background-color: rgba(153, 161, 175, 0.1);
+  color: var(--Silver);
+  border: 1px solid rgba(153, 161, 175, 0.2);
+}
+.tag_featured {
+  font-family: "Space Grotesk";
+  font-size: 12px;
+  color: #fdc700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tag_featured ion-icon { color: #fdc700; }
+
+.course_hero_title {
+  font-family: "Space Grotesk";
+  font-size: 36px;
+  color: var(--White);
+  line-height: 1.25;
+  margin-bottom: 18px;
+  max-width: 700px;
+}
+.course_hero_desc {
+  font-family: "Space Grotesk";
+  font-size: 16px;
+  color: var(--Silver);
+  line-height: 1.7;
+  max-width: 650px;
+  margin-bottom: 28px;
+}
+.course_instructor_row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.instructor_avatar {
+  font-size: 44px;
+  color: var(--Silver);
+  line-height: 1;
+}
+.instructor_name {
+  display: block;
+  font-family: "Space Grotesk";
+  font-size: 15px;
+  color: var(--White);
+}
+.instructor_label {
+  display: block;
+  font-family: "Space Grotesk";
+  font-size: 12px;
+  color: var(--Silver);
+}
+.course_quick_stats {
+  display: flex;
+  gap: 18px;
+  margin-left: 10px;
+  padding-left: 16px;
+  border-left: 1px solid #1b2333;
+}
+.course_quick_stats span {
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  color: var(--Silver);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.course_quick_stats span ion-icon { color: var(--Orange); }
+
+button.expand_all_btn {
+  text-decoration: none;
+}
+
+/* ---- Purchase Card (right sticky) ---- */
+.course_purchase_card {
+  position: sticky;
+  top: 100px;
+  background-color: var(--darkblue);
+  border: 1px solid #1b2333;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+.purchase_thumb {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+.purchase_thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.preview_btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background-color: rgba(0,0,0,0.75);
+  color: var(--White);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-family: "Space Grotesk";
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.3s;
+}
+.preview_btn:hover { background-color: var(--Orange); border-color: var(--Orange); }
+
+.purchase_body { padding: 22px; }
+
+.price_row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.price_current {
+  font-family: "Space Grotesk";
+  font-size: 28px;
+  color: var(--White);
+}
+.price_original {
+  font-family: "Space Grotesk";
+  font-size: 16px;
+  color: var(--Silver);
+  text-decoration: line-through;
+}
+.price_discount {
+  font-family: "Space Grotesk";
+  font-size: 13px;
+  color: #05df72;
+  background-color: rgba(5, 223, 114, 0.1);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.access_label {
+  font-family: "Space Grotesk";
+  font-size: 13px;
+  color: var(--Silver);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 18px;
+}
+
+.purchase_actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+.enroll_btn {
+  flex: 1;
+  height: 46px;
+  background-color: var(--White);
+  color: var(--Black);
+  border: none;
+  border-radius: 10px;
+  font-family: "Space Grotesk";
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.enroll_btn:hover {
+  background-color: var(--Orange);
+  color: var(--White);
+}
+.cart_btn {
+  flex: 1;
+  height: 46px;
+  background-color: transparent;
+  color: var(--White);
+  border: 1px solid #2a3447;
+  border-radius: 10px;
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.3s;
+}
+.cart_btn:hover {
+  border-color: var(--Orange);
+  color: var(--Orange);
+}
+
+.whats_included h4 {
+  font-family: "Space Grotesk";
+  font-size: 11px;
+  color: var(--Silver);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.whats_included ul { list-style: none; }
+.whats_included ul li {
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  color: var(--Silver);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 9px;
+}
+.whats_included ul li ion-icon { color: var(--Orange); font-size: 16px; flex-shrink: 0; }
+
+/* ---- What You'll Learn ---- */
+.learn_sec {
+  background-color: var(--Black);
+  padding: 50px 0;
+}
+.learn_card {
+  border: 1px solid #1b2333;
+  border-radius: 16px;
+  padding: 36px;
+  background-color: var(--darkblue);
+}
+.learn_card h2 {
+  font-family: "Space Grotesk";
+  font-size: 24px;
+  color: var(--White);
+  margin-bottom: 28px;
+}
+.learn_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.learn_item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  color: var(--Silver);
+  line-height: 1.5;
+}
+.learn_item ion-icon {
+  color: var(--Orange);
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ---- Curriculum ---- */
+.curriculum_sec {
+  background-color: var(--Black);
+  padding: 50px 0;
+}
+.section_heading {
+  font-family: "Space Grotesk";
+  font-size: 26px;
+  color: var(--White);
+  margin-bottom: 16px;
+}
+.curriculum_meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  color: var(--Silver);
+  margin-bottom: 28px;
+}
+.curriculum_meta .dot { color: #2a3447; }
+.expand_all_btn {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--Orange);
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.expand_all_btn:hover { color: var(--White); }
+
+.curriculum_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.curriculum_section {
+  border: 1px solid #1b2333;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--darkblue);
+  transition: border-color 0.3s;
+}
+.curriculum_section:hover { border-color: #2a3447; }
+
+.section_header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.3s;
+}
+.section_header:hover { background-color: rgba(255, 96, 0, 0.04); }
+
+.section_num {
+  font-family: "Space Grotesk";
+  font-size: 20px;
+  color: var(--Orange);
+  min-width: 36px;
+  background-color: rgba(255, 96, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  padding: 4px 8px;
+}
+.section_info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.section_title_text {
+  font-family: "Space Grotesk";
+  font-size: 15px;
+  color: var(--White);
+}
+.section_meta {
+  font-family: "Space Grotesk";
+  font-size: 13px;
+  color: var(--Silver);
+}
+.free_tag { color: var(--Orange); }
+.section_arrow {
+  color: var(--Silver);
+  font-size: 18px;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+}
+
+/* Lessons list */
+.section_lessons {
+  border-top: 1px solid #1b2333;
+}
+.lesson_item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 20px;
+  border-bottom: 1px solid #111827;
+  transition: background-color 0.2s;
+}
+.lesson_item:last-child { border-bottom: none; }
+.lesson_item:hover { background-color: rgba(255, 255, 255, 0.02); }
+.free_lesson { background-color: rgba(255, 96, 0, 0.04); }
+
+.lesson_num {
+  font-family: "Space Grotesk";
+  font-size: 12px;
+  color: #3a4558;
+  min-width: 22px;
+  text-align: center;
+}
+.lesson_icon {
+  font-size: 18px;
+  color: #2a3447;
+  flex-shrink: 0;
+}
+.active_icon { color: var(--Orange); }
+.lesson_name {
+  flex: 1;
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  color: var(--Silver);
+}
+.free_badge {
+  font-family: "Space Grotesk";
+  font-size: 10px;
+  color: #05df72;
+  background-color: rgba(5, 223, 114, 0.1);
+  border: 1px solid rgba(5, 223, 114, 0.2);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.lesson_dur {
+  font-family: "Space Grotesk";
+  font-size: 13px;
+  color: #3a4558;
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ---- Instructor Section ---- */
+.instructor_sec {
+  background-color: var(--Black);
+  padding: 50px 0 70px;
+}
+.instructor_card {
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+  background-color: var(--darkblue);
+  border: 1px solid #1b2333;
+  border-radius: 16px;
+  padding: 36px;
+}
+.instructor_photo {
+  font-size: 120px;
+  color: #2a3447;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.instructor_details { flex: 1; }
+.instructor_name_row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.instructor_name_row h3 {
+  font-family: "Space Grotesk";
+  font-size: 22px;
+  color: var(--White);
+}
+.verified_icon { color: var(--Orange); font-size: 20px; }
+.instructor_bio {
+  font-family: "Space Grotesk";
+  font-size: 15px;
+  color: var(--Silver);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  max-width: 600px;
+}
+.instructor_stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.instructor_stats span {
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  color: var(--Silver);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.instructor_stats span ion-icon { color: var(--Orange); }
+.instructor_socials {
+  display: flex;
+  gap: 12px;
+}
+.instructor_socials .social_link {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background-color: #111827;
+  border: 1px solid #1b2333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--Silver);
+  font-size: 17px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.instructor_socials .social_link:hover {
+  border-color: var(--Orange);
+  color: var(--Orange);
+  background-color: rgba(255, 96, 0, 0.08);
+}
+
+/* ---- Mobile hamburger (reuse from main) ---- */
+.hamburger { display: none; }
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .course_hero_layout {
+    grid-template-columns: 1fr;
+  }
+  .course_purchase_card {
+    position: static;
+    max-width: 460px;
+  }
+}
+
+@media (max-width: 768px) {
+  .course_hero_title { font-size: 24px; }
+  .learn_grid { grid-template-columns: 1fr; }
+  .instructor_card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .instructor_name_row { justify-content: center; }
+  .instructor_stats { justify-content: center; }
+  .instructor_socials { justify-content: center; }
+  .course_quick_stats {
+    border-left: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
+  .curriculum_meta { flex-wrap: wrap; }
+  .expand_all_btn { margin-left: 0; }
+  .purchase_actions { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .course_hero_title { font-size: 20px; }
+  .learn_card { padding: 22px; }
+  .instructor_card { padding: 22px; }
+  .purchase_body { padding: 16px; }
+}

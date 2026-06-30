@@ -1,0 +1,1055 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+:root{
+    --niveblue: #16034c;
+    --blue: #004bd6;
+    --whitegreen: #42ba96;
+    --white: #ffffff;
+    --dark: #515151;
+    --lightdark:#869ab8;
+    --darkblue: #506690;
+    --newcolorlightblue: #d7dffb;
+}
+
+@font-face {
+    font-family:"Nooca1aad";
+    src: url(/Taysiirpro/fonts/Roboto-VariableFont_wdth\,wght.ttf);
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.nav_section{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+
+    background-image: linear-gradient(1turn,#140c5e,#170049);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    
+ 
+  
+   
+}
+
+div.nav_section nav{
+    width: 100%;
+    height: 40px;
+    display: grid;
+    grid-template-columns: 100px 2.5fr 1fr;
+    grid-template-rows: repeat(1,auto);
+    justify-content: center;
+    align-content: center;
+  
+
+    
+  
+    
+}
+div.nav_section nav div.logo{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap row;
+    cursor: pointer;
+}
+
+div.nav_section nav div.logo img{
+    width: 50%;
+    height: 50%;
+}
+div.nav_section nav div.logo h2{
+    font-family: "Nooca1aad";
+    font-size: 20px;
+    font-weight: normal;
+    color: var(--white);
+}
+div.nav_section nav ul.links{
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-flow: nowrap row;
+}
+div.nav_section nav ul.links li{
+    margin: 0px 18px;
+    list-style: none;
+}
+div.nav_section nav ul.links li a{
+    text-decoration: none;
+    font-family: "Nooca1aad";
+    color: var(--lightdark);
+    font-size: 18px;
+    font-weight: normal;
+    transition: all 0.5s ease-in-out;
+}
+div.nav_section nav ul.links li a:hover{
+    color: var(--blue);
+}
+div.nav_section nav div.action{
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-flow: nowrap column;
+    
+}
+
+div.nav_section nav div.action button{
+    width: 170px;
+    height: 55px;
+    border: none;
+    outline: none;
+    background-color: var(--blue);
+    color: var(--white);
+    font-family: "Nooca1aad";
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    margin-bottom: 10px;
+    
+
+}
+div.nav_section nav div.action button:hover{
+    background-color: var(--niveblue);
+    border: solid 1px var(--white);
+}
+div.Baricon{
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-flow: wrap column;
+}
+div.Baricon div.mobilenav{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: wrap column;
+    background-color: var(--niveblue);
+    color: var(--blue);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s linear;
+}
+div.Baricon div.mobilenav:hover{
+    border: solid 1px var(--white);
+}
+
+
+
+/* hero style */
+section.hero{
+    width: 100%;
+    height: 100vh;
+    padding:5%;
+    margin-bottom: 10%;
+    background-image: linear-gradient(1turn, #2e0881,#140c5e);
+    
+ 
+   
+}
+section.hero div.qaybo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap row;
+}
+section.hero div.qaybo div.qayb{
+    width: calc(95% /2);
+    margin: 20px 20px;
+    
+}
+section.hero div.qaybo div.qayb.bidix{
+    height: 100%;
+    padding: 10px;
+    margin-top: 30%;
+}
+
+section.hero div.qaybo div.qayb.bidix h2{
+    font-size: 48px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--white);
+     line-height: 1.6;
+     margin-bottom: 10px;
+    
+
+}
+section.hero div.qaybo div.qayb.bidix h2 span{
+    color: var(--whitegreen);
+}
+section.hero div.qaybo div.qayb.bidix p.qoralhero{
+      font-size: 20px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     margin-bottom: 20px;
+     line-height: 1.6;
+}
+section.hero div.qaybo div.qayb.bidix div.btn_hero{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-flow: nowrap row; 
+    padding: 15px;
+   
+}
+section.hero div.qaybo div.qayb.bidix div.btn_hero button.btn0ne{
+    width: 200px;
+    height: 60px;
+    margin: 0px 8px;
+    border: none;
+    outline: none;
+    background-color: var(--blue);
+    color: var(--white);
+     font-family: "Nooca1aad";
+     font-size: 18px;
+     border-radius: 5px;
+     margin-right: 20px;
+     cursor: pointer;
+     padding: 5px;
+     transition: all 0.5s ease-in-out;
+}
+section.hero div.qaybo div.qayb.bidix div.btn_hero button.btn0ne:hover{
+    background-color: var(--niveblue);
+   
+}
+section.hero div.qaybo div.qayb.bidix div.btn_hero button.btntwo{
+     width: 200px;
+    height: 60px;
+    margin: 0px 8px;
+    border: none;
+    outline: none;
+    background-color: var(--whitegreen);
+    color: var(--white);
+     font-family: "Nooca1aad";
+     font-size: 18px;
+     border-radius: 5px;
+     margin-right: 20px;
+     cursor: not-allowed;
+     padding: 5px;
+     transition: all 0.5s ease-in-out;
+}
+section.hero div.qaybo div.qayb.bidix div.btn_hero button.btntwo:hover{
+box-shadow: 0 0 12px 0 hsla(0,0%,84%,.655);
+}
+section.hero div.qaybo div.qayb.midig{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap column;
+}
+section.hero div.qaybo div.qayb.midig img{
+    
+    width: 100%;
+    height: 100%;
+    margin-bottom: 90px;
+}
+/* deeq bixiye style */
+div.deeq_bixiye{
+    width: 100%;
+    height: 100%;
+    background-color: var(--white);
+    padding: 5%;
+}
+div.deeq_bixiye div.deeq{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap row;
+    
+}
+div.deeq_bixiye div.deeq div.cards{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap row;
+    
+}
+div.deeq_bixiye div.deeq div.cards div.card{
+margin: 0px 20px;
+}
+div.deeq_bixiye div.deeq div.cards div.card span{
+    width: 80px;
+    height: 40px;
+    margin-bottom: 20px;
+    
+}
+div.deeq_bixiye div.deeq div.cards div.card span i{
+    color: var(--blue);
+    font-size: 32px;
+    margin: 5px 0px;
+}
+div.deeq_bixiye div.deeq div.cards div.card p.cinwaan{
+     font-size: 24px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--blue);
+     
+     margin-top: 40px;
+     
+     
+}
+div.deeq_bixiye div.deeq div.cards div.card p.cinwaan i{
+    color: var(--whitegreen);
+}
+div.deeq_bixiye div.deeq div.cards div.card p.cinwaan span{
+    color: var(--dark);
+}
+div.deeq_bixiye div.deeq div.cards div.card p.desk{
+     font-size: 16px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     margin: 10px 0px; 
+     line-height: 1.2;
+     padding: 10px;
+     text-transform: capitalize;
+}
+
+/* aayad */
+div.aayad{
+    width: 100%;
+    height: 100%;
+    background-color: var(--blue);
+    padding: 3%;
+}
+div.aayad div.quraan{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div.aayad div.quraan img{
+    width: 35%;
+    height: 35%;
+}
+
+/* icons */
+div.icons{
+    width: 100%;
+    height: 100%;
+    background-color: var(--white);
+    padding: 3%;
+}
+div.icons div.qaybta_yaryar{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(1, auto);
+    gap: 2%;
+}
+div.icons div.qaybta_yaryar div.qaybyar{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap row;
+    margin: 0px 10px;
+    background-color: var(--white);
+    border-radius: 3px;
+    cursor: pointer;
+     transition: all 0.5s ease-in-out;
+}
+div.icons div.qaybta_yaryar div.qaybyar:hover{
+    background-color: var(--blue);
+    color: var(--white);
+    
+}
+div.icons div.qaybta_yaryar div.qaybyar:hover i{
+    color: var(--white);
+  
+}
+div.icons div.qaybta_yaryar div.qaybyar:hover p.qoralicon{
+    color: var(--white);
+}
+
+div.icons div.qaybta_yaryar div.qaybyar span{
+    margin: 0px 15px;
+}
+div.icons div.qaybta_yaryar div.qaybyar span i{
+    font-size: 22px;
+    color: var(--blue);
+    transition: all 0.5s ease-in-out;
+}
+div.icons div.qaybta_yaryar div.qaybyar p.qoralicon{
+     font-size: 18px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--dark);
+     text-transform: capitalize;
+     transition: all 0.5s ease-in-out;
+}
+
+/* dawyn */
+div.dawayn{
+    width: 100%;
+    height: 100%;
+    background-color: var(--white);
+    padding: 3%;
+}
+div.dawayn div.qaybahooda{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap row;
+    
+}
+div.dawayn div.qaybahooda div.qaybo{
+    width: 80%;
+    height: 100%;
+    /* border: solid 1px var(--niveblue); */
+    margin: 0px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap column;
+    padding: 10px;
+    border-radius: 7px;
+    box-shadow: 0px 0px 20px  var(--newcolorlightblue);
+    
+}
+div.dawayn div.qaybahooda div.qaybo div.image{
+    width: 100%;
+    height: 200px;
+    background-image: url(/Taysiirpro/Images/R25.jpg);
+    opacity: 20px;
+    border-radius: 5px;
+}
+div.dawayn div.qaybahooda div.qaybo div.image p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20%;
+    color: var(--white);
+    font-size: 20px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+}
+div.dawayn div.qaybahooda div.qaybo div.qoraal{
+    margin: 10px 0px;
+    
+}
+div.dawayn div.qaybahooda div.qaybo div.qoraal h3{
+    font-size: 22px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--darkblue);
+     text-transform: capitalize;
+     margin: 20px 0px;
+}
+div.dawayn div.qaybahooda div.qaybo div.qoraal p{
+    font-size: 16px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     text-transform: capitalize;
+     margin: 20px 0px;
+}
+div.dawayn div.qaybahooda div.qaybo div.load{
+    width: 300px;
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 10px 0px;
+    background-color: var(--newcolorlightblue);
+    border-radius: 15px;
+}
+div.dawayn div.qaybahooda div.qaybo div.load span{
+    width:10%;
+    height: 100%;
+    background-color: var(--blue);
+    border-radius: 50%;
+    display: block;
+    margin-left: -5%;
+}
+div.dawayn div.qaybahooda div.qaybo div.load span p{
+    margin: 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+}
+div.dawayn div.qaybahooda div.qaybo div.load1{
+     width: 300px;
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 10px 0px;
+    background-color: var(--newcolorlightblue);
+    border-radius: 15px;
+}
+div.dawayn div.qaybahooda div.qaybo div.load1 span{
+      width:10%;
+    height: 100%;
+    background-color: var(--blue);
+    border-radius: 50%;
+    display: block;
+    margin-left: 0.5%;
+}
+div.dawayn div.qaybahooda div.qaybo div.load1 span p{
+    margin: 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+}
+div.dawayn div.qaybahooda div.qaybo div.load2{
+     width: 300px;
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 10px 0px;
+    background-color: var(--blue);
+    border-radius: 15px;
+}
+div.dawayn div.qaybahooda div.qaybo div.load2 span{
+      width:10%;
+    height: 100%;
+    background-color: var(--blue);
+    border-radius: 50%;
+    /* display: block; */
+    margin-left: 90%;
+    border: solid 1.5px var(--white);
+}
+div.dawayn div.qaybahooda div.qaybo div.load2 span p{
+    
+    margin: 5px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 14px;
+    
+}
+div.dawayn div.qaybahooda div.qaybo div.qiimo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px ;
+}
+div.dawayn div.qaybahooda div.qaybo div.qiimo span{
+    color: var(--lightdark);
+    font-size: 20px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+
+}
+div.dawayn div.qaybahooda div.qaybo div.qiimo span i{
+    color: var(--whitegreen);
+    font-size: 20px;
+}
+div.dawayn div.qaybahooda div.qaybo div.btnbixi {
+    width: 100%;
+    height: 50px;
+    margin: 15px 0px;
+
+}
+div.dawayn div.qaybahooda div.qaybo div.btnbixi button{
+    width: 300px;
+    height: 45px;
+    background-color: var(--blue);
+    border: none;
+    outline: none;
+    color: var(--white);
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     cursor: pointer;
+     transition: all 0.5s ease-in-out;
+
+}
+div.dawayn div.qaybahooda div.qaybo div.btnbixi button:hover{
+    margin-top: 5px;
+}
+/* fursad */
+div.fursad{
+    width: 100%;
+    height: 100%;
+    background-color: var(--white);
+    padding: 2%;
+}
+div.fursad div.kafaaidayso{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+div.fursad div.kafaaidayso div.part{
+    width: calc(95%/2);
+}
+div.fursad div.kafaaidayso div.part.one div.qoraalo{
+    width: 650px;
+    height: 100%;
+    margin: 20px 0px;
+}
+div.fursad div.kafaaidayso div.part.one div.qoraalo h2.cinwaanweyn{
+    
+    font-size: 48px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--dark);
+     line-height: 1.6;
+     margin-bottom: 10px;
+     text-transform: capitalize;
+
+    
+    
+
+}
+div.fursad div.kafaaidayso div.part.one div.qoraalo h2.cinwaanweyn span{
+    color: var(--blue);
+}
+div.fursad div.kafaaidayso div.part.one div.qoraalo p.cinwaanhose{
+   
+     font-size: 18px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin: 10px 0px;
+}
+div.fursad div.kafaaidayso div.part.one div.qoraalo div.qaybo_yaryar{
+    width: 100%;
+    height: 100%;
+    
+    
+    
+}
+div.fursad div.kafaaidayso div.part.one div.qoraalo div.qaybo_yaryar p.qaybweyn{
+    font-size: 20px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--dark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin: 1px 0px;
+}
+div.fursad div.kafaaidayso div.part.one div.qoraalo div.qaybo_yaryar p.qaybweyn i{
+    color: var(--blue);
+}
+div.fursad div.kafaaidayso div.part.one div.qoraalo div.qaybo_yaryar p.qaybyar{
+    width: 55%;
+    font-size: 14px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin: 1px 0px;
+    
+}
+div.fursad div.kafaaidayso div.part.two{
+    height: 100%;
+}
+div.fursad div.kafaaidayso div.part.two img{
+    width: 100%;
+    height: 450px;
+    margin-left: 15%;
+    transform: rotateY(-35deg) rotateX(15deg);
+
+}
+/* lajanqaad */
+section.lajaanqaad{
+    width: 100%;
+    height: 100vh;
+    padding: 3%;
+    margin-bottom: 3%;
+  background-color: #eaeffd;
+    
+ 
+   
+}
+section.lajaanqaad div.qaybahadanbe{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap row;
+}
+section.lajaanqaad div.qaybahadanbe div.qaybta{
+    width: calc(95% /2);
+    margin: 0px 20px;
+    
+}
+section.lajaanqaad div.qaybahadanbe div.qaybta.bidix{
+    height: 100%;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+section.lajaanqaad div.qaybahadanbe div.qaybta.bidix h2{
+    width: 620px;
+    font-size: 40px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--dark);
+     line-height: 1.6;
+     margin-bottom: 10px;
+
+    
+
+}
+section.lajaanqaad div.qaybahadanbe div.qaybta.bidix h2 span{
+    color: var(--blue);
+}
+section.lajaanqaad div.qaybahadanbe div.qaybta.bidix p.qoralhero{
+      font-size: 18px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     margin-bottom: 20px;
+     line-height: 1.6;
+}
+section.lajaanqaad div.qaybahadanbe div.qaybta.midig img{
+    width: 100%;
+    height: 100%;
+}
+section.lajaanqaad div.qaybahadanbe div.qaybta.bidix p.qaybweyn{
+     font-size: 20px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--dark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin: 1px 0px;
+}
+section.lajaanqaad div.qaybahadanbe div.qaybta.bidix p.qaybweyn i{
+    color: var(--blue);
+    margin: 20px ;
+}
+section.lajaanqaad div.qaybahadanbe div.qaybta.bidix p.qaybyar{
+     width: 55%;
+    font-size: 14px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin: 1px 0px;
+     margin: 20px;
+}
+/* FAQ */
+div.FAQ{
+    width: 100%;
+    height: 100%;
+    background-color: var(--white);
+    padding: 2%;
+}
+div.FAQ div.suaalo{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap column;
+    margin: 20px 0px;
+}
+div.FAQ div.suaalo div.suaal{
+    width: 100%;
+    height: 100%;
+    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap row;
+}
+div.FAQ div.suaalo div.suaal div.midig{
+    margin: 10px 10px;
+}
+div.FAQ div.suaalo div.suaal div.midig p.sual{
+    font-size: 18px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--dark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin: 1px 0px;
+}
+div.FAQ div.suaalo div.suaal div.midig p.jawb{
+    
+    font-size: 14px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin-top: 10px;
+}
+div.FAQ div.suaalo div.suaal div.midig p.sual i{
+    color: var(--blue);
+    font-size: 18px;
+}
+div.FAQ div.suaalo div.suaal div.bidixo p.sual{
+    font-size: 18px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--dark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin: 1px 0px;
+}
+div.FAQ div.suaalo div.suaal div.bidixo p.jawb{
+    
+    font-size: 14px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin-top: 10px;
+}
+div.FAQ div.suaalo div.suaal div.bidixo p.sual i{
+    color: var(--blue);
+    font-size: 18px;
+}
+div.FAQ div.suaalo div.qoraaldanbe_{
+    margin: 10% 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap column;
+}
+div.FAQ div.suaalo div.qoraaldanbe_ p.cinwaankiisi{
+     font-size: 28px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--dark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin: 10px 0px;
+}
+div.FAQ div.suaalo div.qoraaldanbe_ p.qoraalkiisi{
+    font-size: 18px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--lightdark);
+     line-height: 1.6;
+     text-transform: capitalize;
+     margin-top: 10px;
+}
+
+/* footer */
+div.footer{
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(1turn,#1f1392,#170049);
+    padding: 4%;
+    
+}
+div.footer footer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: nowrap column;
+}
+div.footer footer div.logos{
+    width: 100%;
+    height: 100%;
+    margin: 20px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div.footer footer div.logos img{
+    width: 40px;
+    height: 40px;
+    margin: 0px 10px;
+}
+div.footer footer div.logos p{
+    color: var(--white);
+    font-family: "Nooca1aad";
+}
+div.footer footer div.developer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+div.footer footer div.developer p{
+    font-size: 17px;
+    font-weight: normal;
+     font-family: "Nooca1aad";
+     color: var(--white);
+     line-height: 1.6;
+     text-transform: capitalize;
+    
+}
+div.footer footer div.developer p span{
+    color: var(--whitegreen);
+}
+div.footer footer div.developer p i{
+    font-size: 12px;
+}
+
+
+
+
+
+
+/* xsml screen*/
+
+@media (max-width: 450px) {
+    .container{
+        max-width: 400px;
+    }
+    /* nav responsive */
+    div.nav_section nav ul.links{
+        display: none;
+    }
+    div.nav_section nav div.action{
+        display: none;
+    }
+    div.nav_section nav{
+        grid-template-columns: 100px 1fr;
+    }
+    /* hero responsive */
+    section.hero div.qaybo{
+        flex-flow: nowrap column;
+    }
+    section.hero div.qaybo div.qayb{
+    width: calc(95% /1);
+    margin: 0px 20px;
+    
+}
+section.hero div.qaybo div.qayb.bidix h2{
+     font-size: 36px;
+      line-height: 1.2;
+       margin-bottom: 3px;
+}
+section.hero div.qaybo div.qayb.bidix p.qoralhero{
+    font-size: 17px;
+}
+section.hero div.qaybo div.qayb.bidix div.btn_hero{
+       flex-flow: nowrap column; 
+       margin: 10px 0px;
+}
+section.hero div.qaybo div.qayb.bidix div.btn_hero button.btn0ne{
+    margin: 10px 0px;
+      width: 180px;
+    height: 40px;
+    font-size: 12px;
+}
+section.hero div.qaybo div.qayb.bidix div.btn_hero button.btntwo{
+    margin: 10px 0px;
+      width: 180px;
+    height: 40px;
+    font-size: 12px;
+}
+section.hero div.qaybo div.qayb.midig img{
+    display: none;
+}
+}
+
+/* sml screen*/
+
+@media (min-width: 450px) and (max-width: 767px) {
+    .container{
+        max-width: 700px;
+    }
+       /* nav responsive */
+    div.nav_section nav ul.links{
+        display: none;
+    }
+    div.nav_section nav div.action{
+        display: none;
+    }
+    div.nav_section nav{
+        grid-template-columns: 100px 1fr;
+    }
+}
+
+/* md screen*/
+
+@media (min-width: 767px) and (max-width: 992px) {
+    .container{
+        max-width: 900px;
+    }
+    /* nav responsive */
+    div.Baricon{
+        display: none;
+    }
+}
+
+/* LG screen*/
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .container{
+        max-width: 1000px;
+    }
+     /* nav responsive */
+    div.Baricon{
+        display: none;
+    }
+}
+
+/* XLG screen*/
+
+@media (min-width: 1200px) and (max-width: 1400px) {
+    .container{
+        max-width: 1150px;
+    }
+     /* nav responsive */
+    div.Baricon{
+        display: none;
+    }
+}
+
+/* XXLG screen*/
+
+@media (min-width: 1400px) {
+    .container{
+        max-width: 1200px;
+    }
+     /* nav responsive */
+    div.Baricon{
+        display: none;
+    }
+}

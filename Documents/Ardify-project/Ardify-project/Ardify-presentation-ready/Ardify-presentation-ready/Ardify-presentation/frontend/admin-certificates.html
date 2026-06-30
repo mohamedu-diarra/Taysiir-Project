@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificates • Ardify</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    window.ARDIFY_API_BASE = window.ARDIFY_API_BASE || "http://localhost:5000/api";
+    console.log('🔧 API Base:', window.ARDIFY_API_BASE);
+  </script>
+  
+  <script src="./JS/api.js"></script>
+  <script src="./JS/auth.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --Orange: #ff6000;
+      --Black: #000000;
+      --White: #ffffff;
+      --Silver: #99a1af;
+      --LightGreen: #05df72;
+      --yellow: #fdc700;
+      --darkblue: #0d1320;
+      --border: #1b2333;
+      --sidebar-w: 260px;
+      --radius: 10px;
+      --transition: all 0.25s ease;
+    }
+    html { color-scheme: dark; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--Black);
+      color: var(--White);
+      display: flex;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--darkblue);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0; top: 0;
+      z-index: 100;
+      transition: transform 0.3s ease;
+    }
+    .sidebar_logo {
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .sidebar_logo:hover { opacity: 0.8; }
+    .logo_box {
+      width: 40px; height: 40px;
+      background: var(--Orange);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--White);
+      flex-shrink: 0;
+    }
+    .logo_text { font-size: 20px; font-weight: 700; color: var(--White); }
+    .logo_text span { color: var(--Orange); }
+
+    .sidebar_user {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .user_avatar {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+      color: var(--White);
+    }
+    .user_name { font-size: 14px; font-weight: 600; color: var(--White); }
+    .user_role {
+      font-size: 11px; color: var(--Silver);
+      background: rgba(99,102,241,0.12);
+      border: 1px solid rgba(99,102,241,0.25);
+      padding: 2px 8px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-top: 3px;
+    }
+
+    .sidebar_nav {
+      flex: 1;
+      padding: 16px 12px;
+      overflow-y: auto;
+    }
+    .sidebar_nav::-webkit-scrollbar { width: 4px; }
+    .sidebar_nav::-webkit-scrollbar-track { background: transparent; }
+    .sidebar_nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .nav_label {
+      font-size: 10px; color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 14px 8px 6px;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .nav_item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 12px;
+      border-radius: var(--radius);
+      color: var(--Silver);
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      margin-bottom: 2px;
+      position: relative;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+    }
+    .nav_item ion-icon { font-size: 18px; flex-shrink: 0; min-width: 20px; }
+    .nav_item:hover { background: rgba(255,96,0,0.08); color: var(--White); }
+    .nav_item.active {
+      background: rgba(255,96,0,0.14);
+      color: var(--Orange);
+      font-weight: 600;
+    }
+    .nav_item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 70%;
+      background: var(--Orange);
+      border-radius: 0 3px 3px 0;
+    }
+    .nav_item .nav_badge {
+      margin-left: auto;
+      background: var(--Orange);
+      color: var(--White);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 20px;
+      min-width: 20px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .nav_item .nav_badge.green { background: var(--LightGreen); color: var(--Black); }
+    .nav_item .nav_badge.red { background: #ef4444; color: var(--White); }
+
+    .sidebar_bottom {
+      padding: 16px 12px;
+      border-top: 1px solid var(--border);
+      margin-top: auto;
+    }
+    .sidebar_bottom .nav_item { color: #ef4444; }
+    .sidebar_bottom .nav_item:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
+
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      width: calc(100% - var(--sidebar-w));
+    }
+
+    .topbar {
+      height: 68px;
+      background: var(--darkblue);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      flex-shrink: 0;
+    }
+    .topbar_greeting { flex: 1; min-width: 0; }
+    .topbar_greeting h2 { font-size: 16px; font-weight: 600; color: var(--White); }
+    .topbar_greeting p { font-size: 12px; color: var(--Silver); margin-top: 2px; }
+
+    .topbar_search {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 8px 14px;
+      gap: 8px;
+      width: 240px;
+      transition: var(--transition);
+    }
+    .topbar_search:focus-within { border-color: var(--Orange); }
+    .topbar_search ion-icon { color: var(--Silver); font-size: 16px; flex-shrink: 0; }
+    .topbar_search input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--White);
+      font-family: inherit;
+      font-size: 13px;
+      width: 100%;
+    }
+    .topbar_search input::placeholder { color: var(--Silver); }
+
+    .topbar_actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .topbar_icon_btn {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--Silver);
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      background: transparent;
+    }
+    .topbar_icon_btn:hover { border-color: var(--Orange); color: var(--Orange); }
+    .notif_dot {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      background: var(--Orange);
+      border-radius: 50%;
+      border: 2px solid var(--darkblue);
+    }
+
+    .content { padding: 28px; flex: 1; }
+    .content__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .h1 { font-size: 28px; font-weight: 700; color: var(--White); letter-spacing: -0.5px; }
+    .muted { color: var(--Silver); font-size: 14px; }
+
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field--search { min-width: 200px; }
+    .field__label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input, select {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--White);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .input:focus, select:focus { border-color: var(--Orange); }
+    .input::placeholder { color: var(--Silver); }
+
+    .btn {
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--Silver);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { border-color: var(--Orange); color: var(--White); }
+    .btn--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .btn--primary:hover { background: #c94d00; border-color: #c94d00; }
+    .btn--danger {
+      background: transparent;
+      color: #ef4444;
+      border-color: #ef4444;
+    }
+    .btn--danger:hover { background: #ef4444; color: white; border-color: #ef4444; }
+
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .cert-card {
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .cert-card:hover {
+      border-color: rgba(255,96,0,0.3);
+      transform: translateY(-3px);
+    }
+    .cert-card .icon { font-size: 48px; margin-bottom: 8px; }
+    .cert-card .title { font-size: 16px; font-weight: 600; color: var(--White); }
+    .cert-card .sub { font-size: 13px; color: var(--Silver); }
+    .cert-card .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+    .cert-card .footer .date { font-size: 12px; color: var(--Silver); }
+    .cert-card .footer .badge {
+      font-size: 11px; padding: 3px 10px; border-radius: 20px;
+      background: rgba(5,223,114,0.1);
+      color: var(--LightGreen);
+      border: 1px solid rgba(5,223,114,0.2);
+    }
+    .cert-card .footer .badge.pending {
+      background: rgba(253,199,0,0.1);
+      color: var(--yellow);
+      border-color: rgba(253,199,0,0.2);
+    }
+
+    /* ─── MODAL ─── */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,0.7);
+    }
+    .modal.active { display: flex; }
+    .modal__panel {
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modalSlideIn 0.3s ease;
+    }
+    @keyframes modalSlideIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .modal__header h2 { font-size: 20px; font-weight: 700; color: var(--White); }
+    .modal__close {
+      background: none;
+      border: none;
+      color: var(--Silver);
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .modal__close:hover { color: var(--White); }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--White);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 20px;
+      font-family: inherit;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 99;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 14px 24px;
+      border-radius: var(--radius);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      z-index: 9999;
+      animation: slideUp 0.3s ease;
+      max-width: 360px;
+    }
+    .toast.success { background: var(--LightGreen); color: var(--Black); }
+    .toast.error { background: #ef4444; color: white; }
+    .toast.info { background: var(--darkblue); border: 1px solid #60a5fa; color: var(--White); }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 100;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      .sidebar.active { display: flex; transform: translateX(0); }
+      .main { margin-left: 0; width: 100%; }
+      .topbar { padding: 0 16px; height: 60px; flex-wrap: wrap; }
+      .topbar_search { width: 100%; order: 3; }
+      .topbar_actions { order: 2; }
+      .topbar_greeting { order: 1; }
+      .content { padding: 16px; }
+      .content__header { flex-direction: column; align-items: stretch; }
+      .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .modal__panel { padding: 20px; margin: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar_logo" onclick="window.location.href='./index.html'">
+      <div class="logo_box">A</div>
+      <div class="logo_text">Ard<span>ify</span></div>
+    </div>
+
+    <div class="sidebar_user">
+      <div class="user_avatar" id="userAvatar">AD</div>
+      <div>
+        <div class="user_name" id="userName">Admin</div>
+        <div class="user_role" id="userRole">Super Admin</div>
+      </div>
+    </div>
+
+    <nav class="sidebar_nav">
+      <div class="nav_label">Platform</div>
+      <a class="nav_item" href="./admin-dashboard.html">
+        <ion-icon name="grid-outline"></ion-icon> Overview
+      </a>
+      <a class="nav_item" href="./admin-users.html">
+        <ion-icon name="people-outline"></ion-icon> Users
+        <span class="nav_badge">1,240</span>
+      </a>
+      <a class="nav_item" href="./courses.html">
+        <ion-icon name="book-outline"></ion-icon> Courses
+        <span class="nav_badge">28</span>
+      </a>
+      <a class="nav_item" href="./admin-instructors.html">
+        <ion-icon name="school-outline"></ion-icon> Instructors
+      </a>
+      <a class="nav_item" href="./admin-students.html">
+        <ion-icon name="person-outline"></ion-icon> Students
+      </a>
+
+      <div class="nav_label">Content</div>
+      <a class="nav_item" href="./admin-approvals.html">
+        <ion-icon name="checkmark-circle-outline"></ion-icon> Course Approvals
+        <span class="nav_badge red">3</span>
+      </a>
+      <a class="nav_item" href="./assignments.html">
+        <ion-icon name="document-text-outline"></ion-icon> Assignments
+      </a>
+      <a class="nav_item active" href="./admin-certificates.html">
+        <ion-icon name="ribbon-outline"></ion-icon> Certificates
+      </a>
+
+      <div class="nav_label">System</div>
+      <a class="nav_item" href="./settings.html">
+        <ion-icon name="settings-outline"></ion-icon> Settings
+      </a>
+    </nav>
+
+    <div class="sidebar_bottom">
+      <a class="nav_item logout_btn" href="#" style="color:#ef4444;">
+        <ion-icon name="log-out-outline"></ion-icon> Logout
+      </a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+
+      <div class="topbar_greeting">
+        <h2>📜 Certificates</h2>
+        <p>Manage certificates issued to students</p>
+      </div>
+
+      <div class="topbar_search">
+        <ion-icon name="search-outline"></ion-icon>
+        <input type="text" placeholder="Search certificates…" />
+      </div>
+
+      <div class="topbar_actions">
+        <button class="btn btn--primary" id="btnGenerateCertificate">
+          <ion-icon name="add-outline"></ion-icon> Generate Certificate
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div class="cert-grid" id="certGrid">
+        <!-- Certificates loaded by JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <!-- ─── GENERATE CERTIFICATE MODAL ─── -->
+  <div class="modal" id="certModal">
+    <div class="modal__panel">
+      <div class="modal__header">
+        <h2>🎓 Generate Certificate</h2>
+        <button class="modal__close" onclick="closeModal()">✕</button>
+      </div>
+      <form id="certForm">
+        <div class="field" style="margin-bottom:16px;">
+          <label class="field__label">Student Name <span style="color:#ef4444;">*</span></label>
+          <input type="text" id="certStudentName" class="input" placeholder="e.g., Fatima Ali" required />
+        </div>
+        <div class="field" style="margin-bottom:16px;">
+          <label class="field__label">Course Name <span style="color:#ef4444;">*</span></label>
+          <input type="text" id="certCourseName" class="input" placeholder="e.g., Full-Stack Web Development" required />
+        </div>
+        <div class="field" style="margin-bottom:16px;">
+          <label class="field__label">Completion Date</label>
+          <input type="date" id="certDate" class="input" />
+        </div>
+        <div style="display:flex; gap:10px; margin-top:20px;">
+          <button type="submit" class="btn btn--primary" style="flex:1; justify-content:center;">
+            <ion-icon name="checkmark-outline"></ion-icon> Generate & Download
+          </button>
+          <button type="button" class="btn" onclick="closeModal()" style="flex:0;">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <script>
+    // ─── CERTIFICATES DATA ──────────────────────────────────
+    let certificates = [
+      {
+        id: 1,
+        student: 'Fatima Ali',
+        course: 'HTML & CSS Basics',
+        date: 'May 15, 2026',
+        status: 'verified'
+      },
+      {
+        id: 2,
+        student: 'Mohamed Hassan',
+        course: 'JavaScript Fundamentals',
+        date: 'Jun 10, 2026',
+        status: 'verified'
+      },
+      {
+        id: 3,
+        student: 'Omar Said',
+        course: 'Data Analysis with Python',
+        date: 'Apr 20, 2026',
+        status: 'verified'
+      },
+      {
+        id: 4,
+        student: 'Khadra Ahmed',
+        course: 'UI/UX Design Masterclass',
+        date: 'Pending',
+        status: 'pending'
+      }
+    ];
+
+    // ─── RENDER CERTIFICATES ──────────────────────────────
+    function renderCertificates() {
+      const grid = document.getElementById('certGrid');
+      
+      grid.innerHTML = certificates.map(cert => `
+        <div class="cert-card" data-id="${cert.id}">
+          <div class="icon">${cert.status === 'verified' ? '🏆' : '⏳'}</div>
+          <div class="title">${cert.course}</div>
+          <div class="sub">${cert.student} • ${cert.date === 'Pending' ? 'In Progress' : 'Completed ' + cert.date}</div>
+          <div class="footer">
+            <span class="date">${cert.date === 'Pending' ? 'Expected: Jul 2026' : 'Issued: ' + cert.date}</span>
+            <span class="badge ${cert.status === 'pending' ? 'pending' : ''}">
+              ${cert.status === 'verified' ? '✅ Verified' : '⏳ Pending'}
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ─── MODAL ──────────────────────────────────────────────
+    function openModal() {
+      document.getElementById('certModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('certModal').classList.remove('active');
+      document.body.style.overflow = '';
+      document.getElementById('certForm').reset();
+    }
+
+    // ─── GENERATE CERTIFICATE ──────────────────────────────
+    function generateCertificate(student, course, date) {
+      const newCert = {
+        id: Date.now(),
+        student: student,
+        course: course,
+        date: date || new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        status: 'verified'
+      };
+      
+      certificates.unshift(newCert);
+      renderCertificates();
+      
+      // Create and download certificate HTML
+      downloadCertificate(newCert);
+      
+      return newCert;
+    }
+
+    // ─── DOWNLOAD CERTIFICATE ──────────────────────────────
+    function downloadCertificate(cert) {
+      const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>Certificate of Completion</title>
+          <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-height: 100vh;
+              background: #0d1320;
+              font-family: 'Space Grotesk', sans-serif;
+              padding: 20px;
+            }
+            .certificate {
+              max-width: 800px;
+              width: 100%;
+              background: linear-gradient(135deg, #0d1320, #1a2234);
+              border: 3px solid #ff6000;
+              border-radius: 20px;
+              padding: 50px 40px;
+              text-align: center;
+              position: relative;
+              overflow: hidden;
+            }
+            .certificate::before {
+              content: '';
+              position: absolute;
+              top: -50%;
+              left: -50%;
+              width: 200%;
+              height: 200%;
+              background: radial-gradient(circle at 30% 50%, rgba(255,96,0,0.05), transparent 60%);
+              pointer-events: none;
+            }
+            .certificate .seal {
+              font-size: 60px;
+              margin-bottom: 10px;
+            }
+            .certificate h1 {
+              color: #ff6000;
+              font-size: 36px;
+              letter-spacing: 4px;
+              margin-bottom: 8px;
+            }
+            .certificate .subtitle {
+              color: #99a1af;
+              font-size: 14px;
+              letter-spacing: 6px;
+              text-transform: uppercase;
+              margin-bottom: 24px;
+            }
+            .certificate .line {
+              width: 80px;
+              height: 2px;
+              background: linear-gradient(90deg, transparent, #ff6000, transparent);
+              margin: 0 auto 24px;
+            }
+            .certificate .presented {
+              color: #99a1af;
+              font-size: 14px;
+              margin-bottom: 8px;
+            }
+            .certificate .student-name {
+              color: #ffffff;
+              font-size: 36px;
+              font-weight: 700;
+              margin-bottom: 8px;
+            }
+            .certificate .course-name {
+              color: #ff6000;
+              font-size: 24px;
+              font-weight: 600;
+              margin-bottom: 24px;
+            }
+            .certificate .date {
+              color: #99a1af;
+              font-size: 14px;
+              margin-bottom: 24px;
+            }
+            .certificate .signature {
+              border-top: 1px solid #1b2333;
+              padding-top: 16px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+            }
+            .certificate .signature .sig {
+              color: #99a1af;
+              font-size: 12px;
+            }
+            .certificate .signature .sig .name {
+              color: #ffffff;
+              font-size: 14px;
+              font-weight: 600;
+            }
+            .certificate .signature .sig .title {
+              font-size: 11px;
+              color: #6b7280;
+            }
+            .certificate .badge-bottom {
+              margin-top: 16px;
+              display: inline-block;
+              padding: 4px 16px;
+              border: 1px solid rgba(255,96,0,0.3);
+              border-radius: 20px;
+              color: #ff6000;
+              font-size: 11px;
+              letter-spacing: 2px;
+              text-transform: uppercase;
+            }
+            @media print {
+              body { background: white; }
+              .certificate { border: 3px solid #ff6000; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="certificate">
+            <div class="seal">🏆</div>
+            <h1>CERTIFICATE</h1>
+            <div class="subtitle">of Completion</div>
+            <div class="line"></div>
+            <div class="presented">This certificate is proudly presented to</div>
+            <div class="student-name">${cert.student}</div>
+            <div class="course-name">${cert.course}</div>
+            <div class="date">Completed on ${cert.date}</div>
+            <div class="signature">
+              <div class="sig">
+                <div class="name">Ardify Platform</div>
+                <div class="title">Verified Certificate</div>
+              </div>
+              <div class="sig" style="text-align:right;">
+                <div class="name">${cert.date}</div>
+                <div class="title">Date Issued</div>
+              </div>
+            </div>
+            <div class="badge-bottom">✨ Verified by Ardify</div>
+          </div>
+          <script>
+            window.onload = function() { window.print(); }
+          <\/script>
+        </body>
+        </html>
+      `;
+
+      const blob = new Blob([html], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Certificate_${cert.student.replace(/\s/g, '_')}_${cert.course.replace(/\s/g, '_')}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // ─── TOAST ──────────────────────────────────────────────
+    function showToast(message, type = 'success') {
+      const existing = document.querySelector('.toast');
+      if (existing) existing.remove();
+
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'all 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // ─── FORM SUBMISSION ──────────────────────────────────
+    document.getElementById('certForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const student = document.getElementById('certStudentName').value.trim();
+      const course = document.getElementById('certCourseName').value.trim();
+      const dateInput = document.getElementById('certDate').value;
+
+      if (!student || !course) {
+        showToast('Please enter student name and course name.', 'error');
+        return;
+      }
+
+      const date = dateInput 
+        ? new Date(dateInput).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        : new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+      generateCertificate(student, course, date);
+      showToast(`✅ Certificate generated for ${student}!`, 'success');
+      closeModal();
+    });
+
+    // ─── MODAL CONTROLS ──────────────────────────────────
+    document.getElementById('btnGenerateCertificate').addEventListener('click', openModal);
+    document.getElementById('certModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ─── AUTH ──────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', function() {
+      if (!window.ArdifyAuth || !window.ArdifyAuth.isLoggedIn()) {
+        window.location.href = './login.html';
+        return;
+      }
+      var user = window.ArdifyAuth.getUser() || {};
+      if (user.role !== 'admin') {
+        alert('⚠️ Admin access required');
+        window.location.href = './index.html';
+        return;
+      }
+      var name = user.fullName || 'Admin';
+      var initials = name.split(' ').filter(Boolean).map(function(w){ return w[0]; }).join('').toUpperCase().slice(0,2);
+      document.querySelectorAll('.user_name').forEach(function(el){ el.textContent = name; });
+      document.querySelectorAll('.user_avatar').forEach(function(el){ el.textContent = initials; });
+
+      document.querySelectorAll('.logout_btn').forEach(function(btn){
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          window.ArdifyAuth.clearSession();
+          window.location.href = './login.html';
+        });
+      });
+
+      var toggle = document.getElementById('mobileToggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebarOverlay');
+      if (toggle && sidebar) {
+        toggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          sidebar.classList.toggle('active');
+          if (overlay) overlay.classList.toggle('active');
+        });
+      }
+      if (overlay) {
+        overlay.addEventListener('click', function() {
+          sidebar.classList.remove('active');
+          overlay.classList.remove('active');
+        });
+      }
+
+      renderCertificates();
+    });
+  </script>
+</body>
+</html>

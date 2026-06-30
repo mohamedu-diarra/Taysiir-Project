@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Assistant • Ardify</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    window.ARDIFY_API_BASE = window.ARDIFY_API_BASE || "http://localhost:5000/api";
+  </script>
+  <script src="./JS/api.js"></script>
+  <script src="./JS/auth.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --Orange: #ff6000;
+      --Black: #000000;
+      --White: #ffffff;
+      --Silver: #99a1af;
+      --LightGreen: #05df72;
+      --yellow: #fdc700;
+      --darkblue: #0d1320;
+      --border: #1b2333;
+      --sidebar-w: 240px;
+      --radius: 10px;
+      --transition: all 0.25s ease;
+    }
+    html { color-scheme: dark; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--Black);
+      color: var(--White);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--Black); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .page {
+      min-height: 100vh;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(74, 222, 128, .08), transparent 60%),
+                  radial-gradient(900px 500px at 80% 20%, rgba(56, 189, 248, .06), transparent 55%),
+                  var(--Black);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--darkblue);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar__left { display: flex; align-items: center; gap: 16px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .brand:hover { opacity: 0.8; }
+    .brand__name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--White);
+    }
+    .brand__name span { color: var(--Orange); }
+    .topbar__right { display: flex; align-items: center; gap: 12px; }
+    .pill {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--Silver);
+      background: transparent;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+    .pill:hover { border-color: var(--Orange); color: var(--White); }
+    .pill--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .pill--primary:hover { background: #c94d00; border-color: #c94d00; }
+
+    /* SHELL */
+    .shell { display: flex; flex: 1; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: calc(100vh - 68px);
+      background: var(--darkblue);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      position: sticky;
+      top: 68px;
+      height: calc(100vh - 68px);
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sidebar__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--Orange), #ff914c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--White);
+      flex-shrink: 0;
+    }
+    .sidebar__title { font-size: 14px; font-weight: 600; color: var(--White); }
+    .sidebar__subtitle { font-size: 12px; color: var(--Silver); }
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .nav__item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--Silver);
+      font-size: 14px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .nav__item:hover {
+      background: rgba(255, 96, 0, 0.08);
+      color: var(--White);
+    }
+    .nav__item--active {
+      background: rgba(255, 96, 0, 0.14);
+      color: var(--Orange);
+      font-weight: 600;
+    }
+    .nav__item--active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 3px;
+      height: 70%;
+      background: var(--Orange);
+      border-radius: 0 3px 3px 0;
+    }
+    .sidebar__footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar__footer .nav__item { color: #ef4444; }
+    .sidebar__footer .nav__item:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    /* CONTENT */
+    .content {
+      flex: 1;
+      padding: 28px 32px;
+      max-width: calc(100% - var(--sidebar-w));
+    }
+    .content__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .content__headerActions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .h1 { font-size: 28px; font-weight: 700; color: var(--White); letter-spacing: -0.5px; }
+    .h2 { font-size: 18px; font-weight: 600; color: var(--White); margin-bottom: 4px; }
+    .muted { color: var(--Silver); font-size: 14px; }
+
+    /* FIELDS */
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field__label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input, .textarea, select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--White);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .input:focus, .textarea:focus, select:focus { border-color: var(--Orange); }
+    .input::placeholder, .textarea::placeholder { color: var(--Silver); }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2399a1af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+    .textarea { resize: vertical; min-height: 80px; }
+
+    /* CARDS */
+    .card {
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: var(--transition);
+      margin-bottom: 24px;
+    }
+    .card:hover { border-color: #2a3447; }
+    .card--soft { background: rgba(13, 19, 32, 0.6); }
+    .card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--Silver);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { border-color: var(--Orange); color: var(--White); }
+    .btn--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .btn--primary:hover { background: #c94d00; border-color: #c94d00; }
+    .btn--ghost { background: transparent; border-color: transparent; }
+    .btn--ghost:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+    }
+
+    /* CHAT */
+    .chatWrap {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .chatPanel { position: sticky; top: 16px; }
+    .chatLog {
+      height: 450px;
+      overflow: auto;
+      padding-right: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .msg { display: flex; flex-direction: column; }
+    .msg--ai .msg__bubble {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      max-width: 85%;
+    }
+    .msg--user .msg__bubble {
+      background: rgba(255, 96, 0, 0.08);
+      border: 1px solid rgba(255, 96, 0, 0.15);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      max-width: 85%;
+      align-self: flex-end;
+    }
+    .msg__title { font-size: 12px; font-weight: 600; color: var(--Orange); margin-bottom: 4px; }
+    .msg--user .msg__title { color: var(--Silver); }
+    .msg__text { font-size: 14px; color: var(--White); line-height: 1.6; }
+
+    /* LIST */
+    .list { display: flex; flex-direction: column; gap: 4px; }
+    .listItem {
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--Silver);
+      font-size: 14px;
+    }
+    .listItem:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--White);
+    }
+    .listItem--active {
+      background: rgba(255, 96, 0, 0.1);
+      color: var(--Orange);
+      font-weight: 500;
+    }
+
+    /* CHAT COMPOSER */
+    .chatComposer {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .chatComposer .textarea { min-height: 60px; }
+
+    /* MOBILE */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--White);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 20px;
+      font-family: inherit;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 99;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    @media (max-width: 980px) {
+      .chatWrap { grid-template-columns: 1fr; }
+      .chatPanel { position: static; }
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 100;
+        padding-top: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        top: 0;
+        height: 100vh;
+        min-height: 100vh;
+      }
+      .sidebar.active { display: flex; transform: translateX(0); }
+      .content { padding: 16px; max-width: 100%; }
+      .content__header { flex-direction: column; align-items: stretch; }
+      .content__headerActions { flex-direction: column; align-items: stretch; }
+      .topbar { padding: 0 16px; height: 60px; }
+      .brand__name { font-size: 16px; }
+      .h1 { font-size: 22px; }
+      .card { padding: 16px; }
+      .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+      .chatLog { height: 320px; }
+      .msg--ai .msg__bubble, .msg--user .msg__bubble { max-width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .card__header { flex-direction: column; }
+      .chatComposer .row { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <a class="brand" href="./index.html">
+          <span class="brand__name">Ard<span>ify</span></span>
+        </a>
+      </div>
+      <div class="topbar__right">
+        <a class="pill" href="./settings.html">Privacy</a>
+        <button class="pill pill--primary" type="button" id="btnNewChat">New chat</button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" id="sidebar" aria-label="Primary">
+        <div class="sidebar__brand">
+          <div class="sidebar__avatar" aria-hidden="true" id="userAvatar">AI</div>
+          <div>
+            <div class="sidebar__title" id="userName">Ardify AI</div>
+            <div class="sidebar__subtitle" id="userRole">Assistant</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="./instructor-dashboard.html">Dashboard</a>
+          <a class="nav__item" href="./assignments.html">Assignments</a>
+          <a class="nav__item" href="./grading-queue.html">Grading Queue</a>
+          <a class="nav__item" href="./team-projects.html">Team Projects</a>
+          <a class="nav__item" href="./individual-project.html">Individual Project</a>
+          <a class="nav__item nav__item--active" href="./ai-assistant.html">AI Assistant</a>
+          <a class="nav__item" href="./reports-analytics.html">Reports</a>
+          <a class="nav__item" href="./settings.html">Settings</a>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a class="nav__item logout_btn" href="#">Logout</a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content__header">
+          <div>
+            <h1 class="h1">AI Assistant</h1>
+            <p class="muted">Generate rubrics, draft feedback, and create student-friendly next steps.</p>
+          </div>
+          <div class="content__headerActions">
+            <div class="field">
+              <span class="field__label">Mode</span>
+              <select id="aiMode" class="input">
+                <option value="feedback" selected>Feedback drafting</option>
+                <option value="rubric">Rubric builder</option>
+                <option value="coach">Student coaching</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <section class="card card--soft">
+          <div class="card__header">
+            <div>
+              <h2 class="h2">Quick actions</h2>
+              <p class="muted">Select a task to auto-fill the prompt.</p>
+            </div>
+            <div class="row row--gap">
+              <button class="btn" type="button" data-prompt="draft_feedback">Draft feedback</button>
+              <button class="btn btn--ghost" type="button" data-prompt="create_rubric">Create rubric</button>
+              <button class="btn btn--ghost" type="button" data-prompt="next_steps">Generate next steps</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="chatWrap">
+          <section class="card chatPanel">
+            <div class="card__header">
+              <h2 class="h2">Sessions</h2>
+              <p class="muted">Your recent conversations.</p>
+            </div>
+            <div class="list" role="list">
+              <div class="listItem listItem--active">Grading feedback • UI/UX</div>
+              <div class="listItem">Rubric for Cyber lab</div>
+              <div class="listItem">Coaching for Networking reflection</div>
+              <div class="listItem">Draft rubric improvements</div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">Chat</h2>
+              <p class="muted">Professional, concise, and student-friendly outputs.</p>
+            </div>
+
+            <div class="chatLog" id="chatLog" aria-live="polite">
+              <div class="msg msg--ai">
+                <div class="msg__bubble">
+                  <div class="msg__title">Ardify AI</div>
+                  <div class="msg__text">Paste a submission excerpt or rubric criteria—I'll draft feedback and suggested improvements.</div>
+                </div>
+              </div>
+
+              <div class="msg msg--user">
+                <div class="msg__bubble">
+                  <div class="msg__title">You</div>
+                  <div class="msg__text">Create a rubric for a final UI/UX case study including clarity, correctness, depth, and usability.</div>
+                </div>
+              </div>
+
+              <div class="msg msg--ai">
+                <div class="msg__bubble">
+                  <div class="msg__title">Ardify AI</div>
+                  <div class="msg__text">Here's a rubric template you can use…</div>
+                </div>
+              </div>
+            </div>
+
+            <form id="chatForm" class="chatComposer">
+              <textarea id="chatInput" class="textarea" rows="2" placeholder="Ask for feedback, rubric, or coaching..." required></textarea>
+              <div class="row row--between">
+                <div class="row row--gap">
+                  <button type="button" class="btn btn--ghost" id="btnAttach">Attach</button>
+                  <button type="button" class="btn btn--ghost" id="btnSummarize">Summarize</button>
+                </div>
+                <button type="submit" class="btn btn--primary">Send</button>
+              </div>
+            </form>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      (function() {
+        'use strict';
+
+        // Mobile toggle
+        const toggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (toggle && sidebar) {
+          toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+          });
+        }
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+          });
+        }
+
+        // Auth
+        if (typeof window.ArdifyAuth !== 'undefined' && window.ArdifyAuth.isLoggedIn()) {
+          const user = window.ArdifyAuth.getUser();
+          if (user) {
+            const name = user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Instructor';
+            const initials = name.split(' ').filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userAvatar').textContent = initials || 'AI';
+            document.getElementById('userRole').textContent = user.role === 'admin' ? 'Admin' : 'Instructor';
+          }
+        }
+
+        // Logout
+        document.querySelectorAll('.logout_btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.ArdifyAuth && typeof window.ArdifyAuth.clearSession === 'function') {
+              window.ArdifyAuth.clearSession();
+            }
+            window.location.href = './login.html';
+          });
+        });
+
+        // New chat
+        document.getElementById('btnNewChat')?.addEventListener('click', function() {
+          alert('Starting a new chat session...');
+        });
+
+        // Chat form
+        document.getElementById('chatForm')?.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const input = document.getElementById('chatInput');
+          if (input && input.value.trim()) {
+            const chatLog = document.getElementById('chatLog');
+            const userMsg = document.createElement('div');
+            userMsg.className = 'msg msg--user';
+            userMsg.innerHTML = `
+              <div class="msg__bubble">
+                <div class="msg__title">You</div>
+                <div class="msg__text">${input.value}</div>
+              </div>
+            `;
+            chatLog.appendChild(userMsg);
+            chatLog.scrollTop = chatLog.scrollHeight;
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+              const aiMsg = document.createElement('div');
+              aiMsg.className = 'msg msg--ai';
+              aiMsg.innerHTML = `
+                <div class="msg__bubble">
+                  <div class="msg__title">Ardify AI</div>
+                  <div class="msg__text">I'm processing your request. In production, this would generate a thoughtful response based on your input.</div>
+                </div>
+              `;
+              chatLog.appendChild(aiMsg);
+              chatLog.scrollTop = chatLog.scrollHeight;
+            }, 1000);
+          }
+        });
+
+        // Quick action buttons
+        document.querySelectorAll('[data-prompt]').forEach(btn => {
+          btn.addEventListener('click', function() {
+            const input = document.getElementById('chatInput');
+            const prompts = {
+              'draft_feedback': 'Draft feedback for a student submission: [paste submission here]',
+              'create_rubric': 'Create a rubric with the following criteria: [list criteria]',
+              'next_steps': 'Generate next steps for a student who needs improvement on: [topic]'
+            };
+            if (input) {
+              input.value = prompts[this.dataset.prompt] || '';
+              input.focus();
+            }
+          });
+        });
+
+        // Session list items
+        document.querySelectorAll('.listItem').forEach(item => {
+          item.addEventListener('click', function() {
+            document.querySelectorAll('.listItem').forEach(i => i.classList.remove('listItem--active'));
+            this.classList.add('listItem--active');
+          });
+        });
+
+        console.log('✅ AI Assistant page ready');
+      })();
+    </script>
+  </div>
+</body>
+</html>

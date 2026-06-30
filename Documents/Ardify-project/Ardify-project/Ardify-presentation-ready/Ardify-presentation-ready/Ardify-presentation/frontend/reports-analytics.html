@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reports & Analytics • Ardify</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    window.ARDIFY_API_BASE = window.ARDIFY_API_BASE || "http://localhost:5000/api";
+  </script>
+  <script src="./JS/api.js"></script>
+  <script src="./JS/auth.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --Orange: #ff6000;
+      --Black: #000000;
+      --White: #ffffff;
+      --Silver: #99a1af;
+      --LightGreen: #05df72;
+      --yellow: #fdc700;
+      --darkblue: #0d1320;
+      --border: #1b2333;
+      --sidebar-w: 240px;
+      --radius: 10px;
+      --transition: all 0.25s ease;
+    }
+    html { color-scheme: dark; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--Black);
+      color: var(--White);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--Black); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .page {
+      min-height: 100vh;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(74, 222, 128, .08), transparent 60%),
+                  radial-gradient(900px 500px at 80% 20%, rgba(56, 189, 248, .06), transparent 55%),
+                  var(--Black);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--darkblue);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar__left { display: flex; align-items: center; gap: 16px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .brand:hover { opacity: 0.8; }
+    .brand__name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--White);
+    }
+    .brand__name span { color: var(--Orange); }
+    .topbar__right { display: flex; align-items: center; gap: 12px; }
+    .pill {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--Silver);
+      background: transparent;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+    .pill:hover { border-color: var(--Orange); color: var(--White); }
+    .pill--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .pill--primary:hover { background: #c94d00; border-color: #c94d00; }
+
+    /* SHELL */
+    .shell { display: flex; flex: 1; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: calc(100vh - 68px);
+      background: var(--darkblue);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      position: sticky;
+      top: 68px;
+      height: calc(100vh - 68px);
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sidebar__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--Orange), #ff914c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--White);
+      flex-shrink: 0;
+    }
+    .sidebar__title { font-size: 14px; font-weight: 600; color: var(--White); }
+    .sidebar__subtitle { font-size: 12px; color: var(--Silver); }
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .nav__item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--Silver);
+      font-size: 14px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .nav__item:hover {
+      background: rgba(255, 96, 0, 0.08);
+      color: var(--White);
+    }
+    .nav__item--active {
+      background: rgba(255, 96, 0, 0.14);
+      color: var(--Orange);
+      font-weight: 600;
+    }
+    .nav__item--active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 3px;
+      height: 70%;
+      background: var(--Orange);
+      border-radius: 0 3px 3px 0;
+    }
+    .sidebar__footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar__footer .nav__item { color: #ef4444; }
+    .sidebar__footer .nav__item:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    /* CONTENT */
+    .content {
+      flex: 1;
+      padding: 28px 32px;
+      max-width: calc(100% - var(--sidebar-w));
+    }
+    .content__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .content__headerActions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .h1 { font-size: 28px; font-weight: 700; color: var(--White); letter-spacing: -0.5px; }
+    .h2 { font-size: 18px; font-weight: 600; color: var(--White); margin-bottom: 4px; }
+    .muted { color: var(--Silver); font-size: 14px; }
+
+    /* FIELDS */
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field__label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input, select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--White);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .input:focus, select:focus { border-color: var(--Orange); }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2399a1af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: var(--transition);
+      margin-bottom: 24px;
+    }
+    .card:hover { border-color: #2a3447; }
+    .card--soft { background: rgba(13, 19, 32, 0.6); }
+    .card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--Silver);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { border-color: var(--Orange); color: var(--White); }
+    .btn--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .btn--primary:hover { background: #c94d00; border-color: #c94d00; }
+    .btn--ghost { background: transparent; border-color: transparent; }
+    .btn--ghost:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+    }
+
+    /* METRICS */
+    .metricRow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .metric--flat {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+    .metric__label { font-size: 12px; color: var(--Silver); margin-bottom: 6px; }
+    .metric__value { font-size: 28px; font-weight: 700; color: var(--White); }
+
+    /* GRID */
+    .grid { display: grid; gap: 24px; }
+    .grid--2 { grid-template-columns: 1fr 1fr; }
+    .row { display: flex; align-items: center; gap: 8px; }
+    .row--gap { gap: 12px; }
+    .row--between { justify-content: space-between; }
+
+    /* CHART */
+    .chart--bars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 160px;
+      padding: 10px 0;
+      gap: 8px;
+    }
+    .bar {
+      flex: 1;
+      background: var(--Orange);
+      border-radius: 4px 4px 0 0;
+      min-height: 8px;
+      transition: var(--transition);
+      position: relative;
+    }
+    .bar:hover { opacity: 0.8; transform: scaleY(1.02); }
+    .chart--donut { display: flex; align-items: center; gap: 24px; }
+    .donut {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: conic-gradient(var(--Orange) 0% 28%, var(--LightGreen) 28% 72%, var(--yellow) 72% 91%, #ef4444 91% 100%);
+      flex-shrink: 0;
+    }
+    .legend { display: flex; flex-direction: column; gap: 6px; }
+    .legendItem { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--Silver); }
+    .swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .swatch--1 { background: var(--Orange); }
+    .swatch--2 { background: var(--LightGreen); }
+    .swatch--3 { background: var(--yellow); }
+    .swatch--4 { background: #ef4444; }
+
+    /* LIST */
+    .list { display: flex; flex-direction: column; gap: 4px; }
+    .listItem {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .listItem:last-child { border-bottom: none; }
+    .listItem .strong { color: var(--White); font-weight: 600; }
+    .listItem .muted { font-size: 12px; }
+
+    /* CHIPS */
+    .chip {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .chip--needs {
+      background: rgba(255, 96, 0, 0.1);
+      color: var(--Orange);
+      border: 1px solid rgba(255, 96, 0, 0.2);
+    }
+    .chip--inprogress {
+      background: rgba(253, 199, 0, 0.1);
+      color: var(--yellow);
+      border: 1px solid rgba(253, 199, 0, 0.2);
+    }
+
+    /* CALLOUT */
+    .callout {
+      display: flex;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 14px;
+    }
+    .callout--info {
+      border-color: rgba(96, 165, 250, 0.2);
+      background: rgba(96, 165, 250, 0.04);
+    }
+    .callout__icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(96, 165, 250, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #60a5fa;
+      flex-shrink: 0;
+    }
+
+    /* MOBILE */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--White);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 20px;
+      font-family: inherit;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 99;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    @media (max-width: 1024px) {
+      .grid--2 { grid-template-columns: 1fr; }
+      .metricRow { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 100;
+        padding-top: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        top: 0;
+        height: 100vh;
+        min-height: 100vh;
+      }
+      .sidebar.active { display: flex; transform: translateX(0); }
+      .content { padding: 16px; max-width: 100%; }
+      .content__header { flex-direction: column; align-items: stretch; }
+      .content__headerActions { flex-direction: column; align-items: stretch; }
+      .topbar { padding: 0 16px; height: 60px; }
+      .brand__name { font-size: 16px; }
+      .h1 { font-size: 22px; }
+      .card { padding: 16px; }
+      .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+      .metricRow { grid-template-columns: 1fr 1fr; }
+      .chart--donut { flex-direction: column; align-items: center; }
+    }
+    @media (max-width: 480px) {
+      .metricRow { grid-template-columns: 1fr; }
+      .card__header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <a class="brand" href="./index.html">
+          <span class="brand__name">Ard<span>ify</span></span>
+        </a>
+      </div>
+      <div class="topbar__right">
+        <button class="pill pill--primary" type="button" id="btnExportReports">Export</button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" id="sidebar" aria-label="Primary">
+        <div class="sidebar__brand">
+          <div class="sidebar__avatar" aria-hidden="true" id="userAvatar">R</div>
+          <div>
+            <div class="sidebar__title" id="userName">Instructor</div>
+            <div class="sidebar__subtitle" id="userRole">Analytics</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="./instructor-dashboard.html">Dashboard</a>
+          <a class="nav__item" href="./assignments.html">Assignments</a>
+          <a class="nav__item" href="./grading-queue.html">Grading Queue</a>
+          <a class="nav__item" href="./team-projects.html">Team Projects</a>
+          <a class="nav__item" href="./individual-project.html">Individual Project</a>
+          <a class="nav__item nav__item--active" href="./reports-analytics.html">Reports</a>
+          <a class="nav__item" href="./ai-assistant.html">AI Assistant</a>
+          <a class="nav__item" href="./settings.html">Settings</a>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a class="nav__item logout_btn" href="#">Logout</a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content__header">
+          <div>
+            <h1 class="h1">Reports & Analytics</h1>
+            <p class="muted">Insights for grading performance, submission health, and learning progress.</p>
+          </div>
+          <div class="content__headerActions">
+            <div class="field">
+              <span class="field__label">Time range</span>
+              <select id="reportsRange" class="input">
+                <option value="7d" selected>Last 7 days</option>
+                <option value="30d">Last 30 days</option>
+                <option value="semester">Semester</option>
+              </select>
+            </div>
+            <div class="field">
+              <span class="field__label">Course</span>
+              <select id="reportsCourse" class="input">
+                <option value="all" selected>All courses</option>
+                <option>UI/UX Design</option>
+                <option>Cyber Security</option>
+                <option>Networking</option>
+                <option>Full-Stack Web Development</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <section class="card card--soft">
+          <div class="card__header">
+            <div>
+              <h2 class="h2">KPI snapshot</h2>
+              <p class="muted">High signal metrics for course delivery.</p>
+            </div>
+          </div>
+
+          <div class="metricRow">
+            <div class="metric metric--flat">
+              <div class="metric__label">Total submissions</div>
+              <div class="metric__value">148</div>
+            </div>
+            <div class="metric metric--flat">
+              <div class="metric__label">Avg grade</div>
+              <div class="metric__value">82.4</div>
+            </div>
+            <div class="metric metric--flat">
+              <div class="metric__label">Turnaround time</div>
+              <div class="metric__value">2.4d</div>
+            </div>
+            <div class="metric metric--flat">
+              <div class="metric__label">Completion rate</div>
+              <div class="metric__value">91%</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid grid--2">
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">Submission volume</h2>
+              <p class="muted">Weekly trend (demo chart).</p>
+            </div>
+            <div class="chart chart--bars" aria-label="Bar chart">
+              <div class="bar" style="height: 38%" title="Mon"></div>
+              <div class="bar" style="height: 52%" title="Tue"></div>
+              <div class="bar" style="height: 61%" title="Wed"></div>
+              <div class="bar" style="height: 44%" title="Thu"></div>
+              <div class="bar" style="height: 70%" title="Fri"></div>
+              <div class="bar" style="height: 58%" title="Sat"></div>
+              <div class="bar" style="height: 80%" title="Sun"></div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">Grade distribution</h2>
+              <p class="muted">How grades are spread (demo).</p>
+            </div>
+            <div class="chart chart--donut" aria-label="Donut chart">
+              <div class="donut" aria-hidden="true"></div>
+              <div class="legend">
+                <div class="legendItem"><span class="swatch swatch--1"></span> 90–100: 28%</div>
+                <div class="legendItem"><span class="swatch swatch--2"></span> 80–89: 44%</div>
+                <div class="legendItem"><span class="swatch swatch--3"></span> 70–79: 19%</div>
+                <div class="legendItem"><span class="swatch swatch--4"></span> &lt;70: 9%</div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="grid grid--2">
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">At-risk students</h2>
+              <p class="muted">Auto-detected based on rubric gaps & submission latency.</p>
+            </div>
+            <div class="list" id="atRiskList">
+              <div class="listItem">
+                <div class="strong">Layla Ahmed</div>
+                <div class="muted">Low communication score • 3 late days</div>
+                <span class="chip chip--needs">Needs support</span>
+              </div>
+              <div class="listItem">
+                <div class="strong">Oliver Wright</div>
+                <div class="muted">Missing rubric criteria • 2 revisions</div>
+                <span class="chip chip--needs">Needs support</span>
+              </div>
+              <div class="listItem">
+                <div class="strong">Chloe Martin</div>
+                <div class="muted">Low depth • Suggested AI coaching</div>
+                <span class="chip chip--inprogress">In progress</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">Action plan</h2>
+              <p class="muted">Suggested improvements based on analytics.</p>
+            </div>
+            <div class="callout callout--info">
+              <div class="callout__icon" aria-hidden="true">↗</div>
+              <div>
+                <div class="strong">Reduce late submissions</div>
+                <div class="muted">Enable earlier milestone reminders for students below 60% completion at week 1.</div>
+              </div>
+            </div>
+
+            <div class="callout" style="margin-top: 14px;">
+              <div class="callout__icon" aria-hidden="true">✦</div>
+              <div>
+                <div class="strong">Improve rubric clarity</div>
+                <div class="muted">Update criteria examples using AI-generated "model answers" for each criterion.</div>
+              </div>
+            </div>
+
+            <div class="row row--gap" style="margin-top: 14px;">
+              <a class="btn btn--primary" href="./ai-assistant.html">Generate model answers</a>
+              <a class="btn btn--ghost" href="./settings.html">Update reminders</a>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      (function() {
+        'use strict';
+
+        // Mobile toggle
+        const toggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (toggle && sidebar) {
+          toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+          });
+        }
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+          });
+        }
+
+        // Auth
+        if (typeof window.ArdifyAuth !== 'undefined' && window.ArdifyAuth.isLoggedIn()) {
+          const user = window.ArdifyAuth.getUser();
+          if (user) {
+            const name = user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Instructor';
+            const initials = name.split(' ').filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userAvatar').textContent = initials || 'R';
+            document.getElementById('userRole').textContent = user.role === 'admin' ? 'Admin' : 'Instructor';
+          }
+        }
+
+        // Logout
+        document.querySelectorAll('.logout_btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.ArdifyAuth && typeof window.ArdifyAuth.clearSession === 'function') {
+              window.ArdifyAuth.clearSession();
+            }
+            window.location.href = './login.html';
+          });
+        });
+
+        // Export
+        document.getElementById('btnExportReports')?.addEventListener('click', function() {
+          alert('Exporting reports...');
+        });
+
+        console.log('✅ Reports page ready');
+      })();
+    </script>
+  </div>
+</body>
+</html>

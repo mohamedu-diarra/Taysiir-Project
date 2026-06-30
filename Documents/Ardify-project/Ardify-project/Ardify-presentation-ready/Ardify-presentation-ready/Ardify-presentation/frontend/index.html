@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Ardify | Ardify is a modern web-based e-learning platform designed to
+      provide students with an interactive and personalized learning experience.
+    </title>
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/course-detail.css">
+    
+    <style>
+      /* ===== ADDITIONAL STYLES FOR HOMEPAGE ===== */
+      .course_card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        overflow: hidden;
+        transition: var(--transition);
+        cursor: default;
+      }
+
+      .course_card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent);
+        box-shadow: 0 8px 30px rgba(255, 96, 0, 0.08);
+      }
+
+      .course_thumb {
+        position: relative;
+        aspect-ratio: 16/9;
+        overflow: hidden;
+        background: var(--bg-primary);
+      }
+
+      .course_thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .course_card:hover .course_thumb img {
+        transform: scale(1.04);
+      }
+
+      .course_badge {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        padding: 4px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .course_badge.advanced {
+        background: rgba(124, 58, 237, 0.8);
+        color: #a78bfa;
+        border-color: rgba(124, 58, 237, 0.3);
+      }
+
+      .course_badge.intermediate {
+        background: rgba(245, 158, 11, 0.8);
+        color: #fbbf24;
+        border-color: rgba(245, 158, 11, 0.3);
+      }
+
+      .course_badge.beginner {
+        background: rgba(34, 197, 94, 0.8);
+        color: #4ade80;
+        border-color: rgba(34, 197, 94, 0.3);
+      }
+
+      .course_body {
+        padding: 20px;
+      }
+
+      .course_category {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 8px;
+      }
+
+      .course_category ion-icon {
+        font-size: 16px;
+        color: var(--accent);
+      }
+
+      .course_title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.3;
+        margin-bottom: 10px;
+        color: var(--text-primary);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .course_meta {
+        display: flex;
+        gap: 16px;
+        color: var(--text-secondary);
+        font-size: 13px;
+        margin-bottom: 14px;
+      }
+
+      .course_meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .course_meta ion-icon {
+        font-size: 16px;
+      }
+
+      .course_footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 14px;
+        border-top: 1px solid var(--border);
+      }
+
+      .course_price {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .start_btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: 'Space Grotesk', sans-serif;
+        text-decoration: none;
+      }
+
+      .start_btn:hover {
+        background: var(--accent-hover);
+        transform: scale(1.04);
+      }
+
+      .start_btn ion-icon {
+        font-size: 18px;
+      }
+
+      /* ===== HERO SECTION ===== */
+      .hero {
+        padding: 60px 0 40px;
+        background: var(--bg-primary);
+      }
+
+      .qaybo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+      }
+
+      .head span {
+        display: inline-block;
+        background: rgba(255, 96, 0, 0.1);
+        color: var(--accent);
+        padding: 6px 18px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        border: 1px solid rgba(255, 96, 0, 0.15);
+      }
+
+      .desc h2 {
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 16px 0;
+        letter-spacing: -0.02em;
+      }
+
+      .desc h2 span {
+        color: var(--accent);
+      }
+
+      .qoraal {
+        color: var(--text-secondary);
+        font-size: 16px;
+        line-height: 1.8;
+        max-width: 520px;
+      }
+
+      .actions {
+        display: flex;
+        gap: 14px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+
+      .Learn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: 'Space Grotesk', sans-serif;
+      }
+
+      .Learn:hover {
+        background: var(--accent-hover);
+        transform: scale(1.02);
+      }
+
+      .Get {
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--text-primary);
+        border: 1px solid var(--border);
+        padding: 14px 28px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        font-family: 'Space Grotesk', sans-serif;
+      }
+
+      .Get:hover {
+        background: var(--bg-hover);
+        transform: scale(1.02);
+      }
+
+      .bidix .image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .bidix .image img {
+        max-width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: contain;
+      }
+
+      /* ===== SECTION TITLE ===== */
+      .section_title {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .section_title span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--accent);
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .section_title h2 {
+        font-size: 32px;
+        font-weight: 700;
+        margin-top: 6px;
+      }
+
+      .faq_subtitle {
+        color: var(--text-secondary);
+        font-size: 16px;
+        margin-top: 8px;
+      }
+
+      /* ===== COURSE GRID ===== */
+      .course_grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+
+      /* ===== CARDS SECTION ===== */
+      .cardsec {
+        padding: 40px 0;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 20px;
+      }
+
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 24px 16px;
+        text-align: center;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+
+      .card:hover {
+        border-color: var(--accent);
+        transform: translateY(-4px);
+        box-shadow: 0 8px 30px rgba(255, 96, 0, 0.06);
+      }
+
+      .card .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: rgba(255, 96, 0, 0.08);
+        color: var(--accent);
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .card .name {
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .card .course_count {
+        color: var(--text-secondary);
+        font-size: 12px;
+      }
+
+      /* ===== FAQ ===== */
+      .faqsec {
+        padding: 40px 0 60px;
+      }
+
+      .faq_list {
+        max-width: 720px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .faq_item {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+      }
+
+      .faq_question {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 18px 20px;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        font-family: 'Space Grotesk', sans-serif;
+        transition: var(--transition);
+      }
+
+      .faq_question:hover {
+        background: var(--bg-hover);
+      }
+
+      .faq_icon {
+        color: var(--accent);
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .faq_question span:not(.faq_icon):not(.faq_arrow) {
+        flex: 1;
+        text-align: left;
+      }
+
+      .faq_arrow {
+        color: var(--text-secondary);
+        font-size: 20px;
+        transition: var(--transition);
+        flex-shrink: 0;
+      }
+
+      .faq_item.open .faq_arrow {
+        transform: rotate(180deg);
+      }
+
+      .faq_answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        padding: 0 20px;
+        color: var(--text-secondary);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .faq_item.open .faq_answer {
+        max-height: 300px;
+        padding: 0 20px 18px;
+      }
+
+      /* ===== YOUTUBE BADGE ===== */
+      .youtube_badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #ff0000;
+        color: white;
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 10px;
+        border-radius: 4px;
+        margin-left: 6px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .youtube_badge ion-icon {
+        font-size: 12px;
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 1024px) {
+        .course_grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .cards {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .qaybo {
+          grid-template-columns: 1fr;
+          gap: 30px;
+          text-align: center;
+        }
+
+        .qoraal {
+          max-width: 100%;
+          margin: 0 auto;
+        }
+
+        .actions {
+          justify-content: center;
+        }
+
+        .desc h2 {
+          font-size: 30px;
+        }
+
+        .course_grid {
+          grid-template-columns: 1fr;
+        }
+
+        .cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .course_footer {
+          flex-direction: column;
+          gap: 12px;
+          align-items: stretch;
+        }
+
+        .start_btn {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .cards {
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+        }
+
+        .card {
+          padding: 16px 12px;
+        }
+
+        .course_meta {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ===== NAV ===== -->
+    <section class="navsec">
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <img src="./Images/Ardifylogo.png" alt="Ardify" />
+          </div>
+          <ul class="links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./public-courses.html">Courses</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+          <div class="btn_action">
+            <a class="sign_in" href="./login.html">
+              Login<ion-icon name="log-in"></ion-icon>
+            </a>
+            <button class="Get" type="button" onclick="location.href='./signup.html'">
+              Sign-up
+            </button>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div class="container">
+        <div class="qaybo">
+          <div class="qayb midig">
+            <div class="head">
+              <span>🚀Somalia's Leading Tech Platform</span>
+            </div>
+            <div class="desc">
+              <h2>Learn smarter, grow faster with <span>Ardify.</span></h2>
+              <p class="qoraal">
+                Ardify is an advanced e-learning platform built to transform the
+                way students learn in the digital age. It offers a seamless
+                experience where users can explore structured courses, access
+                high-quality lessons, and test their knowledge through
+                interactive quizzes.
+              </p>
+              <div class="actions">
+                <button class="Learn" onclick="window.location.href='./about.html'">
+                  Learn More <ion-icon name="arrow-forward"></ion-icon>
+                </button>
+                <button class="Get" onclick="window.location.href='./signup.html'">
+                  Get Started
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="qayb bidix">
+            <div class="image">
+              <img
+                src="./Images/Online learning-amico(1).png"
+                alt="learning pic"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COURSE CATEGORIES ===== -->
+    <section class="cardsec">
+      <div class="container">
+        <div class="section_title">
+          <span>Popular Courses <ion-icon name="globe"></ion-icon> </span>
+          <h2>Explore Ardify courses</h2>
+        </div>
+        <div class="cards">
+          <div class="card" onclick="window.location.href='./public-courses.html#digital-marketing'">
+            <span class="icon"><ion-icon name="megaphone-outline"></ion-icon></span>
+            <p class="name">Digital Marketing</p>
+            <span class="course_count"> +1 Course </span>
+          </div>
+          <div class="card" onclick="window.location.href='./public-courses.html#ui-ux'">
+            <span class="icon"><ion-icon name="color-palette-outline"></ion-icon></span>
+            <p class="name">Graphic Design</p>
+            <span class="course_count"> +1 Course </span>
+          </div>
+          <div class="card" onclick="window.location.href='./public-courses.html#programming'">
+            <span class="icon"><ion-icon name="code-slash-outline"></ion-icon></span>
+            <p class="name">Programming</p>
+            <span class="course_count"> +1 Course </span>
+          </div>
+          <div class="card" onclick="window.location.href='./public-courses.html#networking'">
+            <span class="icon"><ion-icon name="git-network-outline"></ion-icon></span>
+            <p class="name">Networking</p>
+            <span class="course_count"> +1 Course </span>
+          </div>
+          <div class="card" onclick="window.location.href='./public-courses.html#cyber'">
+            <span class="icon"><ion-icon name="shield-checkmark-outline"></ion-icon></span>
+            <p class="name">Cyber Security</p>
+            <span class="course_count"> +1 Course </span>
+          </div>
+          <div class="card" onclick="window.location.href='./public-courses.html#data'">
+            <span class="icon"><ion-icon name="analytics-outline"></ion-icon></span>
+            <p class="name">Data Analysis</p>
+            <span class="course_count"> +1 Course </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURED COURSES ===== -->
+    <section class="coursesec">
+      <div class="container">
+        <div class="section_title">
+          <span>What We Offer <ion-icon name="rocket-outline"></ion-icon></span>
+          <h2>Featured Courses</h2>
+        </div>
+
+        <div class="course_grid">
+          <!-- ===== COURSE 1: Full-Stack Web Development ===== -->
+          <div class="course_card">
+            <div class="course_thumb">
+              <img
+                src="./Images/ChatGPT Image Jun 2, 2026, 05_13_15 PM.png"
+                alt="Web Development Course"
+              />
+              <span class="course_badge advanced">Advanced</span>
+            </div>
+            <div class="course_body">
+              <span class="course_category">
+                <ion-icon name="code-slash-outline"></ion-icon> Web Development
+                <span class="youtube_badge"><ion-icon name="logo-youtube"></ion-icon> Watch</span>
+              </span>
+              <h3 class="course_title">Full-Stack Web Development Bootcamp</h3>
+              <div class="course_meta">
+                <span><ion-icon name="play-circle-outline"></ion-icon> 110 lessons</span>
+                <span><ion-icon name="time-outline"></ion-icon> 22.8h</span>
+              </div>
+              <div class="course_footer">
+                <span class="course_price">$49</span>
+                <a href="https://www.youtube.com/watch?v=ysEN5RaKOlA" target="_blank" class="start_btn">
+                  Start learning
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== COURSE 2: UI/UX Design ===== -->
+          <div class="course_card">
+            <div class="course_thumb">
+              <img src="./Images/uiux.png" alt="UI/UX Design Course" />
+              <span class="course_badge intermediate">Intermediate</span>
+            </div>
+            <div class="course_body">
+              <span class="course_category">
+                <ion-icon name="color-palette-outline"></ion-icon> Graphic Design
+                <span class="youtube_badge"><ion-icon name="logo-youtube"></ion-icon> Watch</span>
+              </span>
+              <h3 class="course_title">UI/UX Design Masterclass: Figma to Product</h3>
+              <div class="course_meta">
+                <span><ion-icon name="play-circle-outline"></ion-icon> 24 lessons</span>
+                <span><ion-icon name="time-outline"></ion-icon> 5.9h</span>
+              </div>
+              <div class="course_footer">
+                <span class="course_price">$25</span>
+                <a href="https://www.youtube.com/watch?v=c9Wg6Cb_YlU" target="_blank" class="start_btn">
+                  Start learning
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== COURSE 3: Cyber Security ===== -->
+          <div class="course_card">
+            <div class="course_thumb">
+              <img
+                src="./Images/Screenshot 2026-06-02 172353.png"
+                alt="Cyber Security Course"
+              />
+              <span class="course_badge intermediate">Intermediate</span>
+            </div>
+            <div class="course_body">
+              <span class="course_category">
+                <ion-icon name="shield-checkmark-outline"></ion-icon> Cyber Security
+                <span class="youtube_badge"><ion-icon name="logo-youtube"></ion-icon> Watch</span>
+              </span>
+              <h3 class="course_title">Ethical Hacking & Network Defense</h3>
+              <div class="course_meta">
+                <span><ion-icon name="play-circle-outline"></ion-icon> 69 lessons</span>
+                <span><ion-icon name="time-outline"></ion-icon> 16.7h</span>
+              </div>
+              <div class="course_footer">
+                <span class="course_price">$30</span>
+                <a href="https://www.youtube.com/watch?v=3Kq1MIfTWCE" target="_blank" class="start_btn">
+                  Start learning
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== COURSE 4: Data Analysis ===== -->
+          <div class="course_card">
+            <div class="course_thumb">
+              <img src="./Images/excel.png" alt="Data Analysis Course" />
+              <span class="course_badge beginner">Beginner</span>
+            </div>
+            <div class="course_body">
+              <span class="course_category">
+                <ion-icon name="analytics-outline"></ion-icon> Data Analysis
+                <span class="youtube_badge"><ion-icon name="logo-youtube"></ion-icon> Watch</span>
+              </span>
+              <h3 class="course_title">Data Analysis with Python & Power BI</h3>
+              <div class="course_meta">
+                <span><ion-icon name="play-circle-outline"></ion-icon> 45 lessons</span>
+                <span><ion-icon name="time-outline"></ion-icon> 11.2h</span>
+              </div>
+              <div class="course_footer">
+                <span class="course_price">$35</span>
+                <a href="https://www.youtube.com/watch?v=ysEN5RaKOlA" target="_blank" class="start_btn">
+                  Start learning
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== COURSE 5: Networking ===== -->
+          <div class="course_card">
+            <div class="course_thumb">
+              <img src="./Images/Networking.png" alt="Networking Course" />
+              <span class="course_badge beginner">Beginner</span>
+            </div>
+            <div class="course_body">
+              <span class="course_category">
+                <ion-icon name="git-network-outline"></ion-icon> Networking
+                <span class="youtube_badge"><ion-icon name="logo-youtube"></ion-icon> Watch</span>
+              </span>
+              <h3 class="course_title">Computer Networking: From Zero to CCNA</h3>
+              <div class="course_meta">
+                <span><ion-icon name="play-circle-outline"></ion-icon> 38 lessons</span>
+                <span><ion-icon name="time-outline"></ion-icon> 9.4h</span>
+              </div>
+              <div class="course_footer">
+                <span class="course_price">$20</span>
+                <a href="https://www.youtube.com/watch?v=ysEN5RaKOlA" target="_blank" class="start_btn">
+                  Start learning
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== COURSE 6: Digital Marketing ===== -->
+          <div class="course_card">
+            <div class="course_thumb">
+              <img src="./Images/digital.png" alt="Digital Marketing Course" />
+              <span class="course_badge intermediate">Intermediate</span>
+            </div>
+            <div class="course_body">
+              <span class="course_category">
+                <ion-icon name="megaphone-outline"></ion-icon> Digital Marketing
+                <span class="youtube_badge"><ion-icon name="logo-youtube"></ion-icon> Watch</span>
+              </span>
+              <h3 class="course_title">Digital Marketing & Social Media Growth</h3>
+              <div class="course_meta">
+                <span><ion-icon name="play-circle-outline"></ion-icon> 52 lessons</span>
+                <span><ion-icon name="time-outline"></ion-icon> 13.5h</span>
+              </div>
+              <div class="course_footer">
+                <span class="course_price">$28</span>
+                <a href="https://www.youtube.com/watch?v=ysEN5RaKOlA" target="_blank" class="start_btn">
+                  Start learning
+                  <ion-icon name="arrow-forward-outline"></ion-icon>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faqsec">
+      <div class="container">
+        <div class="section_title">
+          <span>Got Questions? <ion-icon name="help-circle-outline"></ion-icon></span>
+          <h2>Frequently Asked Questions</h2>
+          <p class="faq_subtitle">Find answers to common questions about Ardify.</p>
+        </div>
+
+        <div class="faq_list">
+          <div class="faq_item">
+            <button class="faq_question" onclick="toggleFAQ(this)">
+              <span class="faq_icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+              <span>What is Ardify?</span>
+              <span class="faq_arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+            </button>
+            <div class="faq_answer">
+              <p>Ardify is a modern web-based e-learning platform designed to provide students with an interactive and personalized learning experience. It offers structured courses, high-quality video lessons, interactive quizzes, and progress tracking — all in one place.</p>
+            </div>
+          </div>
+
+          <div class="faq_item">
+            <button class="faq_question" onclick="toggleFAQ(this)">
+              <span class="faq_icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+              <span>Is Ardify free to use?</span>
+              <span class="faq_arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+            </button>
+            <div class="faq_answer">
+              <p>Ardify offers both free and paid courses. You can browse and access certain introductory lessons for free. Premium courses require a one-time payment, giving you lifetime access to all course materials.</p>
+            </div>
+          </div>
+
+          <div class="faq_item">
+            <button class="faq_question" onclick="toggleFAQ(this)">
+              <span class="faq_icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+              <span>How do I enroll in a course?</span>
+              <span class="faq_arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+            </button>
+            <div class="faq_answer">
+              <p>Simply create a free account, browse our course catalog, and click "Get Started" on any course you're interested in. For paid courses, you'll be guided through a quick checkout process before gaining full access.</p>
+            </div>
+          </div>
+
+          <div class="faq_item">
+            <button class="faq_question" onclick="toggleFAQ(this)">
+              <span class="faq_icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+              <span>Can I learn at my own pace?</span>
+              <span class="faq_arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+            </button>
+            <div class="faq_answer">
+              <p>Absolutely! All Ardify courses are self-paced. You can start, pause, and resume lessons whenever suits you. Your progress is automatically saved so you never lose your place.</p>
+            </div>
+          </div>
+
+          <div class="faq_item">
+            <button class="faq_question" onclick="toggleFAQ(this)">
+              <span class="faq_icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+              <span>Will I receive a certificate after completing a course?</span>
+              <span class="faq_arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+            </button>
+            <div class="faq_answer">
+              <p>Yes! Upon successfully completing a course and passing the final quiz, you will receive a digital certificate of completion. You can download, share, or add it to your professional profiles.</p>
+            </div>
+          </div>
+
+          <div class="faq_item">
+            <button class="faq_question" onclick="toggleFAQ(this)">
+              <span class="faq_icon"><ion-icon name="help-circle-outline"></ion-icon></span>
+              <span>What topics does Ardify cover?</span>
+              <span class="faq_arrow"><ion-icon name="chevron-down-outline"></ion-icon></span>
+            </button>
+            <div class="faq_answer">
+              <p>Ardify currently offers courses in Web Development, UI/UX Design, Cyber Security, Data Analysis, Networking, and Digital Marketing — with more categories being added regularly to keep up with industry demands.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer_top">
+          <div class="footer_brand">
+            <div class="footer_logo">
+              <img src="./Images/Ardifylogo.png" alt="Ardify Logo" />
+            </div>
+            <p class="footer_desc">
+              Somalia's leading e-learning platform. Learn smarter, grow faster
+              with structured courses and interactive lessons built for the digital age.
+            </p>
+            <div class="footer_socials">
+              <a href="https://www.youtube.com/" class="social_link" aria-label="YouTube" target="_blank">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </a>
+              <a href="https://github.com/" class="social_link" aria-label="GitHub" target="_blank">
+                <ion-icon name="logo-github"></ion-icon>
+              </a>
+              <a href="https://wa.me/" class="social_link" aria-label="WhatsApp" target="_blank">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+              </a>
+              <a href="https://facebook.com/" class="social_link" aria-label="Facebook" target="_blank">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+              <a href="https://twitter.com/" class="social_link" aria-label="X / Twitter" target="_blank">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+              <a href="https://linkedin.com/" class="social_link" aria-label="LinkedIn" target="_blank">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer_col">
+            <h4 class="footer_col_title">Product</h4>
+            <ul class="footer_links">
+              <li><a href="./public-courses.html">Courses</a></li>
+              <li><a href="./assignments.html">Quizzes</a></li>
+              <li><a href="./student-dashboard.html">Progress Tracking</a></li>
+              <li><a href="./ai-assistant.html">AI Assistant</a></li>
+              <li><a href="./admin-certificates.html">Certificates</a></li>
+            </ul>
+          </div>
+
+          <div class="footer_col">
+            <h4 class="footer_col_title">Company</h4>
+            <ul class="footer_links">
+              <li><a href="./about.html">About Us</a></li>
+              <li><a href="./contact.html">Contact</a></li>
+              <li><a href="./blog.html">Blog</a></li>
+              <li><a href="./careers.html">Careers</a></li>
+            </ul>
+          </div>
+
+          <div class="footer_col">
+            <h4 class="footer_col_title">Legal</h4>
+            <ul class="footer_links">
+              <li><a href="./privacy.html">Privacy Policy</a></li>
+              <li><a href="./terms.html">Terms of Service</a></li>
+              <li><a href="./cookies.html">Cookie Policy</a></li>
+              <li><a href="./refund.html">Refund Policy</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer_bottom">
+          <p class="footer_copy">© 2026 Ardify. All rights reserved.</p>
+          <p class="footer_made">
+            Proudly built in Somalia
+            <ion-icon name="heart" class="heart_icon"></ion-icon>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="./JS/api.js"></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/app.js"></script>
+    <script src="./JS/auth.js"></script>
+    <script src="./JS/ui.js"></script>
+    <script src="./js/mobile-nav.js"></script>
+
+    <script>
+      // ===== TOGGLE FAQ =====
+      function toggleFAQ(btn) {
+        const item = btn.closest('.faq_item');
+        const isOpen = item.classList.contains('open');
+        
+        // Close all other FAQs
+        document.querySelectorAll('.faq_item').forEach(f => f.classList.remove('open'));
+        
+        if (!isOpen) {
+          item.classList.add('open');
+        }
+      }
+
+      console.log('🚀 Ardify homepage loaded!');
+      console.log('📚 Click "Start learning" to watch courses on YouTube.');
+      console.log('🎬 Each course redirects to a specific YouTube video.');
+    </script>
+  </body>
+</html>

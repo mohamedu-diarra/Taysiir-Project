@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Ardify | Get in touch with our team</title>
+
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/contact.css" />
+  </head>
+
+  <body>
+    <!-- nav -->
+    <section class="navsec">
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <img src="./Images/Ardifylogo.png" alt="" />
+          </div>
+          <ul class="links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./public-courses.html">Courses</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+
+          </ul>
+            <div class="btn_action">
+            <a class="sign_in" href="./login.html">
+              Login  <ion-icon name="log-in"></ion-icon>
+            </a>
+            <button class="Get" type="button" onclick="location.href='./signup.html'">
+             Sign-up
+            </button>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+      <div class="container">
+        <div class="contact-hero__grid">
+          <div class="contact-hero__content">
+            <div class="contact-badge">
+              <span class="contact-badge__dot"></span>
+              We respond quickly (typically within 24 hours)
+            </div>
+
+            <h1 class="contact-title">
+              Contact <span>Ardify</span>
+            </h1>
+
+            <p class="contact-subtitle">
+              Have a question about courses, partnerships, or learning support?
+              Send us a message and we’ll get back to you.
+            </p>
+
+            <div class="contact-hero__meta">
+              <div class="meta-item">
+                <ion-icon name="mail-outline"></ion-icon>
+                <span>Support + Admissions</span>
+              </div>
+              <div class="meta-item">
+                <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                <span>Friendly & clear answers</span>
+              </div>
+              <div class="meta-item">
+                <ion-icon name="location-outline"></ion-icon>
+                <span>Somaliland & global learners</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-hero__visual" aria-hidden="true">
+            <div class="contact-hero__panel">
+              <div class="panel-top">
+                <span class="panel-tag">Fast response</span>
+                <span class="panel-metric">24h avg</span>
+              </div>
+              <div class="panel-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="panel-bottom">
+                <div class="mini-pill">
+                  <ion-icon name="sparkles-outline"></ion-icon>
+                  Premium learning support
+                </div>
+                <div class="mini-pill mini-pill--orange">
+                  <ion-icon name="shield-checkmark-outline"></ion-icon>
+                  Trusted & secure
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Main -->
+    <section class="contact-main">
+      <div class="container">
+        <div class="contact-layout">
+          <!-- Form Card -->
+          <div class="card form-card">
+            <div class="card__header">
+              <div class="card__kicker">
+                <ion-icon name="create-outline"></ion-icon>
+                Send a message
+              </div>
+              <h2 class="card__title">Tell us what you need</h2>
+              <p class="card__desc">
+                Fill in the form below. We’ll use your details to respond faster.
+              </p>
+            </div>
+
+            <form class="contact-form" action="" method="post">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="name">Full name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    placeholder="e.g., Abdi Hassan"
+                    autocomplete="name"
+                    required
+                  />
+                </div>
+
+                <div class="field">
+                  <label for="email">Email address</label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="e.g., abdi@email.com"
+                    autocomplete="email"
+                    required
+                  />
+                </div>
+
+                <div class="field field--wide">
+                  <label for="subject">Subject</label>
+                  <select id="subject" name="subject" required>
+                    <option value="" selected disabled>
+                      Choose a topic
+                    </option>
+                    <option>Course questions</option>
+                    <option>Account & login</option>
+                    <option>Partnerships</option>
+                    <option>Support</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+
+                <div class="field field--wide">
+                  <label for="message">Message</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Write your message here..."
+                    rows="6"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button class="btn-submit" type="submit">
+                  Submit message
+                  <ion-icon name="arrow-forward"></ion-icon>
+                </button>
+                <p class="form-note">
+                  By submitting, you agree to receive a response from Ardify.
+                </p>
+              </div>
+            </form>
+          </div>
+
+          <!-- Info Cards -->
+          <div class="info-stack">
+            <div class="card info-card">
+              <div class="info-card__icon">
+                <ion-icon name="mail-outline"></ion-icon>
+              </div>
+              <h3 class="info-card__title">Email us</h3>
+              <p class="info-card__text">
+                For support & course questions.
+              </p>
+              <a class="info-card__link" href="mailto:support@ardify.com">
+                support@ardify.com
+                <ion-icon name="open-outline"></ion-icon>
+              </a>
+            </div>
+
+            <div class="card info-card">
+              <div class="info-card__icon info-card__icon--orange">
+                <ion-icon name="call-outline"></ion-icon>
+              </div>
+              <h3 class="info-card__title">Call / WhatsApp</h3>
+              <p class="info-card__text">
+                Quick answers for learners and partners.
+              </p>
+              <a class="info-card__link" href="tel:+252600000000">
+                +252 600 000 000
+                <ion-icon name="open-outline"></ion-icon>
+              </a>
+            </div>
+
+            <div class="card info-card">
+              <div class="info-card__icon">
+                <ion-icon name="location-outline"></ion-icon>
+              </div>
+              <h3 class="info-card__title">Our location</h3>
+              <p class="info-card__text">
+                Based in Somaliland. Supporting learners worldwide.
+              </p>
+              <div class="info-card__location">
+                Hargeisa, Somaliland
+              </div>
+            </div>
+
+            <div class="card quick-card">
+              <div class="quick-card__top">
+                <div class="quick-card__kicker">
+                  <ion-icon name="sparkles-outline"></ion-icon>
+                  Need a fast answer?
+                </div>
+                <h3 class="quick-card__title">Check these first</h3>
+              </div>
+
+              <ul class="quick-list">
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Enrollment & course access
+                </li>
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Progress tracking & certificates
+                </li>
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Login and password recovery
+                </li>
+              </ul>
+
+              <a class="quick-link" href="./index.html#faqsec">
+                Go to FAQ
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-bottom">
+          <div class="bottom-card">
+            <div class="bottom-card__icon">
+              <ion-icon name="shield-checkmark-outline"></ion-icon>
+            </div>
+            <div>
+              <h3>Privacy-first communication</h3>
+              <p>
+                Your information is used only to reply to your message.
+              </p>
+            </div>
+          </div>
+          <div class="bottom-card">
+            <div class="bottom-card__icon bottom-card__icon--orange">
+              <ion-icon name="time-outline"></ion-icon>
+            </div>
+            <div>
+              <h3>Clear response time</h3>
+              <p>
+                Most requests receive an update within 24 hours.
+              </p>
+            </div>
+          </div>
+          <div class="bottom-card">
+            <div class="bottom-card__icon">
+              <ion-icon name="sparkles-outline"></ion-icon>
+            </div>
+            <div>
+              <h3>Built for learners</h3>
+              <p>
+                We help you get the most from Ardify—fast and confidently.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer_top">
+          <!-- Brand Column -->
+          <div class="footer_brand">
+            <div class="footer_logo">
+              <img src="./Images/Ardifylogo.png" alt="Ardify Logo" />
+            </div>
+            <p class="footer_desc">
+              Somalia's leading e-learning platform. Learn smarter, grow faster
+              with structured courses and interactive lessons built for the digital age.
+            </p>
+            <div class="footer_socials">
+              <a href="" class="social_link" aria-label="YouTube">
+                <ion-icon name="logo-youtube"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="GitHub">
+                <ion-icon name="logo-github"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="WhatsApp">
+                <ion-icon name="logo-whatsapp"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="Facebook">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="X / Twitter">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+              <a href="" class="social_link" aria-label="LinkedIn">
+                <ion-icon name="logo-linkedin"></ion-icon>
+              </a>
+            </div>
+          </div>
+
+          <!-- Product Column -->
+          <div class="footer_col">
+            <h4 class="footer_col_title">Product</h4>
+            <ul class="footer_links">
+              <li><a href="./courses.html">Courses</a></li>
+              <li><a href="">Quizzes</a></li>
+              <li><a href="">Progress Tracking</a></li>
+              <li><a href="./ai-assistant.html">AI Assistant</a></li>
+              <li><a href="./admin-certificates.html">Certificates</a></li>
+            </ul>
+          </div>
+
+          <!-- Company Column -->
+          <div class="footer_col">
+            <h4 class="footer_col_title">Company</h4>
+            <ul class="footer_links">
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="">Contact</a></li>
+              <li><a href="">Blog</a></li>
+              <li><a href="">Careers</a></li>
+            </ul>
+          </div>
+
+          <!-- Legal Column -->
+          <div class="footer_col">
+            <h4 class="footer_col_title">Legal</h4>
+            <ul class="footer_links">
+              <li><a href="">Privacy Policy</a></li>
+              <li><a href="">Terms of Service</a></li>
+              <li><a href="">Cookie Policy</a></li>
+              <li><a href="">Refund Policy</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer_bottom">
+          <p class="footer_copy">© 2026 Ardify. All rights reserved.</p>
+          <p class="footer_made">
+            Proudly built in Somalia
+            <ion-icon name="heart" class="heart_icon"></ion-icon>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- icon script -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <script src="./JS/api.js"></script>
+  <script src="./JS/ardify-core.js" defer></script>
+  <script src="./JS/storage.js"></script>
+    <script src="./JS/app.js"></script>
+    <script src="./JS/auth.js"></script>
+    <script src="./JS/ui.js"></script>
+  </body>
+</html>
+

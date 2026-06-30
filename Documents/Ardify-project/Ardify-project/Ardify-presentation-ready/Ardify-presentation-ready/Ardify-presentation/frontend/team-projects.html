@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team Projects • Ardify</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    window.ARDIFY_API_BASE = window.ARDIFY_API_BASE || "http://localhost:5000/api";
+  </script>
+  <script src="./JS/api.js"></script>
+  <script src="./JS/auth.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --Orange: #ff6000;
+      --Black: #000000;
+      --White: #ffffff;
+      --Silver: #99a1af;
+      --LightGreen: #05df72;
+      --yellow: #fdc700;
+      --darkblue: #0d1320;
+      --border: #1b2333;
+      --sidebar-w: 240px;
+      --radius: 10px;
+      --transition: all 0.25s ease;
+    }
+    html { color-scheme: dark; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--Black);
+      color: var(--White);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--Black); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .page {
+      min-height: 100vh;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(74, 222, 128, .08), transparent 60%),
+                  radial-gradient(900px 500px at 80% 20%, rgba(56, 189, 248, .06), transparent 55%),
+                  var(--Black);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--darkblue);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar__left { display: flex; align-items: center; gap: 16px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .brand:hover { opacity: 0.8; }
+    .brand__name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--White);
+    }
+    .brand__name span { color: var(--Orange); }
+    .topbar__right { display: flex; align-items: center; gap: 12px; }
+    .pill {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--Silver);
+      background: transparent;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+    .pill:hover { border-color: var(--Orange); color: var(--White); }
+    .pill--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .pill--primary:hover { background: #c94d00; border-color: #c94d00; }
+
+    /* SHELL */
+    .shell { display: flex; flex: 1; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: calc(100vh - 68px);
+      background: var(--darkblue);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      position: sticky;
+      top: 68px;
+      height: calc(100vh - 68px);
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sidebar__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--Orange), #ff914c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--White);
+      flex-shrink: 0;
+    }
+    .sidebar__title { font-size: 14px; font-weight: 600; color: var(--White); }
+    .sidebar__subtitle { font-size: 12px; color: var(--Silver); }
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .nav__item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--Silver);
+      font-size: 14px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .nav__item:hover {
+      background: rgba(255, 96, 0, 0.08);
+      color: var(--White);
+    }
+    .nav__item--active {
+      background: rgba(255, 96, 0, 0.14);
+      color: var(--Orange);
+      font-weight: 600;
+    }
+    .nav__item--active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 3px;
+      height: 70%;
+      background: var(--Orange);
+      border-radius: 0 3px 3px 0;
+    }
+    .sidebar__footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar__footer .nav__item { color: #ef4444; }
+    .sidebar__footer .nav__item:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    /* CONTENT */
+    .content {
+      flex: 1;
+      padding: 28px 32px;
+      max-width: calc(100% - var(--sidebar-w));
+    }
+    .content__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .content__headerActions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .h1 { font-size: 28px; font-weight: 700; color: var(--White); letter-spacing: -0.5px; }
+    .h2 { font-size: 18px; font-weight: 600; color: var(--White); margin-bottom: 4px; }
+    .muted { color: var(--Silver); font-size: 14px; }
+
+    /* FIELDS */
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field--search { min-width: 200px; }
+    .field__label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input, select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--White);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .input:focus, select:focus { border-color: var(--Orange); }
+    .input::placeholder { color: var(--Silver); }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2399a1af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+
+    /* CARDS */
+    .card {
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: var(--transition);
+      margin-bottom: 24px;
+    }
+    .card:hover { border-color: #2a3447; }
+    .card--soft { background: rgba(13, 19, 32, 0.6); }
+    .card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--Silver);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { border-color: var(--Orange); color: var(--White); }
+    .btn--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .btn--primary:hover { background: #c94d00; border-color: #c94d00; }
+    .btn--ghost { background: transparent; border-color: transparent; }
+    .btn--ghost:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+    }
+    .linkBtn {
+      color: var(--Orange);
+      font-size: 13px;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .linkBtn:hover {
+      background: rgba(255, 96, 0, 0.1);
+      color: #ff914c;
+    }
+
+    /* GRID */
+    .grid { display: grid; gap: 24px; }
+    .grid--2 { grid-template-columns: 1fr 1fr; }
+    .row { display: flex; align-items: center; gap: 8px; }
+    .row--gap { gap: 12px; }
+    .row--between { justify-content: space-between; }
+
+    /* TEAM BOARD */
+    .teamBoard {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .teamCard {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      transition: var(--transition);
+    }
+    .teamCard:hover { border-color: #2a3447; }
+    .teamCard__top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .teamCard__top .strong { font-size: 16px; font-weight: 600; color: var(--White); }
+    .teamCard__progress { display: flex; align-items: center; gap: 12px; margin: 10px 0; }
+    .progress {
+      flex: 1;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress__bar { height: 100%; background: var(--Orange); border-radius: 10px; }
+    .teamCard__members { margin: 10px 0 14px; }
+    .avatars { display: flex; gap: 6px; flex-wrap: wrap; }
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--White);
+    }
+    .avatar--more {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      font-size: 11px;
+    }
+    .teamCard__actions { display: flex; gap: 12px; }
+
+    /* CHIPS */
+    .chip {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .chip--inprogress {
+      background: rgba(253, 199, 0, 0.1);
+      color: var(--yellow);
+      border: 1px solid rgba(253, 199, 0, 0.2);
+    }
+    .chip--open {
+      background: rgba(5, 223, 114, 0.1);
+      color: var(--LightGreen);
+      border: 1px solid rgba(5, 223, 114, 0.2);
+    }
+    .chip--graded {
+      background: rgba(96, 165, 250, 0.1);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+    }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; gap: 8px; }
+    .tItem { display: flex; gap: 12px; align-items: flex-start; }
+    .tDot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--Orange);
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+    .tBody .strong { color: var(--White); font-weight: 600; }
+    .tBody .muted { font-size: 12px; }
+
+    /* METRICS */
+    .metricGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .metric {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+    .metric__label { font-size: 12px; color: var(--Silver); margin-bottom: 6px; }
+    .metric__value { font-size: 28px; font-weight: 700; color: var(--White); }
+
+    /* CALLOUT */
+    .callout {
+      display: flex;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: 14px;
+    }
+    .callout--warn {
+      border-color: rgba(253, 199, 0, 0.2);
+      background: rgba(253, 199, 0, 0.04);
+    }
+    .callout__icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(253, 199, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--yellow);
+      flex-shrink: 0;
+    }
+
+    /* MOBILE */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--White);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 20px;
+      font-family: inherit;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 99;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    @media (max-width: 1024px) {
+      .grid--2 { grid-template-columns: 1fr; }
+      .teamBoard { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 100;
+        padding-top: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        top: 0;
+        height: 100vh;
+        min-height: 100vh;
+      }
+      .sidebar.active { display: flex; transform: translateX(0); }
+      .content { padding: 16px; max-width: 100%; }
+      .content__header { flex-direction: column; align-items: stretch; }
+      .content__headerActions { flex-direction: column; align-items: stretch; }
+      .field--search { min-width: unset; }
+      .topbar { padding: 0 16px; height: 60px; }
+      .brand__name { font-size: 16px; }
+      .h1 { font-size: 22px; }
+      .card { padding: 16px; }
+      .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+      .metricGrid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .teamBoard { grid-template-columns: 1fr; }
+      .card__header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <a class="brand" href="./index.html">
+          <span class="brand__name">Ard<span>ify</span></span>
+        </a>
+      </div>
+      <div class="topbar__right">
+        <button class="pill pill--primary" type="button" id="btnCreateTeam">Create team</button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" id="sidebar" aria-label="Primary">
+        <div class="sidebar__brand">
+          <div class="sidebar__avatar" aria-hidden="true" id="userAvatar">A</div>
+          <div>
+            <div class="sidebar__title" id="userName">Instructor</div>
+            <div class="sidebar__subtitle" id="userRole">Projects</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="./instructor-dashboard.html">Dashboard</a>
+          <a class="nav__item" href="./assignments.html">Assignments</a>
+          <a class="nav__item" href="./grading-queue.html">Grading Queue</a>
+          <a class="nav__item nav__item--active" href="./team-projects.html">Team Projects</a>
+          <a class="nav__item" href="./reports-analytics.html">Reports</a>
+          <a class="nav__item" href="./ai-assistant.html">AI Assistant</a>
+          <a class="nav__item" href="./settings.html">Settings</a>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a class="nav__item logout_btn" href="#">Logout</a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content__header">
+          <div>
+            <h1 class="h1">Team Projects</h1>
+            <p class="muted">Manage teams, milestones, and group submissions.</p>
+          </div>
+          <div class="content__headerActions">
+            <label class="field field--search">
+              <span class="field__label">Search</span>
+              <input id="teamSearch" class="input" placeholder="Team name, member, milestone…" />
+            </label>
+            <div class="field">
+              <span class="field__label">Milestone</span>
+              <select id="teamMilestone" class="input">
+                <option value="all" selected>All</option>
+                <option value="planning">Planning</option>
+                <option value="prototype">Prototype</option>
+                <option value="final">Final</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <section class="card card--soft">
+          <div class="card__header">
+            <div>
+              <h2 class="h2">Teams overview</h2>
+              <p class="muted">A professional snapshot of group progress.</p>
+            </div>
+            <div class="row row--gap">
+              <button class="btn" type="button" id="btnAddMilestone">Add milestone</button>
+              <button class="btn btn--ghost" type="button" id="btnExportTeams">Export</button>
+            </div>
+          </div>
+
+          <div class="teamBoard" id="teamBoard">
+            <article class="teamCard">
+              <div class="teamCard__top">
+                <div>
+                  <div class="strong">Nebula Studio</div>
+                  <div class="muted">6 members • UI/UX</div>
+                </div>
+                <span class="chip chip--inprogress">Prototype</span>
+              </div>
+              <div class="teamCard__progress">
+                <div class="progress">
+                  <div class="progress__bar" style="width: 62%;"></div>
+                </div>
+                <div class="muted">62% complete</div>
+              </div>
+              <div class="teamCard__members">
+                <div class="avatars">
+                  <span class="avatar">A</span>
+                  <span class="avatar">M</span>
+                  <span class="avatar">S</span>
+                  <span class="avatar">R</span>
+                  <span class="avatar">T</span>
+                  <span class="avatar avatar--more">+1</span>
+                </div>
+              </div>
+              <div class="teamCard__actions">
+                <a class="linkBtn" href="#">Open</a>
+                <a class="linkBtn" href="./grading-queue.html">Grade</a>
+              </div>
+            </article>
+
+            <article class="teamCard">
+              <div class="teamCard__top">
+                <div>
+                  <div class="strong">Quantum Works</div>
+                  <div class="muted">4 members • Cyber Security</div>
+                </div>
+                <span class="chip chip--open">Planning</span>
+              </div>
+              <div class="teamCard__progress">
+                <div class="progress">
+                  <div class="progress__bar" style="width: 28%;"></div>
+                </div>
+                <div class="muted">28% complete</div>
+              </div>
+              <div class="teamCard__members">
+                <div class="avatars">
+                  <span class="avatar">N</span>
+                  <span class="avatar">K</span>
+                  <span class="avatar">L</span>
+                  <span class="avatar">P</span>
+                </div>
+              </div>
+              <div class="teamCard__actions">
+                <a class="linkBtn" href="#">Open</a>
+                <a class="linkBtn" href="#">Send message</a>
+              </div>
+            </article>
+
+            <article class="teamCard">
+              <div class="teamCard__top">
+                <div>
+                  <div class="strong">Packet Patrol</div>
+                  <div class="muted">5 members • Networking</div>
+                </div>
+                <span class="chip chip--graded">Final</span>
+              </div>
+              <div class="teamCard__progress">
+                <div class="progress">
+                  <div class="progress__bar" style="width: 96%;"></div>
+                </div>
+                <div class="muted">96% complete</div>
+              </div>
+              <div class="teamCard__members">
+                <div class="avatars">
+                  <span class="avatar">S</span>
+                  <span class="avatar">B</span>
+                  <span class="avatar">C</span>
+                  <span class="avatar">D</span>
+                  <span class="avatar">E</span>
+                </div>
+              </div>
+              <div class="teamCard__actions">
+                <a class="linkBtn" href="#">Open</a>
+                <a class="linkBtn" href="./reports-analytics.html">View analytics</a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <div class="grid grid--2">
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">Milestones</h2>
+              <p class="muted">Timeline view for team deliverables.</p>
+            </div>
+            <div class="timeline">
+              <div class="tItem">
+                <div class="tDot"></div>
+                <div class="tBody">
+                  <div class="strong">Kickoff & Requirements</div>
+                  <div class="muted">Jun 12 • 2 teams started</div>
+                </div>
+              </div>
+              <div class="tItem">
+                <div class="tDot"></div>
+                <div class="tBody">
+                  <div class="strong">Prototype Review</div>
+                  <div class="muted">Jun 26 • Nebula Studio & 1 more</div>
+                </div>
+              </div>
+              <div class="tItem">
+                <div class="tDot"></div>
+                <div class="tBody">
+                  <div class="strong">Final Submission</div>
+                  <div class="muted">Jul 10 • 1 team complete</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">Team health</h2>
+              <p class="muted">Identify bottlenecks early.</p>
+            </div>
+            <div class="metricGrid">
+              <div class="metric">
+                <div class="metric__label">On-track</div>
+                <div class="metric__value">2</div>
+              </div>
+              <div class="metric">
+                <div class="metric__label">At risk</div>
+                <div class="metric__value">1</div>
+              </div>
+              <div class="metric">
+                <div class="metric__label">Average collaboration score</div>
+                <div class="metric__value">4.3</div>
+              </div>
+              <div class="metric">
+                <div class="metric__label">Stale submissions</div>
+                <div class="metric__value">0</div>
+              </div>
+            </div>
+
+            <div class="callout callout--warn">
+              <div class="callout__icon" aria-hidden="true">!</div>
+              <div>
+                <div class="strong">Suggested action</div>
+                <div class="muted">Quantum Works: schedule a checkpoint meeting 48 hours before next milestone.</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      (function() {
+        'use strict';
+
+        // Mobile toggle
+        const toggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (toggle && sidebar) {
+          toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+          });
+        }
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+          });
+        }
+
+        // Auth
+        if (typeof window.ArdifyAuth !== 'undefined' && window.ArdifyAuth.isLoggedIn()) {
+          const user = window.ArdifyAuth.getUser();
+          if (user) {
+            const name = user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Instructor';
+            const initials = name.split(' ').filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userAvatar').textContent = initials || 'A';
+            document.getElementById('userRole').textContent = user.role === 'admin' ? 'Admin' : 'Instructor';
+          }
+        }
+
+        // Logout
+        document.querySelectorAll('.logout_btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.ArdifyAuth && typeof window.ArdifyAuth.clearSession === 'function') {
+              window.ArdifyAuth.clearSession();
+            }
+            window.location.href = './login.html';
+          });
+        });
+
+        // Create team
+        document.getElementById('btnCreateTeam')?.addEventListener('click', function() {
+          alert('Create team: This would open a form to create a new team project.');
+        });
+
+        // Add milestone
+        document.getElementById('btnAddMilestone')?.addEventListener('click', function() {
+          alert('Add milestone: This would open a form to add a new milestone.');
+        });
+
+        // Export teams
+        document.getElementById('btnExportTeams')?.addEventListener('click', function() {
+          alert('Exporting team data...');
+        });
+
+        console.log('✅ Team Projects page ready');
+      })();
+    </script>
+  </div>
+</body>
+</html>

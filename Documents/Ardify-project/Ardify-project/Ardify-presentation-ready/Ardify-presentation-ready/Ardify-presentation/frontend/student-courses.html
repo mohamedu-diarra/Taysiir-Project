@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Courses | Ardify</title>
+  <link rel="stylesheet" href="./css/global.css" />
+  <link rel="stylesheet" href="./css/main.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root{--Orange:#ff6000;--Black:#000;--White:#fff;--Silver:#99a1af;--LightGreen:#05df72;--darkblue:#0d1320;--border:#1b2333;--sidebar-w:260px;}
+    body{font-family:"Space Grotesk", sans-serif;background:var(--Black);color:var(--White);display:flex;min-height:100vh;}
+    .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--darkblue);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100;}
+    .sidebar_logo{padding:24px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+    .logo_box{width:40px;height:40px;background:var(--Orange);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:var(--White);} 
+    .logo_text{font-size:20px;font-weight:700;color:var(--White);} .logo_text span{color:var(--Orange);} 
+    .sidebar_user{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+    .user_avatar{width:42px;height:42px;background:linear-gradient(135deg,var(--Orange),#ff914c);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--White);flex-shrink:0;}
+    .user_info .user_name{font-size:14px;font-weight:600;color:var(--White);} 
+    .user_info .user_role{font-size:11px;color:var(--Silver);background:rgba(255,96,0,0.12);border:1px solid rgba(255,96,0,0.25);padding:2px 8px;border-radius:20px;display:inline-block;margin-top:3px;}
+    .sidebar_nav{flex:1;padding:16px 12px;overflow-y:auto;}
+    .nav_label{font-size:10px;color:var(--Silver);text-transform:uppercase;letter-spacing:1.2px;padding:10px 8px 6px;margin-top:6px;}
+    .nav_item{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;color:var(--Silver);font-size:14px;cursor:pointer;text-decoration:none;transition:all .25s;margin-bottom:3px;position:relative;}
+    .nav_item ion-icon{font-size:18px;flex-shrink:0;} .nav_item:hover{background:rgba(255,96,0,0.08);color:var(--White);} 
+    .nav_item.active{background:rgba(255,96,0,0.14);color:var(--Orange);font-weight:600;}
+    .nav_item.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:70%;background:var(--Orange);border-radius:0 3px 3px 0;}
+    .sidebar_bottom{padding:16px 12px;border-top:1px solid var(--border);} 
+
+    .main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;min-height:100vh;}
+    .topbar{height:68px;background:var(--darkblue);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:16px;position:sticky;top:0;z-index:50;}
+    .topbar_greeting{flex:1;} .topbar_greeting h2{font-size:16px;font-weight:600;color:var(--White);} .topbar_greeting p{font-size:12px;color:var(--Silver);} 
+    .topbar_search{display:flex;align-items:center;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:8px 14px;gap:8px;width:240px;}
+    .topbar_search input{background:none;border:none;outline:none;color:var(--White);font-family:inherit;font-size:13px;width:100%;}
+    .topbar_search input::placeholder{color:var(--Silver);} 
+    .topbar_actions{display:flex;align-items:center;gap:10px;}
+    .topbar_icon_btn{width:38px;height:38px;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--Silver);cursor:pointer;transition:all .2s;position:relative;}
+    .topbar_icon_btn:hover{border-color:var(--Orange);color:var(--Orange);} .notif_dot{position:absolute;top:6px;right:6px;width:8px;height:8px;background:var(--Orange);border-radius:50%;border:2px solid var(--darkblue);} 
+
+    .page{padding:28px;flex:1;}
+    .section_hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+    .section_hd h3{font-size:17px;font-weight:600;}
+    .panel{background:var(--darkblue);border:1px solid var(--border);border-radius:14px;padding:20px;}
+
+    .coursesGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+    .courseCard{background:var(--darkblue);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all .2s;}
+    .courseCard:hover{border-color:rgba(255,96,0,0.35);transform:translateY(-3px);box-shadow:0 8px 30px rgba(255,96,0,0.08);} 
+    .courseThumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:42px;position:relative;}
+    .courseProgress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,0.1);} 
+    .courseProgress .fill{height:100%;background:var(--Orange);border-radius:0;} 
+    .courseBody{padding:14px 16px;}
+    .courseCategoryTag{font-size:11px;color:var(--Orange);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
+    .courseTitle{font-size:14px;font-weight:600;color:var(--White);margin-bottom:10px;line-height:1.4;}
+    .courseFoot{display:flex;align-items:center;justify-content:space-between;gap:10px;}
+    .courseProgText{font-size:12px;color:var(--Silver);white-space:nowrap;}
+    .courseProgText span{color:var(--Orange);font-weight:600;}
+    .continueBtn{background:none;border:none;color:var(--Orange);font-size:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:4px;}
+    .continueBtn:hover{gap:7px;}
+
+    @media (max-width: 1200px){.coursesGrid{grid-template-columns:repeat(2,1fr);} }
+    @media (max-width: 900px){ .page{padding:14px;} .coursesGrid{grid-template-columns:1fr;} }
+
+    ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:var(--Black);} ::-webkit-scrollbar-thumb{background:#1b2333;border-radius:3px;}
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar_logo">
+      <div class="logo_box">A</div>
+      <div class="logo_text">Ard<span>ify</span></div>
+    </div>
+
+    <div class="sidebar_user">
+      <div class="user_avatar">MH</div>
+      <div class="user_info">
+        <div class="user_name">Mohamed Hassan</div>
+        <div class="user_role">Student</div>
+      </div>
+    </div>
+
+    <nav class="sidebar_nav">
+      <div class="nav_label">Main</div>
+      <a class="nav_item" href="./student-dashboard.html"><ion-icon name="grid-outline"></ion-icon> Overview</a>
+      <a class="nav_item active" href="./student-courses.html"><ion-icon name="book-outline"></ion-icon> My Courses</a>
+      <a class="nav_item" href="#"><ion-icon name="document-text-outline"></ion-icon> Assignments</a>
+
+      <div class="nav_label">Projects</div>
+      <a class="nav_item" href="#"><ion-icon name="people-outline"></ion-icon> Team Projects</a>
+      <a class="nav_item" href="#"><ion-icon name="person-outline"></ion-icon> Individual Projects</a>
+
+      <div class="nav_label">Communication</div>
+      <a class="nav_item" href="./student-messages.html"><ion-icon name="chatbubbles-outline"></ion-icon> Messages</a>
+      <a class="nav_item" href="#"><ion-icon name="sparkles-outline"></ion-icon> AI Assistant</a>
+
+      <div class="nav_label">Performance</div>
+      <a class="nav_item" href="#"><ion-icon name="bar-chart-outline"></ion-icon> Reports</a>
+      <a class="nav_item" href="#"><ion-icon name="ribbon-outline"></ion-icon> Certificates</a>
+      <a class="nav_item" href="#"><ion-icon name="trophy-outline"></ion-icon> Leaderboard</a>
+
+      <div class="nav_label">Account</div>
+      <a class="nav_item" href="#"><ion-icon name="settings-outline"></ion-icon> Settings</a>
+    </nav>
+
+    <div class="sidebar_bottom">
+      <a class="nav_item logout_btn" href="#" style="color:#ef4444;"><ion-icon name="log-out-outline"></ion-icon> Logout</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar_greeting">
+        <h2>My Courses</h2>
+        <p>Continue where you left off</p>
+      </div>
+      <div class="topbar_search">
+        <ion-icon name="search-outline"></ion-icon>
+        <input id="courseSearch" type="text" placeholder="Search courses…" />
+      </div>
+      <div class="topbar_actions">
+        <div class="topbar_icon_btn"><ion-icon name="notifications-outline"></ion-icon><span class="notif_dot"></span></div>
+        <div class="topbar_icon_btn"><ion-icon name="chatbubble-outline"></ion-icon></div>
+      </div>
+    </header>
+
+    <div class="page">
+      <div class="section_hd">
+        <h3>Enrolled Courses</h3>
+        <button class="small_btn" id="seedDemo">Seed demo</button>
+      </div>
+
+      <div class="coursesGrid" id="coursesGrid"></div>
+    </div>
+  </main>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="./JS/api.js"></script>
+  <script src="./JS/ardify-core.js" defer></script>
+  <script src="./JS/auth.js"></script>
+  <script src="./JS/storage.js"></script>
+  <script src="./JS/dashboard.js"></script>
+  <script src="./JS/dashboard-courses.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Courses • Ardify</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    window.ARDIFY_API_BASE = window.ARDIFY_API_BASE || "http://localhost:5000/api";
+    console.log('🔧 API Base:', window.ARDIFY_API_BASE);
+  </script>
+  
+  <script src="./JS/api.js"></script>
+  <script src="./JS/auth.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --Orange: #ff6000;
+      --Black: #000000;
+      --White: #ffffff;
+      --Silver: #99a1af;
+      --LightGreen: #05df72;
+      --yellow: #fdc700;
+      --darkblue: #0d1320;
+      --border: #1b2333;
+      --sidebar-w: 260px;
+      --radius: 10px;
+      --transition: all 0.25s ease;
+    }
+    html { color-scheme: dark; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--Black);
+      color: var(--White);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--Black); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .page {
+      min-height: 100vh;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(74, 222, 128, .08), transparent 60%),
+                  radial-gradient(900px 500px at 80% 20%, rgba(56, 189, 248, .06), transparent 55%),
+                  var(--Black);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      background: var(--darkblue);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar__left { display: flex; align-items: center; gap: 16px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .brand:hover { opacity: 0.8; }
+    .brand__name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--White);
+    }
+    .brand__name span { color: var(--Orange); }
+    .topbar__right { display: flex; align-items: center; gap: 12px; }
+    .pill {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--Silver);
+      background: transparent;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+    .pill:hover { border-color: var(--Orange); color: var(--White); }
+    .pill--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .pill--primary:hover { background: #c94d00; border-color: #c94d00; }
+
+    .shell { display: flex; flex: 1; }
+
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: calc(100vh - 68px);
+      background: var(--darkblue);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      position: sticky;
+      top: 68px;
+      height: calc(100vh - 68px);
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .sidebar__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sidebar__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--Orange), #ff914c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--White);
+      flex-shrink: 0;
+    }
+    .sidebar__title { font-size: 14px; font-weight: 600; color: var(--White); }
+    .sidebar__subtitle { font-size: 12px; color: var(--Silver); }
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .nav__item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--Silver);
+      font-size: 14px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .nav__item:hover {
+      background: rgba(255, 96, 0, 0.08);
+      color: var(--White);
+    }
+    .nav__item--active {
+      background: rgba(255, 96, 0, 0.14);
+      color: var(--Orange);
+      font-weight: 600;
+    }
+    .nav__item--active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 3px;
+      height: 70%;
+      background: var(--Orange);
+      border-radius: 0 3px 3px 0;
+    }
+    .nav__item .nav_badge {
+      margin-left: auto;
+      background: var(--Orange);
+      color: var(--White);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 20px;
+      min-width: 20px;
+      text-align: center;
+      line-height: 1.4;
+    }
+    .nav__item .nav_badge.green {
+      background: var(--LightGreen);
+      color: var(--Black);
+    }
+    .nav__item .nav_badge.red {
+      background: #ef4444;
+      color: var(--White);
+    }
+    .sidebar__footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar__footer .nav__item { color: #ef4444; }
+    .sidebar__footer .nav__item:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .content {
+      flex: 1;
+      padding: 28px 32px;
+      max-width: calc(100% - var(--sidebar-w));
+    }
+    .content__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .content__headerActions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .h1 { font-size: 28px; font-weight: 700; color: var(--White); letter-spacing: -0.5px; }
+    .h2 { font-size: 18px; font-weight: 600; color: var(--White); margin-bottom: 4px; }
+    .muted { color: var(--Silver); font-size: 14px; }
+
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field--search { min-width: 200px; }
+    .field__label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input, select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--White);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .input:focus, select:focus { border-color: var(--Orange); }
+    .input::placeholder { color: var(--Silver); }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2399a1af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+
+    .card {
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: var(--transition);
+      margin-bottom: 24px;
+    }
+    .card:hover { border-color: #2a3447; }
+    .card--soft { background: rgba(13, 19, 32, 0.6); }
+    .card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .card__footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--Silver);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { border-color: var(--Orange); color: var(--White); }
+    .btn--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .btn--primary:hover { background: #c94d00; border-color: #c94d00; }
+    .btn--ghost { background: transparent; border-color: transparent; }
+    .btn--ghost:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+    }
+    .btn--danger {
+      background: transparent;
+      color: #ef4444;
+      border-color: #ef4444;
+    }
+    .btn--danger:hover {
+      background: #ef4444;
+      color: white;
+      border-color: #ef4444;
+    }
+
+    .courseGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .courseCard {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .courseCard:hover {
+      border-color: var(--Orange);
+      transform: translateY(-4px);
+    }
+    .courseCard__thumb {
+      height: 160px;
+      background: linear-gradient(135deg, #1a2235, #0d1320);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+    }
+    .courseCard__thumb .status-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 11px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    .courseCard__body { padding: 16px; }
+    .courseCard__title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--White);
+      margin-bottom: 4px;
+    }
+    .courseCard__sub {
+      font-size: 12px;
+      color: var(--Silver);
+      margin-bottom: 10px;
+    }
+    .courseCard__meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--Silver);
+    }
+    .courseCard__meta .students { color: var(--White); font-weight: 600; }
+    .courseCard__footer {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .courseCard__footer .btn { flex: 1; justify-content: center; }
+
+    .status_pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-weight: 500;
+      display: inline-block;
+    }
+    .status_pill.live {
+      background: rgba(5, 223, 114, 0.1);
+      color: var(--LightGreen);
+      border: 1px solid rgba(5, 223, 114, 0.2);
+    }
+    .status_pill.draft {
+      background: rgba(253, 199, 0, 0.1);
+      color: var(--yellow);
+      border: 1px solid rgba(253, 199, 0, 0.2);
+    }
+    .status_pill.review {
+      background: rgba(96, 165, 250, 0.1);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+    }
+    .status_pill.archived {
+      background: rgba(153, 161, 175, 0.1);
+      color: var(--Silver);
+      border: 1px solid rgba(153, 161, 175, 0.2);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      padding: 14px 20px;
+      border-radius: var(--radius);
+      color: var(--White);
+      font-family: inherit;
+      font-size: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+      animation: slideUp 0.3s ease;
+      max-width: 360px;
+    }
+    .toast.success { border-color: var(--LightGreen); }
+    .toast.error { border-color: #ef4444; }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--White);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 20px;
+      font-family: inherit;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 99;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    .spin {
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 100;
+        padding-top: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        top: 0;
+        height: 100vh;
+        min-height: 100vh;
+      }
+      .sidebar.active { display: flex; transform: translateX(0); }
+      .content { padding: 16px; max-width: 100%; }
+      .content__header { flex-direction: column; align-items: stretch; }
+      .content__headerActions { flex-direction: column; align-items: stretch; }
+      .field--search { min-width: unset; }
+      .topbar { padding: 0 16px; height: 60px; }
+      .brand__name { font-size: 16px; }
+      .h1 { font-size: 22px; }
+      .card { padding: 16px; }
+      .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+      .courseGrid { grid-template-columns: 1fr; }
+      .grid--2 { grid-template-columns: 1fr !important; }
+    }
+    @media (max-width: 480px) {
+      .courseCard__footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <a class="brand" href="./index.html">
+          <span class="brand__name">Ard<span>ify</span></span>
+        </a>
+      </div>
+      <div class="topbar__right">
+        <a class="pill" href="./instructor-dashboard.html">Dashboard</a>
+        <button class="pill pill--primary" onclick="window.location.href='./course-detail.html'">+ New Course</button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" id="sidebar" aria-label="Primary">
+        <div class="sidebar__brand">
+          <div class="sidebar__avatar" aria-hidden="true" id="userAvatar">SS</div>
+          <div>
+            <div class="sidebar__title" id="userName">shukri shukri</div>
+            <div class="sidebar__subtitle" id="userRole">Instructor</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="./instructor-dashboard.html">Dashboard</a>
+          <a class="nav__item nav__item--active" href="./courses.html">
+            My Courses
+            <span class="nav_badge" id="navCourseCount">0</span>
+          </a>
+          <a class="nav__item" href="./course-detail.html">Create Course</a>
+          <a class="nav__item" href="./student-courses.html">
+            My Students
+            <span class="nav_badge green">0</span>
+          </a>
+          <a class="nav__item" href="./assignments.html">
+            Assignments
+            <span class="nav_badge" id="navAssignmentCount">0</span>
+          </a>
+          <a class="nav__item" href="./grading-queue.html">
+            Grading Queue
+            <span class="nav_badge red">0</span>
+          </a>
+          <a class="nav__item" href="./team-projects.html">Team Projects</a>
+          <a class="nav__item" href="./reports-analytics.html">Reports</a>
+          <a class="nav__item" href="./ai-assistant.html">AI Assistant</a>
+          <a class="nav__item" href="./settings.html">Settings</a>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a class="nav__item logout_btn" href="#">Logout</a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content__header">
+          <div>
+            <h1 class="h1">📚 My Courses</h1>
+            <p class="muted">Manage and monitor all your courses in one place.</p>
+          </div>
+          <div class="content__headerActions">
+            <label class="field field--search">
+              <span class="field__label">Search</span>
+              <input id="courseSearch" class="input" placeholder="Search courses…" />
+            </label>
+            <div class="field">
+              <span class="field__label">Status</span>
+              <select id="courseStatus" class="input">
+                <option value="all" selected>All</option>
+                <option value="live">Live</option>
+                <option value="draft">Draft</option>
+                <option value="review">In Review</option>
+                <option value="archived">Archived</option>
+              </select>
+            </div>
+            <button class="btn btn--ghost" id="btnRefresh" title="Refresh courses">
+              <ion-icon name="refresh-outline"></ion-icon>
+            </button>
+          </div>
+        </div>
+
+        <section class="card card--soft">
+          <div class="card__header">
+            <div>
+              <h2 class="h2">All Courses</h2>
+              <p class="muted">You have <strong style="color:var(--White);" id="courseCount">0</strong> courses in total.</p>
+            </div>
+            <div class="row">
+              <button class="btn btn--ghost" id="btnSortCourses" type="button">Sort by Students</button>
+            </div>
+          </div>
+
+          <div class="courseGrid" id="courseGrid">
+            <div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--Silver);">
+              ⏳ Loading your courses...
+            </div>
+          </div>
+
+          <div class="card__footer">
+            <div class="muted" id="showingCount">Loading...</div>
+            <div class="row row--gap">
+              <button class="btn btn--ghost" id="btnPrevPage">Previous</button>
+              <button class="btn" id="btnNextPage">Next</button>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid grid--2" style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">📊 Course Statistics</h2>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center;">
+                <div style="font-size:12px; color:var(--Silver);">Total Students</div>
+                <div style="font-size:28px; font-weight:700; color:var(--White);" id="totalStudents">0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center;">
+                <div style="font-size:12px; color:var(--Silver);">Avg. Completion</div>
+                <div style="font-size:28px; font-weight:700; color:var(--LightGreen);" id="avgCompletion">0%</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center;">
+                <div style="font-size:12px; color:var(--Silver);">Live Courses</div>
+                <div style="font-size:28px; font-weight:700; color:var(--LightGreen);" id="liveCourses">0</div>
+              </div>
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:var(--radius); padding:16px; text-align:center;">
+                <div style="font-size:12px; color:var(--Silver);">Avg. Rating</div>
+                <div style="font-size:28px; font-weight:700; color:var(--yellow);" id="avgRating">0</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">⚡ Quick Actions</h2>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <button class="btn btn--primary" onclick="window.location.href='./course-detail.html'" style="justify-content:center; padding:14px;">
+                <ion-icon name="add-circle-outline"></ion-icon> Create New Course
+              </button>
+              <button class="btn" onclick="window.location.href='./student-courses.html'" style="justify-content:center; padding:14px;">
+                <ion-icon name="people-outline"></ion-icon> Manage Students
+              </button>
+              <button class="btn btn--ghost" onclick="window.location.href='./assignments.html'" style="justify-content:center; padding:14px;">
+                <ion-icon name="document-text-outline"></ion-icon> View Assignments
+              </button>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script>
+      (function() {
+        'use strict';
+
+        let allCourses = [];
+        let filteredCourses = [];
+        let currentPage = 0;
+        const PAGE_SIZE = 6;
+        let sortAsc = false;
+
+        // ─── MOBILE TOGGLE ──────────────────────────────────
+        const toggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+        if (toggle && sidebar) {
+          toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+          });
+        }
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+          });
+        }
+
+        // ─── AUTH ──────────────────────────────────────────
+        function checkAuth() {
+          if (typeof window.ArdifyAuth === 'undefined') {
+            console.error('❌ ArdifyAuth not loaded.');
+            return false;
+          }
+          if (!window.ArdifyAuth.isLoggedIn()) {
+            console.warn('⚠️ User not logged in.');
+            window.location.href = './login.html';
+            return false;
+          }
+          return true;
+        }
+
+        function getUserData() {
+          try {
+            return window.ArdifyAuth.getUser();
+          } catch (e) {
+            console.error('Error getting user:', e);
+            return null;
+          }
+        }
+
+        function updateUserInfo(user) {
+          if (!user) return;
+
+          const name = user.fullName ||
+            `${user.firstName || ''} ${user.lastName || ''}`.trim() ||
+            'Instructor';
+
+          const initials = name
+            .split(' ')
+            .filter(Boolean)
+            .map(w => w[0])
+            .join('')
+            .toUpperCase()
+            .slice(0, 2);
+
+          const nameEl = document.getElementById('userName');
+          const avatarEl = document.getElementById('userAvatar');
+          const roleEl = document.getElementById('userRole');
+
+          if (nameEl) nameEl.textContent = name;
+          if (avatarEl) avatarEl.textContent = initials || 'A';
+          if (roleEl) {
+            roleEl.textContent = user.role === 'admin' ? 'Admin' : 'Instructor';
+          }
+        }
+
+        // ─── LOGOUT ──────────────────────────────────────────
+        document.querySelectorAll('.logout_btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.ArdifyAuth && typeof window.ArdifyAuth.clearSession === 'function') {
+              window.ArdifyAuth.clearSession();
+            }
+            window.location.href = './login.html';
+          });
+        });
+
+        // ─── TOAST ─────────────────────────────────────────
+        function showToast(message, type = 'success') {
+          const existing = document.querySelector('.toast');
+          if (existing) existing.remove();
+
+          const toast = document.createElement('div');
+          toast.className = `toast ${type}`;
+          toast.textContent = message;
+          document.body.appendChild(toast);
+
+          setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transition = 'all 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+          }, 3000);
+        }
+
+        // ─── GET EMOJI ──────────────────────────────────────
+        function getEmoji(category) {
+          const map = {
+            'Web Development': '💻',
+            'UI/UX Design': '🎨',
+            'Cybersecurity': '🛡️',
+            'Data Science': '📊',
+            'AI & Machine Learning': '🤖',
+            'Networking': '🌐',
+            'Mobile Development': '📱',
+            'Cloud Computing': '☁️',
+            'Digital Marketing': '📈',
+            'Other': '📌'
+          };
+          return map[category] || '📘';
+        }
+
+        function getColor(category) {
+          const map = {
+            'Web Development': '#ff6000',
+            'UI/UX Design': '#60a5fa',
+            'Cybersecurity': '#05df72',
+            'Data Science': '#8b5cf6',
+            'AI & Machine Learning': '#f472b6',
+            'Networking': '#f59e0b',
+            'Mobile Development': '#14b8a6',
+            'Cloud Computing': '#3b82f6',
+            'Digital Marketing': '#ec4899'
+          };
+          return map[category] || '#ff6000';
+        }
+
+        // ─── LOAD COURSES FROM API ──────────────────────────
+        async function loadCourses() {
+          const grid = document.getElementById('courseGrid');
+          grid.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--Silver);">⏳ Loading your courses...</div>';
+
+          try {
+            // ✅ FETCH FROM API
+            const courses = await window.ArdifyApi.get('/courses/instructor');
+            console.log('📚 Courses from API:', courses);
+
+            if (courses && courses.length > 0) {
+              allCourses = courses.map(c => ({
+                id: c._id || c.id,
+                title: c.title,
+                emoji: getEmoji(c.category),
+                category: c.category || 'General',
+                level: c.level || 'Beginner',
+                students: c.enrollmentCount || 0,
+                completion: c.progress || 0,
+                status: c.isPublished ? 'live' : (c.status || 'draft'),
+                rating: c.rating || null,
+                lessons: c.lessons?.length || 0,
+                price: c.price || 0,
+                color: getColor(c.category)
+              }));
+            } else {
+              // Fallback to localStorage
+              const localCourses = JSON.parse(localStorage.getItem('myCourses') || '[]');
+              if (localCourses.length > 0) {
+                console.log('📚 Using localStorage fallback:', localCourses);
+                allCourses = localCourses.map(c => ({
+                  id: c.id,
+                  title: c.title,
+                  emoji: getEmoji(c.category),
+                  category: c.category || 'General',
+                  level: c.level || 'Beginner',
+                  students: c.students || 0,
+                  completion: c.progress || 0,
+                  status: c.isPublished ? 'live' : (c.status || 'draft'),
+                  rating: c.rating || null,
+                  lessons: c.lessons?.length || 0,
+                  price: c.price || 0,
+                  color: getColor(c.category)
+                }));
+              } else {
+                allCourses = [];
+              }
+            }
+
+            document.getElementById('navCourseCount').textContent = allCourses.length;
+            applyFilters();
+
+          } catch (error) {
+            console.error('❌ Error loading courses:', error);
+            
+            // Try localStorage as last resort
+            const localCourses = JSON.parse(localStorage.getItem('myCourses') || '[]');
+            if (localCourses.length > 0) {
+              allCourses = localCourses.map(c => ({
+                id: c.id,
+                title: c.title,
+                emoji: getEmoji(c.category),
+                category: c.category || 'General',
+                level: c.level || 'Beginner',
+                students: c.students || 0,
+                completion: c.progress || 0,
+                status: c.isPublished ? 'live' : (c.status || 'draft'),
+                rating: c.rating || null,
+                lessons: c.lessons?.length || 0,
+                price: c.price || 0,
+                color: getColor(c.category)
+              }));
+              document.getElementById('navCourseCount').textContent = allCourses.length;
+              applyFilters();
+            } else {
+              grid.innerHTML = `
+                <div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--Silver);">
+                  <div style="font-size:48px; margin-bottom:12px;">⚠️</div>
+                  <p style="font-size:18px; color:var(--White);">Could not load courses</p>
+                  <p class="muted">${error.message || 'Please try again'}</p>
+                  <button class="btn btn--primary" onclick="loadCourses()" style="margin-top:16px;">
+                    🔄 Retry
+                  </button>
+                </div>
+              `;
+            }
+          }
+        }
+
+        // ─── APPLY FILTERS ──────────────────────────────────
+        function applyFilters() {
+          const search = document.getElementById('courseSearch')?.value.toLowerCase() || '';
+          const status = document.getElementById('courseStatus')?.value || 'all';
+
+          filteredCourses = allCourses.filter(c => {
+            const matchesSearch = c.title.toLowerCase().includes(search) ||
+                                 c.category.toLowerCase().includes(search) ||
+                                 c.level.toLowerCase().includes(search);
+            const matchesStatus = status === 'all' || c.status === status;
+            return matchesSearch && matchesStatus;
+          });
+
+          if (sortAsc) {
+            filteredCourses.sort((a, b) => a.students - b.students);
+          } else {
+            filteredCourses.sort((a, b) => b.students - a.students);
+          }
+
+          currentPage = 0;
+          renderCourses();
+        }
+
+        // ─── RENDER COURSES ──────────────────────────────────
+        function renderCourses() {
+          const grid = document.getElementById('courseGrid');
+          if (!grid) return;
+
+          const start = currentPage * PAGE_SIZE;
+          const end = Math.min(start + PAGE_SIZE, filteredCourses.length);
+          const pageCourses = filteredCourses.slice(start, end);
+
+          if (filteredCourses.length === 0) {
+            grid.innerHTML = `
+              <div style="grid-column:1/-1; text-align:center; padding:60px 20px; color:var(--Silver);">
+                <div style="font-size:48px; margin-bottom:12px;">📚</div>
+                <p style="font-size:18px; color:var(--White);">No courses found</p>
+                <p class="muted">Create your first course using the "New Course" button.</p>
+                <button class="btn btn--primary" onclick="window.location.href='./course-detail.html'" style="margin-top:16px;">
+                  Create Course
+                </button>
+              </div>
+            `;
+            document.getElementById('courseCount').textContent = '0';
+            document.getElementById('showingCount').textContent = 'No courses';
+            return;
+          }
+
+          const statusMap = {
+            live: 'Live',
+            draft: 'Draft',
+            review: 'In Review',
+            archived: 'Archived'
+          };
+
+          grid.innerHTML = pageCourses.map(c => `
+            <div class="courseCard">
+              <div class="courseCard__thumb" style="background: linear-gradient(135deg, ${c.color}22, #0d1320);">
+                ${c.emoji}
+                <span class="status-badge status_pill ${c.status}">${statusMap[c.status] || c.status}</span>
+              </div>
+              <div class="courseCard__body">
+                <div>
+                  <div class="courseCard__title">${c.title}</div>
+                  <div class="courseCard__sub">${c.lessons} lessons • ${c.level} • 💰 $${c.price || 0}</div>
+                </div>
+                <div class="courseCard__meta">
+                  <span class="students">👥 ${c.students} students</span>
+                  <span>${c.rating ? '⭐ ' + c.rating : '—'}</span>
+                </div>
+                <div style="margin-top:8px;">
+                  <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--Silver);">
+                    <span>Completion</span>
+                    <span style="color:var(--White); font-weight:600;">${c.completion}%</span>
+                  </div>
+                  <div style="background:rgba(255,255,255,0.06); height:4px; border-radius:10px; overflow:hidden; margin-top:4px;">
+                    <div style="background:${c.color}; height:100%; width:${c.completion}%; border-radius:10px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="courseCard__footer">
+                <button class="btn" onclick="event.stopPropagation(); window.location.href='./course-detail.html?id=${c.id}'">
+                  <ion-icon name="eye-outline"></ion-icon> View
+                </button>
+                <button class="btn" onclick="event.stopPropagation(); window.location.href='./course-detail.html?id=${c.id}&edit=true'">
+                  <ion-icon name="create-outline"></ion-icon> Edit
+                </button>
+                <button class="btn btn--danger" onclick="event.stopPropagation(); deleteCourse('${c.id}')">
+                  <ion-icon name="trash-outline"></ion-icon>
+                </button>
+              </div>
+            </div>
+          `).join('');
+
+          document.getElementById('courseCount').textContent = filteredCourses.length;
+          document.getElementById('showingCount').textContent = `Showing ${start + 1}–${Math.min(end, filteredCourses.length)} of ${filteredCourses.length} courses`;
+          document.getElementById('btnPrevPage').disabled = currentPage === 0;
+          document.getElementById('btnNextPage').disabled = end >= filteredCourses.length;
+
+          updateStats();
+        }
+
+        // ─── UPDATE STATS ────────────────────────────────────
+        function updateStats() {
+          const totalStudents = filteredCourses.reduce((sum, c) => sum + c.students, 0);
+          const avgCompletion = filteredCourses.length > 0 ? 
+            Math.round(filteredCourses.reduce((sum, c) => sum + c.completion, 0) / filteredCourses.length) : 0;
+          const liveCourses = filteredCourses.filter(c => c.status === 'live').length;
+          const ratings = filteredCourses.filter(c => c.rating !== null).map(c => c.rating);
+          const avgRating = ratings.length > 0 ? 
+            (ratings.reduce((sum, r) => sum + r, 0) / ratings.length).toFixed(1) : '—';
+
+          document.getElementById('totalStudents').textContent = totalStudents;
+          document.getElementById('avgCompletion').textContent = avgCompletion + '%';
+          document.getElementById('liveCourses').textContent = liveCourses;
+          document.getElementById('avgRating').textContent = avgRating;
+        }
+
+        // ─── DELETE COURSE ──────────────────────────────────
+        window.deleteCourse = async function(id) {
+          if (!confirm('Delete this course? This cannot be undone.')) return;
+
+          try {
+            await window.ArdifyApi.delete('/courses/' + id);
+            showToast('Course deleted successfully', 'success');
+            loadCourses();
+          } catch (error) {
+            console.error('Delete failed:', error);
+            // Remove from localStorage
+            let courses = JSON.parse(localStorage.getItem('myCourses') || '[]');
+            courses = courses.filter(c => c.id !== id);
+            localStorage.setItem('myCourses', JSON.stringify(courses));
+            showToast('Course deleted locally', 'success');
+            loadCourses();
+          }
+        };
+
+        // ─── SEARCH & FILTER ──────────────────────────────
+        function setupSearchAndFilter() {
+          const searchInput = document.getElementById('courseSearch');
+          const statusFilter = document.getElementById('courseStatus');
+
+          if (searchInput) searchInput.addEventListener('input', applyFilters);
+          if (statusFilter) statusFilter.addEventListener('change', applyFilters);
+
+          document.getElementById('btnRefresh')?.addEventListener('click', function() {
+            this.innerHTML = '<ion-icon name="refresh-outline" class="spin"></ion-icon>';
+            loadCourses().then(() => {
+              this.innerHTML = '<ion-icon name="refresh-outline"></ion-icon>';
+            });
+          });
+        }
+
+        // ─── SORT ───────────────────────────────────────────
+        document.getElementById('btnSortCourses')?.addEventListener('click', function() {
+          sortAsc = !sortAsc;
+          this.textContent = sortAsc ? 'Sort by Students ↑' : 'Sort by Students ↓';
+          applyFilters();
+        });
+
+        // ─── PAGINATION ─────────────────────────────────────
+        document.getElementById('btnPrevPage')?.addEventListener('click', function() {
+          if (currentPage > 0) {
+            currentPage--;
+            renderCourses();
+          }
+        });
+
+        document.getElementById('btnNextPage')?.addEventListener('click', function() {
+          if ((currentPage + 1) * PAGE_SIZE < filteredCourses.length) {
+            currentPage++;
+            renderCourses();
+          }
+        });
+
+        // ─── EXPOSE FUNCTIONS ──────────────────────────────
+        window.loadCourses = loadCourses;
+        window.applyFilters = applyFilters;
+        window.renderCourses = renderCourses;
+
+        // ─── INIT ───────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', function() {
+          console.log('🚀 My Courses page initializing...');
+
+          if (!checkAuth()) return;
+
+          const user = getUserData();
+          updateUserInfo(user);
+
+          setupSearchAndFilter();
+          loadCourses();
+
+          console.log('✅ My Courses page ready!');
+        });
+
+      })();
+    </script>
+  </body>
+</html>

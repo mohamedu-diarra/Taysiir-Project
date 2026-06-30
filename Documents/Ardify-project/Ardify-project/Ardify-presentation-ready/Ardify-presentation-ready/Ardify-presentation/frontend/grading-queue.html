@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Grading Queue • Ardify</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    window.ARDIFY_API_BASE = window.ARDIFY_API_BASE || "http://localhost:5000/api";
+  </script>
+  <script src="./JS/api.js"></script>
+  <script src="./JS/auth.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --Orange: #ff6000;
+      --Black: #000000;
+      --White: #ffffff;
+      --Silver: #99a1af;
+      --LightGreen: #05df72;
+      --yellow: #fdc700;
+      --darkblue: #0d1320;
+      --border: #1b2333;
+      --sidebar-w: 240px;
+      --radius: 10px;
+      --transition: all 0.25s ease;
+    }
+    html { color-scheme: dark; }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: var(--Black);
+      color: var(--White);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--Black); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .page {
+      min-height: 100vh;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(74, 222, 128, .08), transparent 60%),
+                  radial-gradient(900px 500px at 80% 20%, rgba(56, 189, 248, .06), transparent 55%),
+                  var(--Black);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--darkblue);
+      border-bottom: 1px solid var(--border);
+      padding: 0 28px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .topbar__left { display: flex; align-items: center; gap: 16px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .brand:hover { opacity: 0.8; }
+    .brand__logo { height: 36px; width: auto; }
+    .brand__name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--White);
+    }
+    .brand__name span { color: var(--Orange); }
+    .topbar__right { display: flex; align-items: center; gap: 12px; }
+    .pill {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--Silver);
+      background: transparent;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+    .pill:hover { border-color: var(--Orange); color: var(--White); }
+    .pill--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .pill--primary:hover { background: #c94d00; border-color: #c94d00; }
+
+    /* SHELL */
+    .shell { display: flex; flex: 1; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: calc(100vh - 68px);
+      background: var(--darkblue);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px 16px;
+      position: sticky;
+      top: 68px;
+      height: calc(100vh - 68px);
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sidebar__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--Orange), #ff914c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--White);
+      flex-shrink: 0;
+    }
+    .sidebar__title { font-size: 14px; font-weight: 600; color: var(--White); }
+    .sidebar__subtitle { font-size: 12px; color: var(--Silver); }
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .nav__item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--Silver);
+      font-size: 14px;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+    .nav__item:hover {
+      background: rgba(255, 96, 0, 0.08);
+      color: var(--White);
+    }
+    .nav__item--active {
+      background: rgba(255, 96, 0, 0.14);
+      color: var(--Orange);
+      font-weight: 600;
+    }
+    .nav__item--active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 3px;
+      height: 70%;
+      background: var(--Orange);
+      border-radius: 0 3px 3px 0;
+    }
+    .sidebar__footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .sidebar__footer .nav__item { color: #ef4444; }
+    .sidebar__footer .nav__item:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    /* CONTENT */
+    .content {
+      flex: 1;
+      padding: 28px 32px;
+      max-width: calc(100% - var(--sidebar-w));
+    }
+    .content__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .content__headerActions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .h1 { font-size: 28px; font-weight: 700; color: var(--White); letter-spacing: -0.5px; }
+    .h2 { font-size: 18px; font-weight: 600; color: var(--White); margin-bottom: 4px; }
+    .muted { color: var(--Silver); font-size: 14px; }
+
+    /* FIELDS */
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field--search { min-width: 200px; }
+    .field__label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--Silver);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .input, .textarea, select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      color: var(--White);
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+    .input:focus, .textarea:focus, select:focus { border-color: var(--Orange); }
+    .input::placeholder, .textarea::placeholder { color: var(--Silver); }
+    .input--sm { max-width: 60px; padding: 6px 8px; text-align: center; }
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2399a1af' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      cursor: pointer;
+    }
+    .textarea { resize: vertical; min-height: 80px; }
+
+    /* CARDS */
+    .card {
+      background: var(--darkblue);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: var(--transition);
+      margin-bottom: 24px;
+    }
+    .card:hover { border-color: #2a3447; }
+    .card--soft { background: rgba(13, 19, 32, 0.6); }
+    .card__header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--Silver);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn:hover { border-color: var(--Orange); color: var(--White); }
+    .btn--primary {
+      background: var(--Orange);
+      color: var(--White);
+      border-color: var(--Orange);
+    }
+    .btn--primary:hover { background: #c94d00; border-color: #c94d00; }
+    .btn--ghost { background: transparent; border-color: transparent; }
+    .btn--ghost:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+    }
+
+    /* METRICS */
+    .metricRow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .metric--flat {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: center;
+    }
+    .metric__label { font-size: 12px; color: var(--Silver); margin-bottom: 6px; }
+    .metric__value { font-size: 28px; font-weight: 700; color: var(--White); }
+
+    /* GRID */
+    .grid { display: grid; gap: 24px; }
+    .grid--2 { grid-template-columns: 1fr 1fr; }
+    .row { display: flex; align-items: center; gap: 8px; }
+    .row--gap { gap: 12px; }
+    .row--between { justify-content: space-between; }
+
+    /* LIST */
+    .list--selectable { display: flex; flex-direction: column; gap: 4px; }
+    .selectItem {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .selectItem:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+    }
+    .selectItem .strong { color: var(--White); font-weight: 600; }
+    .selectItem .muted { font-size: 12px; }
+    .selectItem__meta { display: flex; align-items: center; gap: 12px; }
+
+    /* CHIPS */
+    .chip {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .chip--needs {
+      background: rgba(255, 96, 0, 0.1);
+      color: var(--Orange);
+      border: 1px solid rgba(255, 96, 0, 0.2);
+    }
+    .chip--ready {
+      background: rgba(5, 223, 114, 0.1);
+      color: var(--LightGreen);
+      border: 1px solid rgba(5, 223, 114, 0.2);
+    }
+    .chip--graded {
+      background: rgba(96, 165, 250, 0.1);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.2);
+    }
+
+    /* SPLIT */
+    .split {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 20px;
+    }
+
+    /* RUBRIC */
+    .rubric {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .rubric__header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .rubricRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+    .rubricRow:last-child { border-bottom: none; }
+    .rubricScore { display: flex; align-items: center; gap: 6px; }
+    .rubric__hint {
+      background: rgba(96, 165, 250, 0.06);
+      border: 1px solid rgba(96, 165, 250, 0.15);
+      border-radius: var(--radius);
+      padding: 12px;
+      margin: 12px 0;
+      font-size: 13px;
+      color: var(--Silver);
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .badge--info {
+      background: rgba(96, 165, 250, 0.15);
+      color: #60a5fa;
+    }
+
+    /* FORM */
+    .form { display: flex; flex-direction: column; gap: 16px; }
+    .form__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* MOBILE */
+    .mobile-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--White);
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 20px;
+      font-family: inherit;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 99;
+    }
+    .sidebar-overlay.active { display: block; }
+
+    @media (max-width: 1024px) {
+      .grid--2 { grid-template-columns: 1fr; }
+      .split { grid-template-columns: 1fr; }
+      .metricRow { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 280px;
+        z-index: 100;
+        padding-top: 20px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        top: 0;
+        height: 100vh;
+        min-height: 100vh;
+      }
+      .sidebar.active { display: flex; transform: translateX(0); }
+      .content { padding: 16px; max-width: 100%; }
+      .content__header { flex-direction: column; align-items: stretch; }
+      .content__headerActions { flex-direction: column; align-items: stretch; }
+      .field--search { min-width: unset; }
+      .topbar { padding: 0 16px; height: 60px; }
+      .brand__name { font-size: 16px; }
+      .h1 { font-size: 22px; }
+      .form__grid { grid-template-columns: 1fr; }
+      .card { padding: 16px; }
+      .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+      .metricRow { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .metricRow { grid-template-columns: 1fr; }
+      .card__header { flex-direction: column; }
+      .row--between { flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="page">
+    <header class="topbar">
+      <div class="topbar__left">
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle sidebar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+        <a class="brand" href="./index.html">
+          <span class="brand__name">Ard<span>ify</span></span>
+        </a>
+      </div>
+      <div class="topbar__right">
+        <a class="pill" href="./reports-analytics.html">Reports</a>
+        <button class="pill pill--primary" type="button" id="btnAutoGrade">Auto-grade</button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" id="sidebar" aria-label="Primary">
+        <div class="sidebar__brand">
+          <div class="sidebar__avatar" aria-hidden="true" id="userAvatar">A</div>
+          <div>
+            <div class="sidebar__title" id="userName">Instructor</div>
+            <div class="sidebar__subtitle" id="userRole">Grading</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a class="nav__item" href="./instructor-dashboard.html">Dashboard</a>
+          <a class="nav__item" href="./assignments.html">Assignments</a>
+          <a class="nav__item nav__item--active" href="./grading-queue.html">Grading Queue</a>
+          <a class="nav__item" href="./team-projects.html">Team Projects</a>
+          <a class="nav__item" href="./reports-analytics.html">Reports</a>
+          <a class="nav__item" href="./ai-assistant.html">AI Assistant</a>
+          <a class="nav__item" href="./settings.html">Settings</a>
+        </nav>
+
+        <div class="sidebar__footer">
+          <a class="nav__item logout_btn" href="#">Logout</a>
+        </div>
+      </aside>
+
+      <main class="content">
+        <div class="content__header">
+          <div>
+            <h1 class="h1">Grading Queue</h1>
+            <p class="muted">Review submissions in priority order, apply rubrics, and send feedback.</p>
+          </div>
+          <div class="content__headerActions">
+            <label class="field field--search">
+              <span class="field__label">Search</span>
+              <input id="queueSearch" class="input" placeholder="Student, assignment, status…" />
+            </label>
+            <div class="field">
+              <span class="field__label">Priority</span>
+              <select id="queuePriority" class="input">
+                <option value="all" selected>All</option>
+                <option value="due_soon">Due soon</option>
+                <option value="needs_review">Needs review</option>
+                <option value="ready">Ready</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <section class="card card--soft">
+          <div class="card__header">
+            <div>
+              <h2 class="h2">Queue Overview</h2>
+              <p class="muted">Keep momentum by grading the right submissions first.</p>
+            </div>
+            <div class="row row--gap">
+              <button class="btn" type="button" id="btnBulkMark">Bulk mark</button>
+              <button class="btn btn--ghost" type="button" id="btnRefreshQueue">Refresh</button>
+            </div>
+          </div>
+
+          <div class="metricRow">
+            <div class="metric metric--flat">
+              <div class="metric__label">Needs review</div>
+              <div class="metric__value">9</div>
+            </div>
+            <div class="metric metric--flat">
+              <div class="metric__label">Ready to grade</div>
+              <div class="metric__value">15</div>
+            </div>
+            <div class="metric metric--flat">
+              <div class="metric__label">Graded today</div>
+              <div class="metric__value">6</div>
+            </div>
+            <div class="metric metric--flat">
+              <div class="metric__label">Auto suggestions</div>
+              <div class="metric__value">12</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="grid grid--2">
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">Submissions</h2>
+              <p class="muted">Select a submission to open rubric & feedback.</p>
+            </div>
+            <div class="list list--selectable" id="queueList" role="list">
+              <div class="selectItem" data-submission-id="s1" role="listitem">
+                <div class="selectItem__title">
+                  <div class="strong">Ava Johnson</div>
+                  <div class="muted">UI/UX Case Study</div>
+                </div>
+                <div class="selectItem__meta">
+                  <span class="chip chip--needs">Needs review</span>
+                  <span class="muted">Submitted 2h ago</span>
+                </div>
+              </div>
+              <div class="selectItem" data-submission-id="s2" role="listitem">
+                <div class="selectItem__title">
+                  <div class="strong">Noah Patel</div>
+                  <div class="muted">Cyber Security Mini Lab</div>
+                </div>
+                <div class="selectItem__meta">
+                  <span class="chip chip--ready">Ready</span>
+                  <span class="muted">Submitted yesterday</span>
+                </div>
+              </div>
+              <div class="selectItem" data-submission-id="s3" role="listitem">
+                <div class="selectItem__title">
+                  <div class="strong">Sophia Nguyen</div>
+                  <div class="muted">Networking Reflection</div>
+                </div>
+                <div class="selectItem__meta">
+                  <span class="chip chip--graded">Graded</span>
+                  <span class="muted">Submitted 3d ago</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card__header">
+              <h2 class="h2">Rubric & Feedback</h2>
+              <p class="muted">Assign scores, leave notes, and optionally request revision.</p>
+            </div>
+
+            <div class="split">
+              <div class="split__left">
+                <div class="form" style="padding:0;">
+                  <label class="field">
+                    <span class="field__label">Overall score</span>
+                    <input class="input" type="number" min="0" max="100" value="86" />
+                  </label>
+                  <label class="field">
+                    <span class="field__label">Recommendation</span>
+                    <select class="input">
+                      <option selected>Accept</option>
+                      <option>Request revision</option>
+                      <option>Needs major changes</option>
+                    </select>
+                  </label>
+
+                  <label class="field">
+                    <span class="field__label">Feedback</span>
+                    <textarea class="textarea" rows="7">Great job—your problem framing is clear and your diagrams are well-structured.</textarea>
+                  </label>
+
+                  <div class="row row--between">
+                    <button class="btn btn--ghost" type="button">Save draft</button>
+                    <button class="btn btn--primary" type="button">Publish grade</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="split__right">
+                <div class="rubric">
+                  <div class="rubric__header">
+                    <div class="strong">Rubric criteria</div>
+                    <div class="muted">Auto-suggestions included</div>
+                  </div>
+
+                  <div class="rubricRow">
+                    <div>
+                      <div class="strong">Clarity & structure</div>
+                      <div class="muted">How easy it is to understand the submission.</div>
+                    </div>
+                    <div class="rubricScore">
+                      <input class="input input--sm" type="number" value="22" />
+                      <span class="muted">/25</span>
+                    </div>
+                  </div>
+                  <div class="rubricRow">
+                    <div>
+                      <div class="strong">Correctness</div>
+                      <div class="muted">Meets requirements and passes checks.</div>
+                    </div>
+                    <div class="rubricScore">
+                      <input class="input input--sm" type="number" value="28" />
+                      <span class="muted">/30</span>
+                    </div>
+                  </div>
+                  <div class="rubricRow">
+                    <div>
+                      <div class="strong">Depth & insights</div>
+                      <div class="muted">Adds meaningful analysis or rationale.</div>
+                    </div>
+                    <div class="rubricScore">
+                      <input class="input input--sm" type="number" value="36" />
+                      <span class="muted">/40</span>
+                    </div>
+                  </div>
+
+                  <div class="rubric__hint">
+                    <span class="badge badge--info">AI</span>
+                    Suggested comments: “Add one paragraph connecting your approach to real-world constraints.”
+                  </div>
+
+                  <button class="btn" type="button" id="btnUseSuggestion">Use suggestion</button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      (function() {
+        'use strict';
+
+        // Mobile toggle
+        const toggle = document.getElementById('mobileToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        if (toggle && sidebar) {
+          toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+            if (overlay) overlay.classList.toggle('active');
+          });
+        }
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+          });
+        }
+
+        // Auth
+        if (typeof window.ArdifyAuth !== 'undefined' && window.ArdifyAuth.isLoggedIn()) {
+          const user = window.ArdifyAuth.getUser();
+          if (user) {
+            const name = user.fullName || `${user.firstName || ''} ${user.lastName || ''}`.trim() || 'Instructor';
+            const initials = name.split(' ').filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 2);
+            document.getElementById('userName').textContent = name;
+            document.getElementById('userAvatar').textContent = initials || 'A';
+            document.getElementById('userRole').textContent = user.role === 'admin' ? 'Admin' : 'Instructor';
+          }
+        }
+
+        // Logout
+        document.querySelectorAll('.logout_btn').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (window.ArdifyAuth && typeof window.ArdifyAuth.clearSession === 'function') {
+              window.ArdifyAuth.clearSession();
+            }
+            window.location.href = './login.html';
+          });
+        });
+
+        // Auto-grade button
+        document.getElementById('btnAutoGrade')?.addEventListener('click', function() {
+          alert('Auto-grade feature: This would automatically grade all ready submissions using AI.');
+        });
+
+        // Bulk mark button
+        document.getElementById('btnBulkMark')?.addEventListener('click', function() {
+          alert('Bulk mark: Select multiple submissions to grade them together.');
+        });
+
+        // Refresh button
+        document.getElementById('btnRefreshQueue')?.addEventListener('click', function() {
+          alert('Refreshing queue...');
+        });
+
+        // Use suggestion button
+        document.getElementById('btnUseSuggestion')?.addEventListener('click', function() {
+          const feedback = document.querySelector('.rubric__hint');
+          if (feedback) {
+            const textarea = document.querySelector('.textarea');
+            if (textarea) {
+              textarea.value = feedback.textContent.replace('AI Suggested comments: ', '').trim();
+            }
+          }
+        });
+
+        // Select submission items
+        document.querySelectorAll('.selectItem').forEach(item => {
+          item.addEventListener('click', function() {
+            document.querySelectorAll('.selectItem').forEach(i => {
+              i.style.borderColor = 'transparent';
+              i.style.background = 'transparent';
+            });
+            this.style.borderColor = 'var(--Orange)';
+            this.style.background = 'rgba(255, 96, 0, 0.06)';
+          });
+        });
+
+        console.log('✅ Grading Queue page ready');
+      })();
+    </script>
+  </div>
+</body>
+</html>

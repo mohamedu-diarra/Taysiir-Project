@@ -1,0 +1,450 @@
+/**
+ * global.css — Ardify Global Design System
+ * Load this FIRST on every page (before main.css)
+ * Establishes: CSS variables, Space Grotesk, shared nav states
+ */
+
+/* ── FONT ─────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Space Grotesk';
+  src: url('../Space_Grotesk/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ./css/global.css */
+:root {
+  --Orange: #ff6000;
+  --Black: #000000;
+  --White: #ffffff;
+  --Silver: #99a1af;
+  --Green: #00a63e;
+  --LightGreen: #05df72;
+  --yellow: #fdc700;
+  --darkblue: #0d1320;
+  --border: #1b2333;
+  --radius: 10px;
+  --transition: all 0.25s ease;
+}
+/* ── CSS VARIABLES ───────────────────────────────────────── */
+:root {
+  /* Brand */
+  --primary:        #FF6000;
+  --primary-hover:  #e65700;
+  --primary-light:  rgba(255, 96, 0, 0.12);
+
+  /* Legacy aliases (keep existing code working) */
+  --Orange:         #FF6000;
+  --Green:          #00a63e;
+  --LightGreen:     #05df72;
+  --yellow:         #fdc700;
+  --Silver:         #99a1af;
+  --Black:          #000000;
+  --White:          #ffffff;
+  --darkblue:       #0d1320;
+
+  /* Surfaces */
+  --bg:             #f8fafc;
+  --card:           #ffffff;
+  --border:         rgba(153, 161, 175, 0.18);
+
+  /* Text */
+  --text:           #0f172a;
+  --muted:          #64748b;
+
+  /* Radius */
+  --radius-sm:      6px;
+  --radius-md:      10px;
+  --radius-lg:      16px;
+
+  /* Shadows */
+  --shadow-sm:      0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md:      0 4px 16px rgba(0,0,0,0.1);
+  --shadow-lg:      0 8px 32px rgba(0,0,0,0.12);
+}
+
+/* ── GLOBAL RESET & TYPOGRAPHY ───────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--Black);
+}
+
+/* Ensure all text-bearing elements use Space Grotesk */
+h1, h2, h3, h4, h5, h6,
+p, a, span, li, td, th, label, input, textarea, select, button {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── NAV ENHANCEMENTS ────────────────────────────────────── */
+/* Dynamic nav: logged-in user avatar */
+.nav-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-user-name {
+  color: #e3e3e3;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.nav-dash-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s;
+}
+
+.nav-dash-link:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.nav-logout-btn {
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Active nav link indicator */
+section.navsec nav ul.links li a.active,
+section.navsec nav ul.links li a[aria-current="page"] {
+  color: var(--primary) !important;
+}
+
+/* ── BUTTONS (global overrides) ──────────────────────────── */
+button, .btn {
+  font-family: 'Space Grotesk', sans-serif;
+  cursor: pointer;
+}
+
+/* ── FORM INPUTS (global overrides) ─────────────────────── */
+input, textarea, select {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── FOCUS STYLES (accessibility) ───────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ── SCROLLBAR ───────────────────────────────────────────── */
+::-webkit-scrollbar         { width: 5px; height: 5px; }
+::-webkit-scrollbar-track   { background: transparent; }
+::-webkit-scrollbar-thumb   { background: rgba(153,161,175,0.3); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+/* ── UTILITY: SCREEN-READER ONLY ─────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+/* ============================================
+   COLORFUL FORM STYLES - OVERRIDE VERSION
+   Uses !important to ensure it works
+   ============================================ */
+
+/* ─── Form Wrapper ─────────────────────────── */
+.form-wrapper {
+    background: #0d1320 !important;
+    border: 1px solid #1b222e !important;
+    border-radius: 20px !important;
+    padding: 48px 40px !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6) !important;
+    max-width: 720px !important;
+    width: 100% !important;
+    margin: 40px auto !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Rainbow border effect */
+.form-wrapper::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -2px !important;
+    left: -2px !important;
+    right: -2px !important;
+    bottom: -2px !important;
+    background: linear-gradient(90deg, #ff6000, #05df72, #8b5cf6, #3b82f6, #ec4899, #ff6000) !important;
+    background-size: 300% 300% !important;
+    border-radius: 22px !important;
+    z-index: -1 !important;
+    animation: rainbowBorder 4s ease-in-out infinite !important;
+    opacity: 0.3 !important;
+}
+
+@keyframes rainbowBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ─── Form Header ──────────────────────────── */
+.form-header {
+    text-align: center !important;
+    margin-bottom: 36px !important;
+}
+
+.form-header h2 {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+}
+
+.form-header h2 .highlight {
+    color: #ff6000 !important;
+}
+
+.form-header p {
+    color: #99a1af !important;
+    font-size: 14px !important;
+    margin-top: 8px !important;
+}
+
+/* ─── Rainbow Divider ──────────────────────── */
+.divider-rainbow {
+    height: 3px !important;
+    background: linear-gradient(90deg, #ff6000, #05df72, #8b5cf6, #3b82f6, #ec4899, #ff6000) !important;
+    background-size: 300% 300% !important;
+    border-radius: 4px !important;
+    margin: 24px 0 28px 0 !important;
+    animation: rainbowMove 3s ease-in-out infinite !important;
+}
+
+@keyframes rainbowMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+}
+
+/* ─── Form Row ─────────────────────────────── */
+.form-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+}
+
+/* ─── Form Group ───────────────────────────── */
+.form-group {
+    margin-bottom: 20px !important;
+}
+
+.form-group label {
+    display: block !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    margin-bottom: 6px !important;
+    color: #99a1af !important;
+}
+
+.form-group label .required {
+    color: #ef4444 !important;
+    margin-left: 2px !important;
+}
+
+/* ─── Color Dots ───────────────────────────── */
+.color-dot {
+    display: inline-block !important;
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    margin-right: 6px !important;
+    vertical-align: middle !important;
+}
+
+.color-dot.orange { background: #ff6000 !important; }
+.color-dot.green { background: #05df72 !important; }
+.color-dot.purple { background: #8b5cf6 !important; }
+.color-dot.blue { background: #3b82f6 !important; }
+.color-dot.pink { background: #ec4899 !important; }
+.color-dot.teal { background: #14b8a6 !important; }
+.color-dot.rose { background: #f472b6 !important; }
+.color-dot.amber { background: #f59e0b !important; }
+
+/* ─── Input Overrides ──────────────────────── */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100% !important;
+    padding: 12px 16px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+    font-family: "Space Grotesk", sans-serif !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    color: #ffffff !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Category - Orange */
+.form-group.category select {
+    border: 1px solid rgba(255, 96, 0, 0.4) !important;
+}
+.form-group.category select:focus {
+    border-color: #ff6000 !important;
+    box-shadow: 0 0 0 4px rgba(255, 96, 0, 0.2) !important;
+    outline: none !important;
+}
+
+/* Level - Green */
+.form-group.level select {
+    border: 1px solid rgba(5, 223, 114, 0.4) !important;
+}
+.form-group.level select:focus {
+    border-color: #05df72 !important;
+    box-shadow: 0 0 0 4px rgba(5, 223, 114, 0.2) !important;
+    outline: none !important;
+}
+
+/* Summary - Purple */
+.form-group.summary textarea {
+    border: 1px solid rgba(139, 92, 246, 0.4) !important;
+}
+.form-group.summary textarea:focus {
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2) !important;
+    outline: none !important;
+}
+
+/* Status - Blue */
+.form-group.status select {
+    border: 1px solid rgba(59, 130, 246, 0.4) !important;
+}
+.form-group.status select:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2) !important;
+    outline: none !important;
+}
+
+/* Language - Pink */
+.form-group.language select {
+    border: 1px solid rgba(236, 72, 153, 0.4) !important;
+}
+.form-group.language select:focus {
+    border-color: #ec4899 !important;
+    box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.2) !important;
+    outline: none !important;
+}
+
+/* Grading - Teal */
+.form-group.grading select {
+    border: 1px solid rgba(20, 184, 166, 0.4) !important;
+}
+.form-group.grading select:focus {
+    border-color: #14b8a6 !important;
+    box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.2) !important;
+    outline: none !important;
+}
+
+/* Submission - Rose */
+.form-group.submission input {
+    border: 1px solid rgba(244, 114, 182, 0.4) !important;
+}
+.form-group.submission input:focus {
+    border-color: #f472b6 !important;
+    box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.2) !important;
+    outline: none !important;
+}
+
+/* Course - Amber */
+.form-group.course select {
+    border: 1px solid rgba(245, 158, 11, 0.4) !important;
+}
+.form-group.course select:focus {
+    border-color: #f59e0b !important;
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2) !important;
+    outline: none !important;
+}
+
+/* ─── Character Counter ────────────────────── */
+.char-count {
+    text-align: right !important;
+    font-size: 12px !important;
+    color: #99a1af !important;
+    margin-top: 4px !important;
+}
+
+.char-count.limit {
+    color: #ef4444 !important;
+}
+
+/* ─── Hint Text ────────────────────────────── */
+.hint {
+    font-size: 11px !important;
+    color: #99a1af !important;
+    margin-top: 4px !important;
+}
+
+/* ─── Submit Button ────────────────────────── */
+.btn-submit {
+    width: 100% !important;
+    padding: 16px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #ff6000 0%, #ff8c42 100%) !important;
+    transition: all 0.3s ease !important;
+    margin-top: 8px !important;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 30px rgba(255, 96, 0, 0.4) !important;
+}
+
+.btn-submit span {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* ─── Responsive ────────────────────────────── */
+@media (max-width: 600px) {
+    .form-wrapper {
+        padding: 32px 20px !important;
+        border-radius: 16px !important;
+    }
+    .form-row {
+        grid-template-columns: 1fr !important;
+        gap: 0 !important;
+    }
+    .form-header h2 {
+        font-size: 22px !important;
+    }
+}

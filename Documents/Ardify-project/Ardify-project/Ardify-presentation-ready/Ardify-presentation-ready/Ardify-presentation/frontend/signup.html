@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up | Ardify</title>
+
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/signup.css" />
+  </head>
+
+  <body>
+    <!-- nav -->
+    <section class="navsec">
+      <div class="container">
+        <nav>
+          <div class="logo">
+            <img src="./Images/Ardifylogo.png" alt="Ardify" />
+          </div>
+          <ul class="links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./courses.html">Courses</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+          </ul>
+          <div class="btn_action">
+            <a class="sign_in" href="./login.html">
+              Login <ion-icon name="log-in"></ion-icon>
+            </a>
+            <button class="Get" type="button" onclick="location.href='./signup.html'">
+              Sign-up
+            </button>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <main class="auth-page">
+      <section class="auth-hero">
+        <div class="auth-container">
+          <div class="auth-card">
+            <div class="auth-card__header">
+              <div class="auth-kicker">
+                <ion-icon name="sparkles-outline"></ion-icon>
+                Join Ardify
+              </div>
+
+              <h1 class="auth-title">
+                Create your <span>Ardify</span> account
+              </h1>
+
+              <p class="auth-subtitle">
+                Start learning with clean UI, SpaceGrotesk typography, and progress
+                tracking built in.
+              </p>
+            </div>
+
+            <form class="auth-form" id="signupForm" autocomplete="on">
+              <div class="field">
+                <label for="fullName">Full name</label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  placeholder="e.g., Abdi Hassan"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="signupEmail">Email</label>
+                <input
+                  id="signupEmail"
+                  name="email"
+                  type="email"
+                  placeholder="e.g., abdi@email.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label>I am joining as a</label>
+                <div class="role-select" role="radiogroup" aria-label="Account role">
+                  <label class="role-option">
+                    <input type="radio" name="role" value="student" checked />
+                    <span>
+                      <ion-icon name="school-outline"></ion-icon>
+                      Student
+                    </span>
+                  </label>
+                  <label class="role-option">
+                    <input type="radio" name="role" value="instructor" />
+                    <span>
+                      <ion-icon name="easel-outline"></ion-icon>
+                      Teacher
+                    </span>
+                  </label>
+                  <!-- ✅ ADMIN ROLE - Hidden by default -->
+                  <label class="role-option" id="adminRoleOption" style="display:none;">
+                    <input type="radio" name="role" value="admin" />
+                    <span>
+                      <ion-icon name="shield-outline"></ion-icon>
+                      Admin
+                    </span>
+                  </label>
+                </div>
+                <!-- ✅ Admin Access Key -->
+                <div style="margin-top: 10px;">
+                  <input
+                    id="adminAccessKey"
+                    type="password"
+                    placeholder="Enter admin access key"
+                    style="display: none; width: 100%; padding: 12px 16px; background: rgba(0,0,0,0.6); border: 1px solid #1b2333; border-radius: 10px; color: #ffffff; font-family: 'Space Grotesk', sans-serif; font-size: 14px; outline: none; transition: all 0.25s ease;"
+                  />
+                  <small id="adminHint" style="color: var(--Silver); display: none; font-size: 12px; margin-top: 6px;">
+                    🔑 Enter admin key to enable Admin role
+                  </small>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="signupPassword">Password</label>
+                <input
+                  id="signupPassword"
+                  name="password"
+                  type="password"
+                  placeholder="Create a password"
+                  autocomplete="new-password"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="confirmPassword">Confirm password</label>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Re-enter your password"
+                  autocomplete="new-password"
+                  required
+                />
+              </div>
+
+              <div class="auth-actions">
+                <button class="btn-submit" type="submit">
+                  Create account
+                  <ion-icon name="arrow-forward"></ion-icon>
+                </button>
+              </div>
+
+              <p class="auth-note" id="signupMessage" role="status" aria-live="polite"></p>
+
+              <div class="auth-links">
+                <a href="./login.html" class="auth-link">Already have an account? Login</a>
+                <a href="#" class="auth-link" onclick="return false">Terms & Privacy</a>
+              </div>
+            </form>
+          </div>
+
+          <div class="auth-side">
+            <div class="auth-side__card">
+              <div class="side-badge">
+                <span class="side-badge__dot"></span>
+                Secure account signup
+              </div>
+              <h2 class="side-title">Learn smarter, grow faster.</h2>
+              <ul class="side-list">
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Sign up in seconds
+                </li>
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Saved securely to your account
+                </li>
+                <li>
+                  <ion-icon name="checkmark-done-outline"></ion-icon>
+                  Redirects to dashboard
+                </li>
+              </ul>
+              <p class="side-foot">Your password is hashed and never stored in plain text.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+
+    <script src="./JS/api.js"></script>
+    <script src="./JS/ardify-core.js" defer></script>
+    <script src="./JS/storage.js"></script>
+    <script src="./JS/app.js"></script>
+    <script src="./JS/auth.js"></script>
+
+    <script>
+      // ─── ADMIN ROLE - HIDDEN ACCESS ──────────────────────
+      document.addEventListener('DOMContentLoaded', function() {
+        const adminKeyInput = document.getElementById('adminAccessKey');
+        const adminRoleOption = document.getElementById('adminRoleOption');
+        const adminHint = document.getElementById('adminHint');
+        const roleSelect = document.querySelector('.role-select');
+
+        // 🔑 Double-click on role section to show admin key input
+        roleSelect.addEventListener('dblclick', function() {
+          adminKeyInput.style.display = 'block';
+          adminHint.style.display = 'block';
+          adminKeyInput.focus();
+        });
+
+        // Check admin key
+        adminKeyInput.addEventListener('input', function() {
+          // ⚠️ Change 'ardify_admin_2024' to your own secret key
+          if (this.value === 'ardify_admin_2024') {
+            adminRoleOption.style.display = 'inline-block';
+            adminHint.innerHTML = '✅ Admin role enabled!';
+            adminHint.style.color = '#05df72';
+            this.style.borderColor = '#05df72';
+            // Auto-select admin role
+            document.querySelector('#adminRoleOption input').checked = true;
+          } else {
+            adminRoleOption.style.display = 'none';
+            adminHint.innerHTML = '🔑 Enter admin key to enable Admin role';
+            adminHint.style.color = 'var(--Silver)';
+            this.style.borderColor = '#1b2333';
+            // Reset to student if admin was selected
+            if (document.querySelector('#adminRoleOption input').checked) {
+              document.querySelector('input[name="role"][value="student"]').checked = true;
+            }
+          }
+        });
+
+        // ─── SIGNUP FORM SUBMISSION ──────────────────────────
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+          e.preventDefault();
+
+          const fullName = document.getElementById('fullName').value.trim();
+          const email = document.getElementById('signupEmail').value.trim();
+          const password = document.getElementById('signupPassword').value;
+          const confirmPassword = document.getElementById('confirmPassword').value;
+          const role = document.querySelector('input[name="role"]:checked')?.value || 'student';
+
+          // Validate
+          if (!fullName) {
+            document.getElementById('signupMessage').textContent = 'Please enter your full name.';
+            document.getElementById('signupMessage').style.color = '#ef4444';
+            return;
+          }
+
+          if (!email) {
+            document.getElementById('signupMessage').textContent = 'Please enter your email.';
+            document.getElementById('signupMessage').style.color = '#ef4444';
+            return;
+          }
+
+          if (password.length < 6) {
+            document.getElementById('signupMessage').textContent = 'Password must be at least 6 characters.';
+            document.getElementById('signupMessage').style.color = '#ef4444';
+            return;
+          }
+
+          if (password !== confirmPassword) {
+            document.getElementById('signupMessage').textContent = 'Passwords do not match.';
+            document.getElementById('signupMessage').style.color = '#ef4444';
+            return;
+          }
+
+          const [firstName, ...rest] = fullName.split(' ');
+          const lastName = rest.join(' ') || firstName;
+
+          const submitBtn = this.querySelector('.btn-submit');
+          const originalText = submitBtn.innerHTML;
+          submitBtn.innerHTML = '⏳ Creating account...';
+          submitBtn.disabled = true;
+
+          try {
+            const data = await window.ArdifyApi.post('/auth/signup', {
+              firstName,
+              lastName,
+              email,
+              password,
+              role
+            }, { auth: false });
+
+            window.ArdifyAuth.setSession(data);
+            document.getElementById('signupMessage').textContent = '✅ Account created successfully! Redirecting...';
+            document.getElementById('signupMessage').style.color = '#05df72';
+
+            // Redirect based on role
+            setTimeout(() => {
+              if (role === 'admin') {
+                window.location.href = './admin-dashboard.html';
+              } else if (role === 'instructor') {
+                window.location.href = './instructor-dashboard.html';
+              } else {
+                window.location.href = './student-dashboard.html';
+              }
+            }, 1500);
+
+          } catch (error) {
+            console.error('Signup error:', error);
+            document.getElementById('signupMessage').textContent = error.message || 'Signup failed. Please try again.';
+            document.getElementById('signupMessage').style.color = '#ef4444';
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
